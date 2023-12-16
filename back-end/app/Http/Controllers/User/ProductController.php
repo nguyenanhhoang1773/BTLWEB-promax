@@ -13,4 +13,8 @@ class ProductController extends Controller
         // dd($product);
         return $product;
     }
+    public function insertpro(){
+
+    }
+    
 }
