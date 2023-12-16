@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
@@ -19,5 +20,9 @@ use App\Http\Controllers\User\ProductController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Admin/category
+Route::get('category',[CategoryController::class ,'index']); 
+//end Admin/category
+
 
 Route::get('/list-product',[ProductController::class,'getProduct']);
