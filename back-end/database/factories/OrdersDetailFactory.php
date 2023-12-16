@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Orders;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +20,11 @@ class OrdersDetailFactory extends Factory
     {
         return [
             //
+            'order_id' => Orders::factory()->create()->id,
+            'product_id'=> Product::factory()->create()->id,
+            'quantity' => fake()->numberBetween(10,100),
+            'price' => fake()->numberBetween(10,100),
+            
         ];
     }
 }
