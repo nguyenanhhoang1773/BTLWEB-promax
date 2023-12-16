@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 // Admin/category
-Route::get('category',[CategoryController::class ,'index']); 
+
 //end Admin/category
 
 
@@ -33,7 +33,13 @@ Route::post('/register', [UserController::class, 'postRegister']);
 Route::get('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc');
 
 
-Route::get('/list-product',[ProductController::class,'getProduct']);
-Route::prefix('/admin')->middleware('admin')->group(function(){
+Route::get('/list-product', [ProductController::class, 'getProduct']);
+Route::prefix('/admin')->middleware('admin')->group(function () {
+
+    Route::get('/category', [CategoryController::class, 'index']);
+    Route::get('/category/{id}', [CategoryController::class, 'showListByID']);
+    Route::post('/category', [CategoryController::class, 'store']);
+    Route::put('/category/{id}', [CategoryController::class, 'update']);
+    Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
 
 });
