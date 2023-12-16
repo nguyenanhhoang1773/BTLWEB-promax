@@ -12,7 +12,6 @@ class Category extends Model
     'name',
     'status',
     'parent_id',
-    'deleted_at',
     
   ];
 }

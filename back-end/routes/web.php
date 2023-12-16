@@ -15,7 +15,10 @@ use App\Http\Controllers\User\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+    Route::get('/create',[ProductController::class, 'insertData']);
 
