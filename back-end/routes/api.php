@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\User\UserController;
 
 
 /*
@@ -25,4 +26,14 @@ Route::get('category',[CategoryController::class ,'index']);
 //end Admin/category
 
 
+Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::post('/login', [UserController::class, 'postLogin']);
+Route::get('/register', [UserController::class, 'register'])->name('register');
+Route::post('/register', [UserController::class, 'postRegister']);
+Route::get('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc');
+
+
 Route::get('/list-product',[ProductController::class,'getProduct']);
+Route::prefix('/admin')->middleware('admin')->group(function(){
+
+});
