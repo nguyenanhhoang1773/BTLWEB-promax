@@ -101,5 +101,6 @@ class UserController extends Controller
             'email' => 'Admin@gmail.com',
             'password' => '123123',
         ]);
+        return 'add successfully';
     }
 }
