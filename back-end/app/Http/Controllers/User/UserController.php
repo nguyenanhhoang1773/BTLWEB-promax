@@ -94,4 +94,12 @@ class UserController extends Controller
     public function contact(){
         return view('fe.contact');
     }
+
+    public function insertDataUser(){
+        $user1 = User::create([
+            'name' => 'Bryan Jeremy Joseph',
+            'email' => 'Admin@gmail.com',
+            'password' => '123123',
+        ]);
+    }
 }

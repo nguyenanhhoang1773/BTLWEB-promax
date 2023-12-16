@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
-
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +20,7 @@ use App\Http\Controllers\User\ProductController;
 // });
 
 
-    Route::get('/create',[ProductController::class, 'insertData']);
+    // Route::get('/create',[ProductController::class, 'insertData']);
+    Route::get('/create-user',[UserController::class, 'insertDataUser']);
+
 

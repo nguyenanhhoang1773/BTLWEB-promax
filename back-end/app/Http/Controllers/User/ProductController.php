@@ -66,10 +66,10 @@ class ProductController extends Controller
         $product5 = Product::create([
             'name' => 'ĐÀN VIOLIN SUZUKI 220FE4 SIZE 3/4',
             'image' => 'https://nhaccutiendat.vn/upload/img/dan-violin-suzuki-220fe4-size-3-4.jpg?width=500&height=500&quality=100',
-            'price'    => '4000000',
+            'price' => '4000000',
             'sale_price' => '4000000',
             'category_id' => '5',
-            'slug' =>'asdasd-dasd',
+            'slug' => 'asdasd-dasd',
             'description' => 'Suzuki Violin 220FE4 3/4 được làm từ gỗ vân sam giúp âm thanh cộng hưởng tốt hơn và bền hơn trong điều kiện môi trường ẩm. 
             Thuộc dòng Model 220 Nagoya Suzuki violin dòng sản phẩm từ lâu đã trở thành tiêu chuẩn mà các nhạc cụ khác được so sánh và đánh giá. 
             Mô hình violon truyền thống này đã được chơi và yêu thích bởi các sinh viên và giáo viên trên toàn thế giới kể từ khi nó được đưa vào thị trường.',
