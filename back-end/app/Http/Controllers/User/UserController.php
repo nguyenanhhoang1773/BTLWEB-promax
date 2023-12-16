@@ -35,7 +35,7 @@ class UserController extends Controller
         ];
         $req->validate($rules, $message);
 
-        //thêm tài khoản
+
 
         if (Auth::attempt(['email' => $req->email, 'password' => $req->password,'role'=>0])) {
             return redirect()->route('home');
@@ -45,6 +45,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Email hoặc mật sai');
         }
     }
+
     public function logoutAcc()
     {
         Auth::logout();
@@ -80,7 +81,7 @@ class UserController extends Controller
         ];
         $req->validate($rules, $message);
 
-        //thêm tài khoản
+       
         $ok =  Hash::make($req->password);
         $req->merge(['password' => $ok]);
         try {

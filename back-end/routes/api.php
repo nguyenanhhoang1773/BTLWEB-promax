@@ -29,6 +29,7 @@ Route::get('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc'
 
 
 Route::get('/list-product',[ProductController::class,'getProduct']);
+
 Route::prefix('/admin')->middleware('admin')->group(function(){
 
 });
