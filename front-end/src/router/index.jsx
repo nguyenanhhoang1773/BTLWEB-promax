@@ -1,11 +1,14 @@
 import Cart from "../Pages/CartPage";
 import Detail from "../Pages/DetailPage";
 import Home from "../Pages/HomePage";
-
+import Login from "../Pages/LoginPage";
+import Register from "../Pages/RegisterPage";
 export const paths = {
   Home: "/",
   Detail: "/detail",
   Cart: "/cart",
+  Login: "/login",
+  Register: "/register",
 };
 const routes = [
   {
@@ -13,12 +16,20 @@ const routes = [
     Component: Home,
   },
   {
-    path: "/Detail",
+    path: "/detail",
     Component: Detail,
   },
   {
-    path: "/Cart",
+    path: "/cart",
     Component: Cart,
+  },
+  {
+    path: "/login",
+    Component: Login,
+  },
+  {
+    path: "/register",
+    Component: Register,
   },
 ];
 export default routes;

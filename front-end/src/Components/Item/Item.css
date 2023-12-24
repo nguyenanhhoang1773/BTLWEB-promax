@@ -1,0 +1,9 @@
+.icon-wrapper:hover .heart-regular {
+    display: unset;
+}
+.heart-regular {
+    display: none;
+}
+.heart-solid {
+
+}
