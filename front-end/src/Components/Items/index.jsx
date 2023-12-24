@@ -22,10 +22,16 @@ function Imtes() {
       });
   }, []);
   return (
-    <div className="flex p-[20px]">
-      {product.map(({ name, price, sale_price }, index) => {
+    <div className="flex flex-wrap p-[20px]">
+      {product.map(({ name, image, price, sale_price }, index) => {
         return (
-          <Item key={price} name={name} price={price} sale_price={sale_price} />
+          <Item
+            key={price}
+            name={name}
+            image={image}
+            price={price}
+            sale_price={sale_price}
+          />
         );
       })}
     </div>
