@@ -8,28 +8,48 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $category = Category::all();
-        //dd($category);
-        return $category;
-    }   
-    
-    public function showListByID($id){
-        $category = Category::findOrFInd($id);
         return $category;
     }
 
-    public function store(Request $request){
-        $category = Category::create($request->all());
+    public function showListByID($id)
+    {
+        $category = Category::find($id);
+        dd($category);
         return $category;
     }
 
-    public function update(Request $request, $id){
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+            'parent_id' => 'required', 
+        ]);
+        $category = Category::create($validatedData);
+        
+        return response()->json(['category' => $category], 200);
+        
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+            'parent_id' => 'required',
+        ]);
         $category = Category::findOrFail($id);
-        $category->update($request->all()); 
-        return $category;
+
+        $category->update($validatedData);
+
+        return response()->json(['category' => $category], 200);
+        
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         $category = Category::findOrFail($id);
         $category->delete();
         return $category;

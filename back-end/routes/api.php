@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,4 +44,9 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::put('/category/{id}', [CategoryController::class, 'update']);
     Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
 
+    Route::get('/product',[AdminProductController::class ,'index']);    
+    Route::get('/product/{id}', [AdminProductController::class, 'showListByID']);
+    Route::post('/product', [AdminProductController::class, 'store']);
+    Route::put('/product/{id}', [AdminProductController::class, 'update']);
+    Route::delete('/product/{id}', [AdminProductController::class, 'destroy']);
 });
