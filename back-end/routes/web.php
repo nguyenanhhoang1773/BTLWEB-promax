@@ -20,7 +20,7 @@ use App\Http\Controllers\User\UserController;
 // });
 
 
-    // Route::get('/create',[ProductController::class, 'insertData']);
+    Route::get('/create',[ProductController::class, 'insertData']);
     Route::get('/create-user',[UserController::class, 'insertDataUser']);
 
 
