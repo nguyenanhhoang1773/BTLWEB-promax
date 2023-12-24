@@ -7,14 +7,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function login()
-    {
-        return view('fe.login');
-    }
-    public function postLogin(Request $req)
+
+    public function login(Request $req)
     {
         //validate
 
@@ -22,54 +20,38 @@ class UserController extends Controller
 
             'email' => 'required',
             'password' => 'required',
-
         ];
 
         $message = [
 
-
             'email.required' => 'Vui lòng nhập email ',
-
-
             'password.required' => 'Hãy nhập mật khẩu',
         ];
         $req->validate($rules, $message);
 
 
 
-        if (Auth::attempt(['email' => $req->email, 'password' => $req->password,'role'=>0])) {
-            return redirect()->route('home');
-        } else if(Auth::attempt(['email' => $req->email, 'password' => $req->password,'role'=>1])) {
-            return redirect()->route('admin.index');
-        }else{
+        if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 0])) {
+
+            return response()->json([
+                'redirect' => '/user',
+                'message' => 'Đăng nhập thành công',
+            ]);
+        } else if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 1])) {
+
+            return response()->json([
+                'redirect' => '/admin',
+                'message' => 'Chào mừng quay trở lại',
+            ]);
+        } else {
             return redirect()->back()->with('error', 'Email hoặc mật sai');
         }
     }
 
-    public function logoutAcc()
+    public function register(Request $req)
     {
-        Auth::logout();
-        session(['cart' =>  null]);
-        return redirect()->route('login');
-        
-    }
 
-    public function register()
-    {
-        return view('fe.register');
-    }
-    public function postRegister(Request $req)
-    {
-        //validate
-
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|confirmed|min:6',
-
-        ];
-
-        $message = [
+        $messages = [
             'name.required' => 'Vui lòng nhập tên của bạn',
 
             'email.required' => 'Vui lòng nhập email ',
@@ -79,23 +61,37 @@ class UserController extends Controller
             'password.confirmed' => 'Mật khẩu xác thực không đúng ',
             'password.min' => 'Mật khẩu ít nhất :min ký tự'
         ];
-        $req->validate($rules, $message);
+        $rules = [
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|confirmed|min:6',
 
-       
-        $ok =  Hash::make($req->password);
-        $req->merge(['password' => $ok]);
-        try {
-            User::create($req->all());
-        } catch (\Throwable $th) {
-            //throw $th;
+        ];
+        $validator = Validator::make($req->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->messages();
+            return response()->json(['success' => false, 'errors' => $errors]);
+        } else {
+            // Tiếp tục xử lý nếu validate thành công
+            $ok =  Hash::make($req->password);
+            $req->merge(['password' => $ok]);
+            try {
+                User::create($req->all());
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            // return redirect()->route('login')->with('msg', 'Đăng kí tài khoản thành công');
+            return response()->json([
+                'redirect' => '/login',
+                'message' => 'Đăng kí tài khoản thành công'
+            ]);
         }
-        return redirect()->route('login')->with('msg', 'Đăng kí tài khoản thành công');
-    }
-    public function contact(){
-        return view('fe.contact');
     }
 
-    public function insertDataUser(){
+
+    public function insertDataUser()
+    {
         $user1 = User::create([
             'name' => 'Bryan Jeremy Joseph',
             'email' => 'Admin@gmail.com',

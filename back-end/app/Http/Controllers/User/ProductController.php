@@ -10,8 +10,7 @@ class ProductController extends Controller
 {
     public function getProduct()
     {
-        $product = Product::all();
-        // dd($product);
+        $product = Product::all();      
         return $product;
     }
 
