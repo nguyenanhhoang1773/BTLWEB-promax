@@ -50,23 +50,13 @@ class UserController extends Controller
 
     public function register(Request $req)
     {
-
-        $messages = [
-            'name.required' => 'Vui lòng nhập tên của bạn',
-
-            'email.required' => 'Vui lòng nhập email ',
-            'email.unique' => 'Email này đã tồn tại ',
-
-            'password.required' => 'Hãy nhập mật khẩu',
-            'password.confirmed' => 'Mật khẩu xác thực không đúng ',
-            'password.min' => 'Mật khẩu ít nhất :min ký tự'
-        ];
         $rules = [
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|confirmed|min:6',
-
+            'email' => 'unique:users',
         ];
+        $messages = [
+            'email.unique' => 'Email này đã tồn tại ',
+        ];
+
         $validator = Validator::make($req->all(), $rules, $messages);
 
         if ($validator->fails()) {
@@ -76,16 +66,18 @@ class UserController extends Controller
             // Tiếp tục xử lý nếu validate thành công
             $ok =  Hash::make($req->password);
             $req->merge(['password' => $ok]);
+         
             try {
                 User::create($req->all());
+                return response()->json([
+                    'redirect' => '/login',
+                    'message' => 'Đăng kí tài khoản thành công'
+                ]);
             } catch (\Throwable $th) {
                 //throw $th;
             }
             // return redirect()->route('login')->with('msg', 'Đăng kí tài khoản thành công');
-            return response()->json([
-                'redirect' => '/login',
-                'message' => 'Đăng kí tài khoản thành công'
-            ]);
+            
         }
     }
 
