@@ -17,9 +17,14 @@ class Product extends Model
         'slug',
         'description',
         'stock',
-    ] ;
-    
+    ];
+
+    public function scopeSearch($query)
+    {
+        if ($key = request()->key) {
+            $query = $query->where('name', 'like', '%' . $key . '%');
+        }
+
+        return $query;
+    }
 }
-
-
- 
