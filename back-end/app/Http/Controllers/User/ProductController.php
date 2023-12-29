@@ -122,7 +122,7 @@ class ProductController extends Controller
         $product10 = Product::create([
             'name' => 'BỘ TRỐNG DÀN CƠ YAMAHA DRUM STAGE CUSTOM SBP2F5',
             'image' => 'https://nhaccutiendat.vn/upload/img/Bo-trong-JAZZ-Pearl-DMP925SP-C.jpg?width=500&height=500&quality=100',
-            'price'    => '35570000',
+            'price'    => '34070000',
             'sale_price' => '35570000',
             'category_id' => '10',
             'slug' =>'bo-trong2',
