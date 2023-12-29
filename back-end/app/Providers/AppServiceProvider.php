@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use app\Helpers\Cart;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        view()->composer("*", function ($view) {
+            $view->with([
+                'cart' => new Cart()
+            ]);
+        });
     }
 }
