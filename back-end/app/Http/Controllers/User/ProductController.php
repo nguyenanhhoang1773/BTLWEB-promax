@@ -20,8 +20,8 @@ class ProductController extends Controller
         $product1 = Product::create([
             'name' => 'ĐÀN PIANO YAMAHA GC2 PE',
             'image' => 'https://nhaccutiendat.vn/upload/img/Dan-Piano-Yamaha-GC2-PE.jpg?width=500&height=500&quality=100',
-            'price'    => '4000000',
-            'sale_price' => '542000',
+            'price'    => '594000000',
+            'sale_price' => '552420000',
             'category_id' => '1',
             'slug' => 'dan-piano1',
             'description' => 'Âm lượng lớn hơn và giá cả hợp lý hơn chính là lý do tại sao dòng sản phẩm GC2 có sức mua mạnh và được dùng phổ biến trên thế giới. 
@@ -31,8 +31,8 @@ class ProductController extends Controller
         $product2 = Product::create([
             'name' => 'ĐÀN PIANO ĐIỆN YAMAHA CLAVINOVA CSP-170PE',
             'image' => 'https://nhaccutiendat.vn/upload/img/Dan-Piano-dien-Yamaha-Clavinova-CSP-170.jpg?width=500&height=500&quality=100',
-            'price'    => '4000000',
-            'sale_price' => '4000000',
+            'price'    => '109190000',
+            'sale_price' => '101546700',
             'category_id' => '2',
             'slug' => 'dan-piano2',
             'description' => 'Chất lượng âm thanh chuẩn Piano cơ,
@@ -43,8 +43,8 @@ class ProductController extends Controller
         $product3 = Product::create([
             'name' => 'ĐÀN GUITAR ACOUSTIC YAMAHA FS100C',
             'image' => 'https://nhaccutiendat.vn/upload/img/dan-acoustic-guitar-yamaha-fs100c_7233.jpg?width=1000&height=1000&quality=100',
-            'price'    => '4000000',
-            'sale_price' => '4000000',
+            'price'    => '3524700',
+            'sale_price' => '3790000',
             'category_id' => '3',
             'slug' =>'dfijgsu-asj',
             'description' => 'Yamaha FS100C với thiết kế đơn giản, tinh tế, sang và nhiều lựa chọn về màu sắc, đặc biệt dải âm thanh rất đẹp. 
@@ -54,8 +54,8 @@ class ProductController extends Controller
         $product4 = Product::create([
             'name' => 'ĐÀN GUITAR ACOUSTIC FENDER CC-60S LH',
             'image' => 'https://nhaccutiendat.vn/upload/img/Dan-Guitar-Acoustic-Fender-CC-60S-LH.jpg?width=500&height=500&quality=100',
-            'price'    => '4000000 ',
-            'sale_price' => '4000000',
+            'price'    => '5358000 ',
+            'sale_price' => '5640000',
             'category_id' => '4',
             'slug' =>'asdasd-asda',
             'description' => 'Nhỏ gọn và thoải mái, CC-60S LH lý tưởng cho người mới chơi và thuận tay trái. Đàn có dáng Concert nhỏ gọn, dễ dàng chơi ở bất kỳ vị trí nào với âm thanh tuyệt vời.
@@ -65,8 +65,8 @@ class ProductController extends Controller
         $product5 = Product::create([
             'name' => 'ĐÀN VIOLIN SUZUKI 220FE4 SIZE 3/4',
             'image' => 'https://nhaccutiendat.vn/upload/img/dan-violin-suzuki-220fe4-size-3-4.jpg?width=500&height=500&quality=100',
-            'price' => '4000000',
-            'sale_price' => '4000000',
+            'price' => '17907500',
+            'sale_price' => '18850000',
             'category_id' => '5',
             'slug' => 'asdasd-dasd',
             'description' => 'Suzuki Violin 220FE4 3/4 được làm từ gỗ vân sam giúp âm thanh cộng hưởng tốt hơn và bền hơn trong điều kiện môi trường ẩm. 
@@ -77,8 +77,8 @@ class ProductController extends Controller
         $product6 = Product::create([
             'name' => 'ĐÀN VIOLIN SUZUKI NS 20FIT 3/4',
             'image' => 'https://nhaccutiendat.vn/upload/img/dan-violin-suzuki-ns-20fit-3-4.jpg?width=500&height=500&quality=100',
-            'price'    => '4000000',
-            'sale_price' => '4000000',
+            'price'    => '13623000',
+            'sale_price' => '14340000',
             'category_id' => '6',
             'slug' =>'asdasdd-ds',
             'description' => 'Suzuki Violin NS 20FIT 3/4, Kiểu dáng, thiết kế đẹp và hài hòa, Thiết kế nổi bật, màu sắc sang trọng, Cạnh tranh về giá và cạnh tranh về chất lượng
@@ -89,8 +89,8 @@ class ProductController extends Controller
         $product7 = Product::create([
             'name' => 'Kèn Tenor Saxophone Selmer TS651',
             'image' => 'https://vietthuong.vn/image/cache/catalog/selmer/selmer-ts651-400x400.jpg',
-            'price'    => '4000000  ',
-            'sale_price' => '4000000',
+            'price'    => '25900000  ',
+            'sale_price' => '26800000',
             'category_id' => '7',
             'slug' =>'dasd-sdn',
             'description' => 'Kèn Tenor Saxophone Selmer TS651 phù hợp với với cả sinh viên lẫn nhà 
@@ -98,10 +98,10 @@ class ProductController extends Controller
         ]);
 
         $product8 = Product::create([
-            'name' => 'KÈn Conn TS650 Student Tenor Saxophones',
+            'name' => 'Kèn Conn TS650 Student Tenor Saxophones',
             'image' => 'https://vietthuong.vn//upload/images/SELMER/TS650.jpg',
-            'price'    => '4000000 ',
-            'sale_price' => '4000000',
+            'price'    => '31000000 ',
+            'sale_price' => '34200000',
             'category_id' => '8',
             'slug' =>'dasd-das',
             'description' => 'Conn TS650 Student Tenor Saxophones mang đến cho người sử dụng một âm thanh chất lượng và một thiết kế khá tiện ích, nổi bật',
@@ -110,8 +110,8 @@ class ProductController extends Controller
         $product9 = Product::create([
             'name' => 'BỘ TRỐNG JAZZ PEARL DMP925SP/C',
             'image' => 'https://nhaccutiendat.vn/upload/img/Bo-trong-JAZZ-Pearl-DMP925SP-C.jpg?width=500&height=500&quality=100',
-            'price'    => '4000000',
-            'sale_price' => '4000000',
+            'price'    => '19665000',
+            'sale_price' => '20700000',
             'category_id' => '9',
             'slug' =>'jfdhg-djknr',
             'description' => 'Với kinh nghiệm 70 năm trong nghề chế tác trống thủ công, Pearl DMP925SP/C là model đỉnh cao để bạn sẵn sàng học tập và biểu diễn. 
@@ -122,8 +122,8 @@ class ProductController extends Controller
         $product10 = Product::create([
             'name' => 'BỘ TRỐNG DÀN CƠ YAMAHA DRUM STAGE CUSTOM SBP2F5',
             'image' => 'https://nhaccutiendat.vn/upload/img/Bo-trong-JAZZ-Pearl-DMP925SP-C.jpg?width=500&height=500&quality=100',
-            'price'    => '4000000',
-            'sale_price' => '34000000',
+            'price'    => '35570000',
+            'sale_price' => '35570000',
             'category_id' => '10',
             'slug' =>'jhcvujf-ads',
             'description' => 'Bộ trống Jazz Yamaha Rydeen Brown mới (combo 5 món) là sản phẩm dành cho cả người mới bắt đầu lẫn tay chơi trống chuyên nghiệp. 

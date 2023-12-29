@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function showListByID($id)
     {
         $category = Category::find($id);
-        dd($category);
+        
         return $category;
     }
 

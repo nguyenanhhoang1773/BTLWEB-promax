@@ -11,14 +11,13 @@ class AdminProductController extends Controller
     public function index()
     {
         $product = Product::all();
-        dd($product);
+        
         return $product;
     }
-
     public function showListByID($id)
     {
         $product = Product::find($id);
-        return $product;
+        $product;
     }
 
     public function store(Request $request)
