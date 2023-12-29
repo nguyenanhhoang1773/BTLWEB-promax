@@ -1,0 +1,6 @@
+.arrow::before {
+    content: none !important;
+}
+.text-yellow-300 path {
+    color:#fde047
+}
