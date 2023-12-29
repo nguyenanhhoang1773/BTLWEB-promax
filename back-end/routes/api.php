@@ -39,7 +39,7 @@ Route::get('/list-product',[ProductController::class,'getProduct']);
 
 // Route::get('/list-product', [ProductController::class, 'getProduct']);
 
-Route::prefix('/admin')->middleware('admin')->group(function () {
+// Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/category/{id}', [CategoryController::class, 'showListByID']);
     Route::post('/category', [CategoryController::class, 'store']);
@@ -51,4 +51,4 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::post('/product', [AdminProductController::class, 'store']);
     Route::put('/product/{id}', [AdminProductController::class, 'update']);
     Route::delete('/product/{id}', [AdminProductController::class, 'destroy']);
-});
+// });
