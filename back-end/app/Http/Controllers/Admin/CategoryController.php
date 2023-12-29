@@ -24,25 +24,34 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'status' => 'required',
-            'parent_id' => 'required',
-        ]);
-        $category = Category::create($validatedData);
-
-        return response()->json(['category' => $category], 200);
+  
+        $rules = [
+            'name' => 'required'
+        ];
+        $messages= [
+            'name.required' => 'Tên không được để trống'
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages);
+        if($validate->fails()){
+            $errors = $validate->errors()->messages();
+            return response()->json(['success'=> false , 'errors'=> $errors]);
+        }
+        else {
+            $category = Category::create($request->all());
+            return response()->json(['category' => $category], 200);
+        }
+    
     }
 
     public function update(Request $request, $id)
     {
 
-        $rules = [
-            'email' => 'unique:users',
-            //validate lại cái này 
+        $rules = [        
+            'name' => 'required',
+           
         ];
-        $messages = [
-            'email.unique' => 'Email này đã tồn tại ',
+        $messages = [            
+            'name.required' => 'Tên không được để trống',         
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -52,9 +61,15 @@ class CategoryController extends Controller
             return response()->json(['success' => false, 'errors' => $errors]);
         } else {
             $category = Category::findOrFail($id);
-            $category->update($request->all());
+            if($category){
+                $category->update($request->all());
+                return response()->json(['message' => 'Category updated successfully','category' => $category], 200);
+            }
+           else {
+                return response()->json(['message' => 'Category not found'], 404);
+           }
 
-            return response()->json(['category' => $category], 200);
+           
         }
     }
     public function destroy($id)
