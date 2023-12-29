@@ -25,11 +25,12 @@ class CheckoutController extends Controller
             'note' => $req->note,
             'order_date' => $orderDate
         ]);
-
+        
         if ($order) {
+            
             $order_id = $order->id;
             foreach ($cart->items as $key => $value) {
-                // dd($cart);
+                dd($key);
                 $quantity = $value['quantity'];
                 OrdersDetail::create([
                     'order_id' => $order_id,
@@ -39,9 +40,15 @@ class CheckoutController extends Controller
                 ]);
             }
             session(['cart' =>  null]);
-            return  redirect()->route('checkout')->with('msg', 'Đặt hàng thành công, kiểm tra email để biết thông tin');
+            return response()->json([
+                'redirect' => '/giohang',
+                'message' => 'Đặt hàng thành công',
+            ]);
         } else {
-            return  redirect()->back()->with('msg', 'Đặt hàng khỏng thành công');
+            return response()->json([
+                'redirect' => '/giohang',
+                'message' => 'Đặt hàng không thành công',
+            ]);
         }
     }
 }
