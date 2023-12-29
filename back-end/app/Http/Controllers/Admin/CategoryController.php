@@ -25,7 +25,7 @@ class CategoryController extends Controller
 
     // public function store(Request $request)
     // {
-  
+
     //     $rules = [
     //         'name' => 'required'
     //     ];
@@ -41,7 +41,7 @@ class CategoryController extends Controller
     //         $category = Category::create($request->all());
     //         return response()->json(['category' => $category], 200);
     //     }
-    
+
     // }
 
     // public function update(Request $request, $id)
@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
     //     $rules = [        
     //         'name' => 'required',
-           
+
     //     ];
     //     $messages = [            
     //         'name.required' => 'Tên không được để trống',         
@@ -70,7 +70,7 @@ class CategoryController extends Controller
     //             return response()->json(['message' => 'Category not found'], 404);
     //        }
 
-           
+
     //     }
     // }
     // public function destroy($id)
@@ -82,60 +82,105 @@ class CategoryController extends Controller
     //         'message' => 'Xóa sản phẩm thành công'
     //     ]);
     // }
-    public function create(){
-        $title = "Quản Lý Danh Mục";
-        $category = new Category ();
-        $parentid = $category->getParentID();
-        return view ('Admin.Category.add',compact('title','parentid'));
-    }
-    public function store(Request $request){
-        $request->validate([
-            'name'=> 'required|min:6',
-    
-        ],[
-            'name.required'=> 'Vui lòng nhập tên danh mục',
-        ]
-    );
-        $category = new Category();
-        $category_name = $request->name;
-        $parent_id = $request->parent_id;
-        $created_at = date('Y-m-d H:i:s');
+    // private $category;
 
-        $dataInsert = $category->insertCategory($category_name,$parent_id,$created_at);
-        if($dataInsert){
-            Session::flash('success','Tạo danh mục thành công');
+    // public function __construct()
+    // {
+    //     // $this->category = new Category();
+    // }
+    public function index()
+    {
+        $categories = Category::paginate(6);
+        return view('admin.category.index', compact('categories'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categories = Category::orderBy('name', 'ASC')->get();
+        // dd($categories);
+        return view('admin.category.add', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+            'name' => 'required|unique:categories'
+
+        ];
+        $message = [
+            'name.required' => 'bắt buộc nhập thông tin',
+            'name.unique' => 'sản phẩm này đã tồn tại',
+
+        ];
+
+        $request->validate($rules, $message);
+
+        try {
+            Category::create($request->all());
+            return redirect()->route('category.index')->with('msg', 'thêm mới thành công ');
+        } catch (\Throwable $th) {
+            return redirect()->route('category.create')->with('msg', 'thêm thất bại ');
         }
-        else {
-            Session::flash('error','Tạo danh mục thất bại');
+    }
+
+    public function show(string $id)
+    {
+    }
+
+    public function edit(Category $category)
+    {
+        $categories = Category::all();
+
+        return view('admin.category.edit', compact('category', 'categories'));
+    }
+
+    public function update(Request $request, Category $category)
+    {
+
+
+        $rules = [
+            'name' => 'required|unique:categories,name,' . $request->id
+
+        ];
+        $message = [
+            'name.required' => 'bắt buộc nhập thông tin',
+            'name.unique' => 'Danh mục này đã tồn tại',
+
+        ];
+
+        $request->validate($rules, $message);
+        try {
+            $category->update($request->all());
+            return redirect()->route('category.index')->with('msg', 'update thành công ');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('msg', 'update không thành công ');
         }
-        return redirect()->back();
-        
     }
-    public function showList(){
-        $title ='Danh sách danh mục';
-        $category = new Category ();
-        $listData = $category->showData();
 
-        return view ('Admin.Category.list',compact('title','listData'));
-    }
-    public function getUpdate($id){
-        $title = 'Cập nhật danh mục ';
-        $category = new Category(); 
-        $getId = $category->getData($id);
-        $parentid = $category->getParentID();
-        return view ('Admin.Category.edit',compact('title','getId','parentid'));        
-    }
-    public function update(Request $request, $id){
-        $category = new Category();
-        $category_name = $request->name;
-        $parent_id = $request->parent_id;
-        $update_at = date('Y-m-d H:i:s');
-        $dataUpdate = $category->updateCategory($category_name,$parent_id,$update_at,$id);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Request $request, Category $category)
+    {
 
-        return redirect(route('category.show'))->with('success','Cập nhật danh mục thành công');  
-    }
-    public function delete($id){
-        (new Category())->deleteCategory($id);
-        return redirect()->back()->with('success','Xóa thành công');
+        try {
+
+
+            // Xóa sản phẩm
+            $category->delete();
+
+            // Kích hoạt lại ràng buộc khóa ngoại
+
+
+            return redirect()->route('category.index')->with('msg', 'xóa thành công ');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('msg', 'xóa không thành công ');
+        }
     }
 }

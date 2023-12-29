@@ -1,57 +1,57 @@
-@extends('Admin.User.main')
-
-@section('content')
-
-<form  action=""  method="POST">
-    @csrf
-    @foreach ($getId as $item)
-    <div class="card-body">
-        <div class="form-group">
-          <label >Tên danh mục</label>
-          
-          <input type="text" value="{{$item->name}}" class="form-control" name="name" id="" placeholder="Hãy nhập tên danh mục">
-        </div>
-
-        <div class="form-group">
-          <label >Danh Mục</label>
-         <select name="parent_id" id="" class="form-control">
-              <option value="0">Danh Mục Cha</option>
-  
-              @if (!empty($parentid))
-                  @foreach ($parentid as $value)
-                      <option value="{{$value->id}}" {{$item->parent_id == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
-                  @endforeach
-              @endif
-              
-         </select>
-        </div>
-  
-       
-        {{-- <div class="form-group">
-  
-          <label for="">Kích Hoạt</label>
-          <div class="form-check">
-            <input class="form-check-input" id="active" type="radio" name="active" value="1" checked="">
-            <label for="active" class="form-check-label">Có</label>
-          </div>
-  
-          <div class="form-check">
-            <input class="form-check-input" id="no_active" type="radio" name="active" >
-            <label for="no_active" class="form-check-label">Không</label>
-          </div>
-          
-        </div> --}}
-  
-      </div>
-    @endforeach
-
-    <div class="card-footer">
-      <button type="submit" class="btn btn-primary">Cập Nhật</button>
-    </div>
-   
-</form>
+@extends('admin.master')
+@section('title')
+Admin | Cập nhật
+@endsection
+@section('title-page')
+Cập nhật
 @endsection
 
-@section('footer')
 
+@section('content')
+    <div class="container">
+        @if (session('msg'))
+        <div class="alert alert-danger">{{session('msg')}}</div>   
+        @endif
+        <form action="{{route('category.update', $category)}}" method="POST" role="form" >
+            @method('PUT')
+            @csrf
+
+            <div class="form-group">
+                <label for="name">Tên danh mục:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên sản phẩm" value="{{$category->name}}">
+                @error('name')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="category">Danh mục cha:</label>
+                <select class="form-control" id="category" name="parent_id" >  
+                         <option value="">chọn danh mục</option>              
+                    @foreach ($categories as $item)
+                        <option value="{{$item->id}}" {{$category->parent_id == $item->id ? 'selected' : '0'}}>{{$item->name}}</option> 
+                    @endforeach                
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="category">Chọn trạng thái: </label>
+                <div class="radio">
+                    <label for="" >
+                        <input type="radio" name="status" {{$category->status ? 'checked' : ''}} value="0">
+                        ẩn
+                    </label> 
+                    <label for="" >
+                        <input type="radio" name="status" {{!$category->status ? 'checked' : ''}} value="1">
+                        hiện 
+                    </label>
+                </div>
+            </div>
+
+          
+            <input type="hidden" name="id" value="{{$category->id}}" >
+            
+            <button type="submit" class="btn btn-primary">xác nhận thay đổi</button>
+            <a href="{{route('category.index')}}" class="btn btn-info">Quay lại</a>
+        </form>
+    </div>
 @endsection

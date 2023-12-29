@@ -9,8 +9,6 @@ class MainController extends Controller
 {
     //
     public function index(){
-        $title = 'Trang chủ admin';
-
-        return view ('Admin.User.main',compact('title'));
+        return view ('admin.master');
     }
 }
