@@ -11,14 +11,14 @@ class AdminProductController extends Controller
     public function index()
     {
         $product = Product::all();
-        dd($product);
-        return $product;
+        
+        return response()->json(['product' => $product], 200);
     }
 
     public function showListByID($id)
     {
         $product = Product::find($id);
-        return $product;
+        return response()->json(['product' => $product], 200);
     }
 
     public function store(Request $request)
@@ -58,6 +58,6 @@ class AdminProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
-        return $product;
+        return response()->json(['product' => $product], 200);
     }
 }
