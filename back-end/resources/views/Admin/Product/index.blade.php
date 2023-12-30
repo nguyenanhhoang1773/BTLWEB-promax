@@ -44,9 +44,9 @@
                         <td>{{ number_format($item->sale_price) }}</td>
                         <td>{{ $item->category->name }}</td>
                         <td>
-                            <img src="{{ asset('storage/images') }}/{{ $item->image }}" alt="" width="150px"
+                            <img src="{{ asset('storage/images')}}/{{$item->image}}" alt="" width="150px"
                                 style="height: 100px;">
-                            {{-- <img src="{{$item->image}}" alt="" width="150px"
+                            {{-- <img src="http://127.0.0.1:8000/storage/images/Dan-Piano-dien-Yamaha-Clavinova-CSP-170B.jpg" alt="" width="150px"
                                 style="height: 100px;"> --}}
                         </td>
                         <td>{{ $item->created_at }}</td>
