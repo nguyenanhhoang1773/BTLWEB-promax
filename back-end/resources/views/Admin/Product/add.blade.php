@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="category_id">Danh mục:</label>
                         <select class="form-control" id="category_id" name="category_id">
-                            <option value="0">chọn danh mục</option>
+                            <option value="4">chọn danh mục</option>
                             @php
                                 showCategories($categories);
                             @endphp
@@ -98,8 +98,6 @@
         </form>
     </div>
 @endsection
-
-
 
 
 @section('custom')
@@ -146,4 +144,18 @@
                 console.error(error);
             });
     </script>
+    @php
+        function showCategories($categories, $parent_id = 0, $char = '')
+        {
+            foreach ($categories as $key => $item) {
+                // Nếu là chuyên mục con thì hiển thị
+                if ($item->parent_id == $parent_id) {
+                    echo '<option value="' . $item->id . '">' . $char . $item->name . '</option>';
+                    unset($categories[$key]);
+                    // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                    showCategories($categories, $item->id, $char . '--');
+                }
+            }
+        }
+    @endphp
 @endsection

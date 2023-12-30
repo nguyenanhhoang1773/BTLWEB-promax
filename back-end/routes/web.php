@@ -35,7 +35,7 @@ use App\Http\Controllers\User\UserController;
         Route::get('/', [MainController::class, 'index'])->name('admin.index');
         // Route::get('/statistical', [StatisticalController::class, 'index'])->name('statistical.index');
         Route::resource('category', CategoryController::class);
-        Route::resource('product', ProductController::class);
+        Route::resource('product', AdminProductController::class);
         // Route::resource('accountuser', AccountUser::class);
         // Route::get('/cartdetail', [DashBoardController::class, 'cartDetail'])->name('cartdetail');
     

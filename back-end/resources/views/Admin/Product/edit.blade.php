@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="category_id">Chọn danh mục:</label>
                         <select class="form-control" id="category_id" name="category_id">
-                            <option value="0">chọn danh mục</option>
+                            <option value="4">chọn danh mục</option>
                             @php
                                 showCategories($categories);
                             @endphp
@@ -144,7 +144,7 @@
             });
     </script>
 @endsection
-{{-- @php
+@php
 
 //đệ quy menu đa cấp 
         function showCategories($categories, $parent_id = 0, $char = '')
@@ -162,4 +162,4 @@
             }
         }
     }
-@endphp --}}
+@endphp

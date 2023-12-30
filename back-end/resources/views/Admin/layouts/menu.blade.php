@@ -83,8 +83,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            {{-- <a href="{{ route('category.create') }}" class="nav-link"> --}}
-                            <a href="" class="nav-link">
+                            <a href="{{ route('category.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm danh mục</p>
                             </a>
@@ -101,15 +100,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            {{-- <a href="{{ route('product.create') }}" class="nav-link"> --}}
-                            <a href="" class="nav-link">
+                            <a href="{{ route('product.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm sản phẩm</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            {{-- <a href="{{ route('product.index') }}" class="nav-link"> --}}
-                            <a href="" class="nav-link">
+                            <a href="{{route('product.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách sản phẩm</p>
                             </a>

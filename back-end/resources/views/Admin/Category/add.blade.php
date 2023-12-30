@@ -31,6 +31,9 @@ Thêm danh mục
                       showCategories($categories);
                   @endphp    
                 </select>
+                @error('parent_id')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
             </div> 
             <div class="form-group">
                 <label for="category">Chọn trạng thái: </label>
@@ -53,3 +56,17 @@ Thêm danh mục
         </form>
     </div>
 @endsection
+@php
+    function showCategories($categories, $parent_id = 0, $char = '')
+{
+    foreach ($categories as $key => $item) {
+        // Nếu là chuyên mục con thì hiển thị
+        if ($item->parent_id == $parent_id) {
+            echo '<option value="' . $item->id . '">' . $char . $item->name . '</option>';
+            unset($categories[$key]);
+            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+            showCategories($categories, $item->id, $char . '--');
+        }
+    }
+}
+@endphp

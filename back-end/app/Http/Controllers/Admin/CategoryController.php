@@ -90,7 +90,7 @@ class CategoryController extends Controller
     // }
     public function index()
     {
-        $categories = Category::paginate(6);
+        $categories = Category::orderBy('id','desc')->paginate(6);
         return view('admin.category.index', compact('categories'));
     }
 
@@ -151,7 +151,6 @@ class CategoryController extends Controller
         $message = [
             'name.required' => 'bắt buộc nhập thông tin',
             'name.unique' => 'Danh mục này đã tồn tại',
-
         ];
 
         $request->validate($rules, $message);
@@ -163,24 +162,15 @@ class CategoryController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy(Request $request, Category $category)
     {
-
         try {
-
-
-            // Xóa sản phẩm
+          // Xóa sản phẩm
             $category->delete();
-
-            // Kích hoạt lại ràng buộc khóa ngoại
-
-
-            return redirect()->route('category.index')->with('msg', 'xóa thành công ');
+            return redirect()->route('category.index')->with('msg', 'Xóa thành công ');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('msg', 'xóa không thành công ');
+            return redirect()->back()->with('msg', 'Xóa không thành công ');
         }
     }
 }
