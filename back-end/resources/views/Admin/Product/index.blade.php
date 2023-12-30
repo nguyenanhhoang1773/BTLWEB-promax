@@ -35,7 +35,7 @@
             <tbody>
                 @forelse ($products as $item)
                     <tr>
-{{-- @php
+                        {{-- @php
     dd($item);
 @endphp --}}
                         <td>{{ $loop->iteration }}</td>
@@ -46,6 +46,8 @@
                         <td>
                             <img src="{{ asset('storage/images') }}/{{ $item->image }}" alt="" width="150px"
                                 style="height: 100px;">
+                            {{-- <img src="{{$item->image}}" alt="" width="150px"
+                                style="height: 100px;"> --}}
                         </td>
                         <td>{{ $item->created_at }}</td>
 

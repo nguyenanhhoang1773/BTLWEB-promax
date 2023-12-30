@@ -27,15 +27,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //end Admin/category
 
 
-// Route::get('/login', [UserController::class, 'login']);
+
 Route::get('/login', [UserController::class, 'login']);
 
-// Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'register']);
 
 Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc');
 
 Route::get('/list-product',[ProductController::class,'getProduct']);
+
+Route::get('/category',[ProductController::class,'getCategory']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Route::get('/list-product', [ProductController::class, 'getProduct']);
 
