@@ -2,14 +2,12 @@
 
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\CategoryController;
-<<<<<<< HEAD
 use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\MainController;
-=======
+
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\AccountUser;
 use App\Http\Controllers\Admin\StatisticalController;
->>>>>>> 30944fff1c5faff877ec22e14f247a12cb09a419
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\UserController;
