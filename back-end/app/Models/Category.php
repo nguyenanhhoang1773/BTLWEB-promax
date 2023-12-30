@@ -17,12 +17,7 @@ class Category extends Model
   ];
   public function products()
   {
-    return $this->belongsTo(Product::class,'product_id');
-  }
-  public function category()
-
-  {
-    return $this->belongsTo(Category::class);
+    return $this->belongsTo(Product::class, 'product_id');
   }
   public function scopeSearch($query)
   {
