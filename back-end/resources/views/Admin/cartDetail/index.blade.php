@@ -39,7 +39,7 @@
                     <th width="5%">STT</th>
                     <th>Đơn hàng</th>
                     <th>Ảnh</th>
-                    <th>Sán phẩm</th>
+                    <th>Sản phẩm</th>
                     <th>Giá tiền </th>
                     <th>Số lượng </th>
                 </tr>
