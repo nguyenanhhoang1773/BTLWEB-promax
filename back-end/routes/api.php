@@ -27,28 +27,46 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //end Admin/category
 
 
-// Route::get('/login', [UserController::class, 'login']);
+
 Route::get('/login', [UserController::class, 'login']);
 
-// Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'register']);
 
 Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc');
 
 Route::get('/list-product',[ProductController::class,'getProduct']);
 
+Route::get('/category',[ProductController::class,'getCategory']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Route::get('/list-product', [ProductController::class, 'getProduct']);
 
 // Route::prefix('/admin')->middleware('admin')->group(function () {
-    Route::get('/category', [CategoryController::class, 'index']);
-    Route::get('/category/{id}', [CategoryController::class, 'showListByID']);
-    Route::post('/category', [CategoryController::class, 'store']);
-    Route::put('/category/{id}', [CategoryController::class, 'update']);
-    Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+//     Route::get('/category', [CategoryController::class, 'index']);
+//     Route::get('/category/{id}', [CategoryController::class, 'showListByID']);
+//     Route::post('/category', [CategoryController::class, 'store']);
+//     Route::put('/category/{id}', [CategoryController::class, 'update']);
+//     Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
 
-    Route::get('/product',[AdminProductController::class ,'index']);    
-    Route::get('/product/{id}', [AdminProductController::class, 'showListByID']);
-    Route::post('/product', [AdminProductController::class, 'store']);
-    Route::put('/product/{id}', [AdminProductController::class, 'update']);
-    Route::delete('/product/{id}', [AdminProductController::class, 'destroy']);
+//     Route::get('/product',[AdminProductController::class ,'index']);    
+//     Route::get('/product/{id}', [AdminProductController::class, 'showListByID']);
+//     Route::post('/product', [AdminProductController::class, 'store']);
+//     Route::put('/product/{id}', [AdminProductController::class, 'update']);
+//     Route::delete('/product/{id}', [AdminProductController::class, 'destroy']);
 // });

@@ -1,9 +1,13 @@
-.icon-wrapper:hover .heart-regular {
+.icon-wrapper:hover .heart-solid {
     display: unset;
 }
-.heart-regular {
+.icon-wrapper:hover .heart-regular {
     display: none;
 }
 .heart-solid {
+    display: none;
+}
 
+.product--item + .product--item {
+    /* margin-left: 20px; */
 }

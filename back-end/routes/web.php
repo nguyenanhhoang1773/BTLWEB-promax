@@ -2,8 +2,19 @@
 
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\CategoryController;
+<<<<<<< HEAD
 use App\Http\Controllers\User\GuitarCategoryController;
 use App\Http\Controllers\User\PianoCategoryController;
+=======
+<<<<<<< HEAD
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\MainController;
+=======
+use App\Http\Controllers\Admin\DashBoardController;
+use App\Http\Controllers\Admin\AccountUser;
+use App\Http\Controllers\Admin\StatisticalController;
+>>>>>>> 30944fff1c5faff877ec22e14f247a12cb09a419
+>>>>>>> a78c87c3d777329b19f1dacf46b8f8348e2c2bb8
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\SaxophoneCategoryController;
@@ -37,5 +48,19 @@ use App\Http\Controllers\User\ViolinCategoryController;
     // Route::get('/insertbyid/{id}',[CategoryController::class,'showListByID']);
     // Route::get('/add',[CategoryController::class,'store']);
     // Route::get('/insert-product',[AdminProductController::class,'index']);
+<<<<<<< HEAD
 
     
+=======
+    
+    Route::get('login',[LoginController::class,'index']);
+    Route::prefix('/admin')->group(function () {
+        Route::get('/', [DashBoardController::class, 'index'])->name('admin.index');
+        Route::get('/statistical', [StatisticalController::class, 'index'])->name('statistical.index');
+        Route::resource('category', CategoryController::class);
+        Route::resource('product', AdminProductController::class);
+        Route::resource('accountuser', AccountUser::class);
+        Route::get('/cartdetail', [DashBoardController::class, 'cartDetail'])->name('cartdetail');
+    
+    });
+>>>>>>> a78c87c3d777329b19f1dacf46b8f8348e2c2bb8

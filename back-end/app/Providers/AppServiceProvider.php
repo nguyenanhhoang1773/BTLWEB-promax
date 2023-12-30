@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Providers;
+
 use App\Helpers\Cart;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::useBootstrap();
         view()->composer("*", function ($view) {
             $view->with([
                 'cart' => new Cart()

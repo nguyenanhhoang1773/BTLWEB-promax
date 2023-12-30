@@ -23,6 +23,7 @@ function RegisterPage() {
         name: nameValue,
         email: emailValue,
         password: passwordValue,
+        password: rePasswordValue,
       })
       .then(function (response) {
         console.log(response);
