@@ -10,7 +10,10 @@ Dánh sách tài khoản
 @section('content')
     <div class="container">
         @if (session('msg'))
-        <div class="alert alert-danger text-center">{{session('msg')}}</div>   
+        <div class="alert alert-success text-center">{{session('msg')}}</div>   
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger text-center">{{session('error')}}</div>   
         @endif
       
         <table class="table table-hover">
@@ -30,7 +33,7 @@ Dánh sách tài khoản
             
             <tr>
               
-              <td>{{$item->index+1}}</td>
+              <td>{{$loop->iteration}}</td>
               <td>{{$item->name}}</td>
               <td>{{$item->email}}</td>            
               <td>{{$item->created_at}}</td>            

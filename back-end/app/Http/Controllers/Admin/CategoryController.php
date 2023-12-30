@@ -90,7 +90,8 @@ class CategoryController extends Controller
     // }
     public function index()
     {
-        $categories = Category::orderBy('id','desc')->paginate(6);
+        
+        $categories = Category::orderBy('id','desc')->Search()->paginate(6);
         return view('admin.category.index', compact('categories'));
     }
 

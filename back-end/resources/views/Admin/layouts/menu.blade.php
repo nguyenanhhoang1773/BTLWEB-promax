@@ -49,15 +49,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            {{-- <a href="{{ route('admin.index') }}" class="nav-link"> --}}
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.index') }}" class="nav-link">
+                           
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Đơn hàng</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            {{-- <a href="{{ route('statistical.index') }}" class="nav-link"> --}}
-                            <a href="" class="nav-link">
+                            <a href="{{ route('statistical.index') }}" class="nav-link">
+
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Doanh thu</p>
                             </a>
@@ -123,8 +123,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            {{-- <a href="{{ route('accountuser.index') }}" class="nav-link"> --}}
-                            <a href="" class="nav-link">
+                            <a href="{{ route('accountuser.index') }}" class="nav-link">
+                            {{-- <a href="" class="nav-link"> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tài khoản người dùng</p>
                             </a>

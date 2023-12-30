@@ -61,7 +61,17 @@ public function deleteCategory($id){
     return $this->belongsTo(Category::class);
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 65dd5fad54000a0bcdc4865da0086917bf5c89ce
+=======
+  public function scopeSearch($query)
+  {
+    if ($key = request()->key) {
+      $query = $query->where('name', 'like', '%' . $key . '%');
+    }
+    return $query;
+  }
+>>>>>>> 30944fff1c5faff877ec22e14f247a12cb09a419
 }
