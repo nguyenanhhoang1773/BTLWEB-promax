@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,11 @@ class ProductController extends Controller
         $product = Product::all();      
         return $product;
     }
-
+    public function getCategory()
+    {
+        $category = Category::all();      
+        return $category;
+    } 
     public function insertData()
     {
 

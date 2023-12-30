@@ -56,10 +56,10 @@ a:hover {
 .header__route__item {
     padding: 0 2px;
     font-size: 1em;
-    font-weight: 300;
+    font-weight: 600;
 }
 .header__route__item:hover {
-    color: #4ade80
+    color: #ded24a
 }
 .header__route__item  + .header__route__item  { 
     margin-left: 10px;
@@ -70,7 +70,7 @@ a:hover {
     height: 18px;
     width: 2px;
     margin-bottom:-3px ;
-    background-color:#4ade80;
+    background-color:#ffeb0e;
 }
 .item-line2 {
     margin-left: 4px;
@@ -121,6 +121,7 @@ a:hover {
     border-radius: 2px;
 }
 .header__items {
+    padding: 6px 0;
     flex: 1;
     display: flex;
     align-items: center;
@@ -132,6 +133,10 @@ a:hover {
 }
 .header__item + .header__item {
     margin-left: 8px;
+}
+.header__item {
+    font-weight: 500;
+    font-size: 16px;
 }
 .header__cart {
     font-size: 30px;
