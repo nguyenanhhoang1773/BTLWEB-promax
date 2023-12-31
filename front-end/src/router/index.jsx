@@ -5,7 +5,7 @@ import Login from "../Pages/LoginPage";
 import Register from "../Pages/RegisterPage";
 export const paths = {
   Home: "/",
-  Detail: "/detail",
+  Detail: "/detail/:id",
   Cart: "/cart",
   Login: "/login",
   Register: "/register",
@@ -16,7 +16,7 @@ const routes = [
     Component: Home,
   },
   {
-    path: "/detail",
+    path: "/detail/:id",
     Component: Detail,
   },
   {

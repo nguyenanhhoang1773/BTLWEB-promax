@@ -2,10 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import "./Item.css";
-function Item({ name, image, price, sale_price }) {
+import { Link } from "react-router-dom";
+function Item({ id, name, image, price, sale_price }) {
   return (
     <div className="px-[10px]">
-      <div className="bg-slate-950 inline-block w-full   p-[20px] rounded-xl hover:opacity-80 hover:cursor-pointer">
+      <Link
+        to={`/detail/${id}`}
+        className="bg-slate-950 inline-block w-full   p-[20px] rounded-xl hover:opacity-80 hover:cursor-pointer"
+      >
         <img className="w-full" src={image} />
         <div className=" pt-[10px]  ">
           <h3 className="text-white text-[20px] font-[700] truncate w-[100%] ">
@@ -31,7 +35,7 @@ function Item({ name, image, price, sale_price }) {
             </span>
           </p>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
