@@ -10,7 +10,7 @@ class AccountUser extends Controller
 {
     public function index()
     {
-        $user = User::orderBy('created_at', 'desc')->Search()->where('role', 1)->paginate(15);;
+        $user = User::orderBy('created_at', 'desc')->Search()->where('role', 1)->paginate(15);
         return view('admin.account.accountUser', compact('user'));
     }
     public function destroy($id)

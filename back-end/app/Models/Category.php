@@ -11,19 +11,12 @@ use App\Models\Product;
 class Category extends Model
 {
   use HasFactory;
-  protected $fillable = [
-    'name',
-    'status',
-    'parent_id',
-  ];
+  protected $fillable = ['name', 'status', 'parent_id'];
 
-
-  public function products()
-  {
-
-    return $this->belongsTo(Product::class,'product_id');
-  }
-
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 
   public function scopeSearch($query)
   {

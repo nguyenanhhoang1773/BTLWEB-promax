@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+use DB;
+
 use App\Models\ImgProduct;
 use App\Models\OrdersDetail;
-use App\Models\Category;
 
 
 class Product extends Model
@@ -22,24 +24,28 @@ class Product extends Model
         'description',
         'stock',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+    //localScope
     public function scopeSearch($query)
     {
         if ($key = request()->key) {
             $query = $query->where('name', 'like', '%' . $key . '%');
         }
+
         return $query;
     }
     public function images()
     {
-        return $this->hasMany(ImgProduct::class, 'product_id', 'id');
+        return $this->hasMany(ImgProducts::class, 'product_id', 'id');
     }
+
 
     public function orderDetails()
     {
-        return $this->hasMany(OrdersDetail::class, 'product_id');
-    }
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->hasMany(OrderDetail::class);
     }
 }
