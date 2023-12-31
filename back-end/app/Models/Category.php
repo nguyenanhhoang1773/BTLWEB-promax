@@ -21,7 +21,7 @@ class Category extends Model
 
   public function scopeSearch($query)
   {
-    if ($key = request()->key) {
+    if ($key = request()->value) {
       $query = $query->where('name', 'like', '%' . $key . '%');
     }
     return $query;

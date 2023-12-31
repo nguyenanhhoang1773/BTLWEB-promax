@@ -38,6 +38,7 @@ Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc
 Route::get('/list-product',[ProductController::class,'getProduct']);
 
 Route::get('/category',[ProductController::class,'getCategory']);
+
 Route::get('/search',[SearchController::class,'searchProduct']);
 
 

@@ -42,7 +42,7 @@
                         <td width="25%">{{ $item->name }}</td>
                         <td>{{ number_format($item->price) }}</td>
                         <td>{{ number_format($item->sale_price) }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->category->name }}</td>
                         <td>
                             <img src="{{ asset('storage/images') }}/{{ $item->image }}" alt="" width="150px"
                                 style="height: 100px;">
