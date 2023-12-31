@@ -12,7 +12,8 @@ class SearchController extends Controller
 {
     public function searchProduct(Request $req)
     {
-        $keyword = $req->input('key');
+        dd($req->all());
+        $keyword = $req->input('value');
         $products = Product::orderBy('created_at', 'desc')
             ->Search()
             ->paginate(5);

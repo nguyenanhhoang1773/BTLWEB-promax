@@ -19,11 +19,9 @@ class Category extends Model
 
 
   public function products()
-  {
-
-    return $this->belongsTo(Product::class,'product_id');
-  }
-
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 
   public function scopeSearch($query)
   {

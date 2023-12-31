@@ -22,11 +22,18 @@ class Product extends Model
         'description',
         'stock',
     ];
+ 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+    //localScope
     public function scopeSearch($query)
     {
         if ($key = request()->key) {
             $query = $query->where('name', 'like', '%' . $key . '%');
         }
+
         return $query;
     }
     public function images()
@@ -34,12 +41,9 @@ class Product extends Model
         return $this->hasMany(ImgProduct::class, 'product_id', 'id');
     }
 
+
     public function orderDetails()
     {
-        return $this->hasMany(OrdersDetail::class, 'product_id');
-    }
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->hasMany(OrdersDetail::class);
     }
 }
