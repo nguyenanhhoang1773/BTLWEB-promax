@@ -17,24 +17,39 @@ import { faBell, faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import { paths } from "../../router";
-import SearchItem from "../SearchItem";
+import SearchItem from "../searchItem";
 // import { db } from "../../api";
 import { useState } from "react";
 import logo from "../../assets/img/4h.png";
+import axios from "axios";
 function Header() {
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const handleSearch = (e) => {
-    // if (e.target.value.trim()) {
-    //   const products = db.filter((product) => {
-    //     return product.title
-    //       .toLowerCase()
-    //       .includes(e.target.value.trim().toLowerCase());
-    //   });
-    //   setResultSearch(products);
-    // } else {
-    //   setResultSearch([]);
-    // }
+    const value = e.target.value.trim();
+    if (value) {
+      // console.log(value);
+      axios
+        .get("(`http://localhost:8000/api/search`)", {
+          params: {
+            value: value,
+          },
+        })
+        .then(function (response) {
+          // handle success
+          setResultSearch(response.data);
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+    } else {
+      setResultSearch([]);
+    }
   };
   return (
     <div className="header bg-slate-900">
@@ -82,13 +97,19 @@ function Header() {
               />
               <i className="fa-solid fa-icon fa-chevron-down"></i>
             </a>
-            <a className="header__route__item text-yellow-400 !text-[18px]">
+            <Link
+              to="/register"
+              className="header__route__item text-yellow-400 !text-[18px]"
+            >
               Đăng ký
-            </a>
+            </Link>
             <div className="item-line2 !bg-yellow-400"></div>
-            <a className="header__route__item ml-4 text-yellow-400 !text-[18px]">
+            <Link
+              to="/login"
+              className="header__route__item ml-4 text-yellow-400 !text-[18px]"
+            >
               Đăng nhập
-            </a>
+            </Link>
           </div>
         </div>
         <div className="header__container">
@@ -116,7 +137,10 @@ function Header() {
                 placeholder="Máy Tính Ryzen 10"
                 className="header__search--input text-black px-[10px]"
               />
-              <button className="header__search--btn bg-yellow-500">
+              <button
+                onClick={handleSearch}
+                className="header__search--btn bg-yellow-500"
+              >
                 <FontAwesomeIcon className="fa-icon" icon={faMagnifyingGlass} />
               </button>
               {resultsSearch.length > 0 && showResults && (
@@ -124,10 +148,10 @@ function Header() {
                   {resultsSearch.map((product, index) => (
                     <SearchItem
                       id={product.id}
-                      title={product.title}
-                      src={product.src}
-                      prevPrice={product.prevPrice}
-                      nextPrice={product.nextPrice}
+                      name={product.name}
+                      image={product.image}
+                      price={product.price}
+                      sale_price={product.sale_price}
                       key={index}
                     />
                   ))}
