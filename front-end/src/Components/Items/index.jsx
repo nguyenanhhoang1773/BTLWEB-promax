@@ -18,9 +18,10 @@ function Imtes({ Products, amount, category }) {
         </Link>
       </div>
       <Slider amount={amount} scroll>
-        {Products.map(({ name, price, image, sale_price }, index) => (
+        {Products.map(({ id, name, price, image, sale_price }, index) => (
           <Item
             key={index}
+            id={id}
             name={name}
             image={image}
             price={price}

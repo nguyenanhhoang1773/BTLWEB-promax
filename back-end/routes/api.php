@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\SearchController;
 
 
 /*
@@ -37,6 +38,7 @@ Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc
 Route::get('/list-product',[ProductController::class,'getProduct']);
 
 Route::get('/category',[ProductController::class,'getCategory']);
+Route::get('/search',[SearchController::class,'searchProduct']);
 
 
 

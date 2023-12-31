@@ -14,8 +14,9 @@ class ProductController extends Controller
         $products = Product::all();
 
         $productData = $products->map(function ($product) {
-            $product->image = asset('storage/images/' . $product->image);          
-            return $product;
+            $product->image = asset('storage/images/' . $product->image);
+            $percent = percent($product->sale_price, $product->price);
+            return [$product, $percent];
         });
         // dd($productData);
         return response()->json($productData);

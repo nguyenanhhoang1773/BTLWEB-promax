@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 * { 
-    color: white;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
     font-family: 'Quicksand', sans-serif;

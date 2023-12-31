@@ -53,7 +53,7 @@ function HomePage() {
               />
             </Slider>
           </div>
-          <div className="bg-slate-800 w-[25%] ml-[18px]">
+          <div className="bg-slate-800 text-white w-[25%] ml-[18px]">
             <h3 className="text-center text-yellow-500 my-[10px] text-[24px] font-[700]">
               Nhạc cụ nổi bật
             </h3>
