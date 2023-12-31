@@ -30,7 +30,7 @@ function Header() {
     if (value) {
       // console.log(value);
       axios
-        .get("(`http://localhost:8000/api/search`)", {
+        .get("http://localhost:8000/api/search", {
           params: {
             value: value,
           },
