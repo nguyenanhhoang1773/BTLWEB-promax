@@ -3,6 +3,7 @@ function percent($sale, $price)
 {
     return round(($sale - $price) * 100 / $price);
 }
+
 function showCategories($categories, $parent_id = 0, $char = '')
 {
     foreach ($categories as $key => $item) {
