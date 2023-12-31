@@ -35,7 +35,9 @@ function RegisterPage() {
   return (
     <div className="flex justify-center items-center">
       <div className="bg-slate-700 flex flex-col p-[20px] max-w-[500px]  rounded-xl ">
-        <h3 className="text-center text-yellow-500 text-[24px]">Register</h3>
+        <h3 className="text-center font-[700] text-yellow-500 text-[24px]">
+          Register
+        </h3>
         <div className="mt-[20px]">
           <input
             ref={nameField}
@@ -62,7 +64,7 @@ function RegisterPage() {
         </div>
         <button
           onClick={handleRegister}
-          className="bg-yellow-500 rounded-md hover:bg-yellow-400  w-[80px] p-[10px] self-end mt-[20px] text-black"
+          className="bg-yellow-500 rounded-md font-[600] hover:bg-yellow-400  w-[80px] p-[10px] self-end mt-[20px] text-black"
         >
           Register
         </button>

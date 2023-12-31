@@ -14,6 +14,7 @@ Cập nhật
         @endif
         <form action="{{route('category.update', $category)}}" method="POST" role="form" >
             @method('PUT')
+            
             @csrf
 
             <div class="form-group">
@@ -36,6 +37,7 @@ Cập nhật
             <div class="form-group">
                 <label for="category">Chọn trạng thái: </label>
                 <div class="radio">
+                   
                     <label for="" >
                         <input type="radio" name="status" {{$category->status ? 'checked' : ''}} value="0">
                         ẩn
