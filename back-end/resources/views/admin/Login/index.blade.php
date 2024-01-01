@@ -30,27 +30,36 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Login</b></a>
+            <a href=""><b>Đăng nhập</b></a>
         </div>
-        <!-- /.login-logo -->
         <div class="card">
+            @if (session('msg'))
+                <div class="alert alert-success text-center"> {{ session('msg') }}</div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger text-center"> <strong>{{ session('error') }}</strong></div>
+            @endif
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Chào mừng admin quay trở lại</p>
 
-
-                {{-- @include('Admin.alert') --}}
-                <form action="/admin/login/store" method="post">
+                <form action="" method="POST">
+                    @csrf
                     <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
-
+                        <input type="text" name="email" class="form-control" placeholder="Email"
+                            value="{{ old('email') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                        @error('email')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
                     </div>
+                    
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control" placeholder="Password"
+                            value="{{ old('password') }}">
 
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -58,25 +67,14 @@
                             </div>
                         </div>
                     </div>
-                    {{-- @error('password')
-            <span style="color: red">{{$message}}</span>
-          @enderror --}}
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" name="remember" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                        <!-- /.col -->
+                    @error('password')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+
+                    <div class="">
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                     </div>
-                    @csrf
+                    <!-- /.col -->
                 </form>
 
             </div>

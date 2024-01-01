@@ -37,19 +37,15 @@ class UserController extends Controller
                 'errors' => $errors
             ]);
         } else {
-            if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 0])) {
+            if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 1])) {
 
                 return response()->json([
                     'redirect' => '/user',
                     'message' => 'Đăng nhập thành công',
                 ]);
-            } else if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 1])) {
+            // } else if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 0])) {
 
-                return response()->json([
-                    'redirect' => '/admin',
-                    'message' => 'Chào mừng quay trở lại',
-                ]);
-                
+            //     return view('admin.index')->with('msg', 'chào mừng quay trở lại');
             } else {
 
                 return response()->json([
@@ -64,10 +60,21 @@ class UserController extends Controller
     public function register(Request $req)
     {
         $rules = [
-            'email' => 'unique:users',
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|confirmed|min:6',
+
         ];
+
         $messages = [
+            'name.required' => 'Vui lòng nhập tên của bạn',
+
+            'email.required' => 'Vui lòng nhập email ',
             'email.unique' => 'Email này đã tồn tại ',
+
+            'password.required' => 'Hãy nhập mật khẩu',
+            'password.confirmed' => 'Mật khẩu xác thực không đúng ',
+            'password.min' => 'Mật khẩu ít nhất :min ký tự'
         ];
 
         $validator = Validator::make($req->all(), $rules, $messages);
