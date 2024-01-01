@@ -59,18 +59,22 @@ function DetailPage() {
     if (!Products) {
       return;
     }
-    Products.forEach(({ id, name, slug, image, price, sale_price }) => {
-      if (slugProduct == slug) {
-        setProduct({
-          id,
-          name,
-          slug,
-          image,
-          price,
-          sale_price,
-        });
+    console.log(Products);
+    Products.forEach(
+      ({ id, name, slug, image, price, sale_price, description }) => {
+        if (slugProduct === slug) {
+          setProduct({
+            id,
+            name,
+            slug,
+            image,
+            price,
+            sale_price,
+            description,
+          });
+        }
       }
-    });
+    );
   }, [Products, slugProduct]);
   const handleAddToCart = (e) => {
     const num = cartProducts.filter((product) => {
@@ -269,25 +273,8 @@ function DetailPage() {
                   <div className="bg-[var(--color-primary)] font-[700] text-[20px] text-yellow-400 text-center rounded-t-[8px]">
                     Thông tin sản phẩm
                   </div>
-                  <div className="  px-[10px] py-[8px] ">
-                    <div className="flex">
-                      <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
-                      </div>
-                      <span className="ml-[10px]">{product.infor1}</span>
-                    </div>
-                    <div className="mt-[8px] flex">
-                      <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
-                      </div>
-                      <span className="ml-[10px]">{product.infor2}</span>
-                    </div>
-                    <div className="mt-[8px] flex">
-                      <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
-                      </div>
-                      <span className="ml-[10px]">{product.infor3}</span>
-                    </div>
+                  <div className="px-[20px] py-[8px] ">
+                    {product.description}
                   </div>
                 </div>
               </div>
