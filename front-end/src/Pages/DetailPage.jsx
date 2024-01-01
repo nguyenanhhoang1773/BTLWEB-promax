@@ -269,7 +269,7 @@ function DetailPage() {
                 </div>
               </div>
               <div className="ml-[20px] p-[20px]">
-                <div className=" w-[400px] max-h-[380px]  h-full border-[2px] rounded-xl border-yellow-400">
+                <div className=" w-[400px] max-h-[380px] overflow-hidden  h-full border-[2px] rounded-xl border-yellow-400">
                   <div className="bg-[var(--color-primary)] font-[700] text-[20px] text-yellow-400 text-center rounded-t-[8px]">
                     Thông tin sản phẩm
                   </div>

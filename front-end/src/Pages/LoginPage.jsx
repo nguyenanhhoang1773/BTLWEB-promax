@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useRef } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const emailField = useRef();
   const passwordField = useRef();
   const handleLogin = () => {
@@ -17,6 +18,10 @@ function LoginPage() {
       })
       .then(function (response) {
         console.log(response);
+        const redirect = response.data.redirect;
+        if (redirect === "/") {
+          navigate(redirect);
+        }
       })
       .catch(function (error) {
         console.log(error);
