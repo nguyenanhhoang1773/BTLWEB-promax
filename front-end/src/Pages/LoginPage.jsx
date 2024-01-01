@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { Link, redirect, useNavigate } from "react-router-dom";
-
+import { logIn } from "../features/Login/LoginSlice";
 function LoginPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailField = useRef();
   const passwordField = useRef();
@@ -20,6 +22,7 @@ function LoginPage() {
         console.log(response);
         const redirect = response.data.redirect;
         if (redirect === "/") {
+          dispatch(logIn);
           navigate(redirect);
         } else {
           alert("Sai email hoặc mật khẩu");
