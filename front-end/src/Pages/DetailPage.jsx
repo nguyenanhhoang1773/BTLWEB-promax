@@ -80,6 +80,7 @@ function DetailPage() {
     axios
       .post("http://localhost:8000/api/addCart", {
         id: product.id,
+        quantity: 1,
       })
       .then(function (response) {
         console.log(response);

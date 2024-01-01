@@ -36,20 +36,6 @@ function CartPage() {
     }
     setTotalPrice(total);
   }, [products]);
-
-  // useEffect(() => {
-  //   let total = 0;
-  //   products.forEach((product) => {
-  //     total += Number(product.price.replace(".000", "").replace(".", ""));
-  //   });
-  //   total = String(total);
-  //   if (Number(total.slice(0, total.length - 3)) !== 0) {
-  //     total = total.slice(0, total.length - 3) + "." + total.slice(-3) + ".000";
-  //     setTotalPrice(total);
-  //   } else {
-  //     setTotalPrice(0);
-  //   }
-  // }, [products]);
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -103,7 +89,7 @@ function CartPage() {
               ĐƠN HÀNG SẼ ĐƯỢC GIAO ĐẾN BẠN TRONG THỜI GIAN GẦN NHẤT!
             </p>
             <p className="text-green-100 text-shadow text-center font-[600] text-[16px] mt-[20px]">
-              XIN CẢM ƠN BẠN ĐÃ TIN TƯỞNG VÀ ĐẶT HÀNG TẠI TECHSTORE.
+              XIN CẢM ƠN BẠN ĐÃ TIN TƯỞNG VÀ ĐẶT HÀNG.
             </p>
             <div className="flex justify-center mt-[10px]">
               <FontAwesomeIcon
