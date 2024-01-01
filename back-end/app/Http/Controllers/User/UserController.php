@@ -40,12 +40,9 @@ class UserController extends Controller
             if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 1])) {
 
                 return response()->json([
-                    'redirect' => '/user',
+                    'redirect' => '/',
                     'message' => 'Đăng nhập thành công',
                 ]);
-            // } else if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 0])) {
-
-            //     return view('admin.index')->with('msg', 'chào mừng quay trở lại');
             } else {
 
                 return response()->json([
@@ -102,14 +99,4 @@ class UserController extends Controller
         }
     }
 
-
-    public function insertDataUser()
-    {
-        $user1 = User::create([
-            'name' => 'Bryan Jeremy Joseph',
-            'email' => 'Admin@gmail.com',
-            'password' => '123123',
-        ]);
-        return 'add successfully';
-    }
 }

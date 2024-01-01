@@ -3,19 +3,19 @@ import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import "./searchItem.css";
-function SearchItem({ id, name, image, price, sale_price }) {
+function SearchItem({ id, name, image, price, sale_price, slug }) {
   return (
     <Link
-      to={`/Detail/${id}`}
-      className="flex hover:bg-[#e5e0e0] border-b-[2px] rounded-b-sm border-yellow-500 p-[10px]"
+      to={`/Detail/${slug}`}
+      className="flex hover:bg-slate-700 bg-slate-800 border-b-[2px] rounded-b-sm border-yellow-500 p-[10px]"
     >
       <div className="flex flex-1">
         <img className="w-[80px]" src={image} />
         <div className="flex flex-col ml-[10px]">
-          <h3 className="text-black mt-[2px]">{name}</h3>
+          <h3 className="text-[20px] font-[600] mt-[2px]">{name}</h3>
           <div>
             <span className="text-[20px] text-yellow-500">{sale_price}đ</span>
-            <span className="text-[rgba(0,0,0,0.5)] line-through ml-[8px] text-[16px]">
+            <span className="text-yellow-500 line-through ml-[8px] text-[16px]">
               {price}đ
             </span>
           </div>

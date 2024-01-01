@@ -41,18 +41,14 @@ class Cart
             session(['cart' =>  $this->items]);
         }
     }
-    // public function update($id, $qtt)
-    // {
-    //     if (isset($this->items[$id])) {
-    //         $this->items[$id]['quantity'] = $qtt;
- 
-    //     }
-    // }
+
     public function totalPriceAll()
     {
         $total = 0;
         foreach ($this->items as $item) {
+
             $total += $item['price'] * $item['quantity'];
+            
         }
         return $total;
     }

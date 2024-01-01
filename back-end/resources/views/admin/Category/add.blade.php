@@ -31,9 +31,6 @@ Thêm danh mục
                       showCategories($categories);
                   @endphp    
                 </select>
-                @error('parent_id')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
             </div> 
             <div class="form-group">
                 <label for="category">Chọn trạng thái: </label>
@@ -56,6 +53,3 @@ Thêm danh mục
         </form>
     </div>
 @endsection
-@php
-
-@endphp

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\SearchController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CheckoutController;
 
 
 /*
@@ -29,7 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::get('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'login']);
 
 Route::post('/register', [UserController::class, 'register']);
 
@@ -41,6 +43,19 @@ Route::get('/category',[ProductController::class,'getCategory']);
 
 Route::get('/search',[SearchController::class,'searchProduct']);
 
+Route::post('/cart', [CartController::class, 'index'])->name('cart.index');
+
+Route::post('/deletecart{id}', [CartController::class, 'deleteCart'])->name('deletecart.index');
+
+Route::post('/addCart', [CartController::class, 'addCart'])->name('cart.add');
+
+Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
+
+Route::middleware('user')->group(function(){
+    Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
+});
+
+// Route::get('/history', [HistoryController::class, 'history'])->name('history');
 
 
 

@@ -28,7 +28,7 @@ Cập nhật
             <div class="form-group">
                 <label for="category">Danh mục cha:</label>
                 <select class="form-control" id="category" name="parent_id" >  
-                         <option value="">chọn danh mục</option>              
+                         <option value="0">chọn danh mục</option>              
                     @foreach ($categories as $item)
                         <option value="{{$item->id}}" {{$category->parent_id == $item->id ? 'selected' : '0'}}>{{$item->name}}</option> 
                     @endforeach                
