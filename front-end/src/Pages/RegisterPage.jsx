@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useRef } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
+  const navigate = useNavigate();
   const nameField = useRef();
   const emailField = useRef();
   const passwordField = useRef();
@@ -12,9 +13,6 @@ function RegisterPage() {
     const emailValue = emailField.current.value;
     const passwordValue = passwordField.current.value;
     const rePasswordValue = rePasswordField.current.value;
-    console.log(nameValue);
-    console.log(emailValue);
-    console.log(passwordValue);
     if (passwordValue !== rePasswordValue) {
       alert("Nhập lại sai mật khẩu!!!");
     }
@@ -26,8 +24,9 @@ function RegisterPage() {
         password_confirmation: rePasswordValue,
       })
       .then(function (response) {
-        if (response.data.redirect === "/login") {
-          redirect("/login");
+        const urlRedirect = response.data.redirect;
+        if (urlRedirect === "/login") {
+          navigate(`/${urlRedirect}`);
           console.log("successfully");
         }
       })

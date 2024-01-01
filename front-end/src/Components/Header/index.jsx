@@ -17,7 +17,7 @@ import { faBell, faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import { paths } from "../../router";
-import SearchItem from "../searchItem";
+import SearchItem from "../SearchItem";
 // import { db } from "../../api";
 import { useState } from "react";
 import logo from "../../assets/img/4h.png";
