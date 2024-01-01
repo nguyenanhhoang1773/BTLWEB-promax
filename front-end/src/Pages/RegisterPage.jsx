@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useRef } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
+  const navigate = useNavigate();
   const nameField = useRef();
   const emailField = useRef();
   const passwordField = useRef();
@@ -12,9 +13,6 @@ function RegisterPage() {
     const emailValue = emailField.current.value;
     const passwordValue = passwordField.current.value;
     const rePasswordValue = rePasswordField.current.value;
-    console.log(nameValue);
-    console.log(emailValue);
-    console.log(passwordValue);
     if (passwordValue !== rePasswordValue) {
       alert("Nhập lại sai mật khẩu!!!");
     }
@@ -23,10 +21,14 @@ function RegisterPage() {
         name: nameValue,
         email: emailValue,
         password: passwordValue,
-        password: rePasswordValue,
+        password_confirmation: rePasswordValue,
       })
       .then(function (response) {
-        console.log(response);
+        const urlRedirect = response.data.redirect;
+        if (urlRedirect === "/login") {
+          navigate(`/${urlRedirect}`);
+          console.log("successfully");
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -41,24 +43,24 @@ function RegisterPage() {
         <div className="mt-[20px]">
           <input
             ref={nameField}
-            className="w-full text-[18px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Họ và Tên"
           />
           <input
             ref={emailField}
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Email"
           />
           <input
             ref={passwordField}
             type="password"
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Mật khẩu"
           />
           <input
             ref={rePasswordField}
             type="password"
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Nhập lại mật khẩu"
           />
         </div>

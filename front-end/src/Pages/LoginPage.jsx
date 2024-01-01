@@ -39,13 +39,13 @@ function LoginPage() {
         <div className="mt-[20px]">
           <input
             ref={emailField}
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Email"
           />
           <input
             ref={passwordField}
             type="password"
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Mật khẩu"
           />
         </div>
