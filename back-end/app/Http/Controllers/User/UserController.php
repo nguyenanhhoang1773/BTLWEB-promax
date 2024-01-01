@@ -40,6 +40,7 @@ class UserController extends Controller
             if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 1])) {
 
                 return response()->json([
+                    'user' => User::where('email',$req->email)->get(),
                     'redirect' => '/',
                     'message' => 'Đăng nhập thành công',
                 ]);

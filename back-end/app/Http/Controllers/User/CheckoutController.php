@@ -18,36 +18,30 @@ class CheckoutController extends Controller
         //   dd($cart->totalprice);
         $orderDate =  Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $order = Orders::create([
-            'customer_id' => $id_user,
-            'total_amount' => $cart->totalprice,
+            'customer_id' => $req->id,
+            'total_amount' => $req->totalMoney,
             'phone' => $req->phone,
             'address' => $req->address,
             'note' => $req->note,
-            'order_date' => $orderDate
+            // 'order_date' => $orderDate
         ]);
-        
+
         if ($order) {
-            
+
             $order_id = $order->id;
-            foreach ($cart->items as $key => $value) {
-                dd($key);
+            foreach ($req->items as $key => $value) {
                 $quantity = $value['quantity'];
                 OrdersDetail::create([
                     'order_id' => $order_id,
                     'product_id' => $key,
-                    'quantity' => $quantity,
-                    'price' => $value['price']
+                    'quantity' => $req->quantity,
+                    'price' => $req->sale_price > 0 ? $req->sale_price : $req->price
                 ]);
             }
-            session(['cart' =>  null]);
+
             return response()->json([
                 'redirect' => '/giohang',
                 'message' => 'Đặt hàng thành công',
-            ]);
-        } else {
-            return response()->json([
-                'redirect' => '/giohang',
-                'message' => 'Đặt hàng không thành công',
             ]);
         }
     }

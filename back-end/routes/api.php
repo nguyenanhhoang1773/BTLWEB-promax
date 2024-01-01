@@ -43,16 +43,19 @@ Route::get('/category',[ProductController::class,'getCategory']);
 
 Route::get('/search',[SearchController::class,'searchProduct']);
 
-Route::post('/cart', [CartController::class, 'index'])->name('cart.index');
+// Route::get('/cart', [CartController::class, 'index']);
 
-Route::post('/deletecart{id}', [CartController::class, 'deleteCart'])->name('deletecart.index');
+// Route::post('/deletecart{id}', [CartController::class, 'deleteCart'])->name('deletecart.index');
 
-Route::post('/addCart', [CartController::class, 'addCart'])->name('cart.add');
+// Route::post('/addCart', [CartController::class, 'addCart']);
 
-Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
+// Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
+
+Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
+
 
 Route::middleware('user')->group(function(){
-    Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
+    
 });
 
 // Route::get('/history', [HistoryController::class, 'history'])->name('history');
