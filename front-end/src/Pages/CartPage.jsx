@@ -22,6 +22,7 @@ function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const idUser = useSelector((state) => state.login.id);
+  console.log("idUser:", idUser);
   const nameRef = useRef();
   const addressRef = useRef();
   const phoneRef = useRef();
@@ -61,7 +62,7 @@ function CartPage() {
     const noteValue = noteRef.current.value;
     axios
       .post("http://localhost:8000/api/checkout", {
-        idUser: idUser,
+        id: idUser,
         totalMoney: totalPrice,
         phone: phoneValue,
         address: addressValue,
@@ -153,8 +154,14 @@ function CartPage() {
       )} */}
       {showModal && (
         <>
-          <div className="fixed z-[99] flex items-center justify-center bg-[rgba(0,0,0,0.6)] top-0 right-0 left-0 bottom-0">
-            <div className="flex flex-col bg-slate-800 py-[10px] px-[30px]">
+          <div
+            onClick={handleHideModal}
+            className="fixed z-[99] flex items-center justify-center bg-[rgba(0,0,0,0.6)] top-0 right-0 left-0 bottom-0"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="flex flex-col bg-slate-800 py-[10px] px-[30px]"
+            >
               <h3 className="text-center text-[22px] font-[600] text-yellow-500">
                 Thông tin đơn Hàng
               </h3>

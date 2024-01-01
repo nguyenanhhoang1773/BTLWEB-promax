@@ -21,8 +21,10 @@ function LoginPage() {
       .then(function (response) {
         console.log(response);
         const redirect = response.data.redirect;
+        const idUser = response.data.user[0].id;
+        console.log(idUser);
         if (redirect === "/") {
-          dispatch(logIn);
+          dispatch(logIn(idUser));
           navigate(redirect);
         } else {
           alert("Sai email hoặc mật khẩu");
