@@ -1,0 +1,9 @@
+.heart:hover .heart-prev {
+    display: none;
+}
+.heart:hover .heart-next {
+    display: block;
+}
+.heart-next {
+    display: none;
+}

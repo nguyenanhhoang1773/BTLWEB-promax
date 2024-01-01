@@ -22,6 +22,7 @@ function HomePage() {
     axios
       .get("http://localhost:8000/api/list-product")
       .then(function (response) {
+        console.log(response);
         dispatch(storePd(response.data));
       })
       .catch(function (error) {

@@ -23,10 +23,13 @@ function RegisterPage() {
         name: nameValue,
         email: emailValue,
         password: passwordValue,
-        password: rePasswordValue,
+        password_confirmation: rePasswordValue,
       })
       .then(function (response) {
-        console.log(response);
+        if (response.data.redirect === "/login") {
+          redirect("/login");
+          console.log("successfully");
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -41,24 +44,24 @@ function RegisterPage() {
         <div className="mt-[20px]">
           <input
             ref={nameField}
-            className="w-full text-[18px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Họ và Tên"
           />
           <input
             ref={emailField}
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Email"
           />
           <input
             ref={passwordField}
             type="password"
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Mật khẩu"
           />
           <input
             ref={rePasswordField}
             type="password"
-            className="w-full text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+            className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Nhập lại mật khẩu"
           />
         </div>

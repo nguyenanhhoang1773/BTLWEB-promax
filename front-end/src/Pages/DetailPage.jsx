@@ -62,11 +62,12 @@ function DetailPage() {
     if (!Products) {
       return;
     }
-    Products.forEach(({ id, name, image, price, sale_price }) => {
+    Products.forEach(({ id, name, slug, image, price, sale_price }) => {
       if (idProduct == id) {
         setProduct({
           id,
           name,
+          slug,
           image,
           price,
           sale_price,
