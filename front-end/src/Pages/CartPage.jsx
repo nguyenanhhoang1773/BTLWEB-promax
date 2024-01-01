@@ -21,19 +21,19 @@ function CartPage() {
   const [totalPrice, setTotalPrice] = useState("");
   const [showModal, setShowModal] = useState(false);
   const products = useSelector((state) => state.cartManage.products);
-  useEffect(() => {
-    let total = 0;
-    products.forEach((product) => {
-      total += Number(product.price.replace(".000", "").replace(".", ""));
-    });
-    total = String(total);
-    if (Number(total.slice(0, total.length - 3)) !== 0) {
-      total = total.slice(0, total.length - 3) + "." + total.slice(-3) + ".000";
-      setTotalPrice(total);
-    } else {
-      setTotalPrice(0);
-    }
-  }, [products]);
+  // useEffect(() => {
+  //   let total = 0;
+  //   products.forEach((product) => {
+  //     total += Number(product.price.replace(".000", "").replace(".", ""));
+  //   });
+  //   total = String(total);
+  //   if (Number(total.slice(0, total.length - 3)) !== 0) {
+  //     total = total.slice(0, total.length - 3) + "." + total.slice(-3) + ".000";
+  //     setTotalPrice(total);
+  //   } else {
+  //     setTotalPrice(0);
+  //   }
+  // }, [products]);
   const handleShowModal = () => {
     setShowModal(true);
   };

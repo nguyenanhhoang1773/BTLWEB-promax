@@ -5,7 +5,7 @@ import "./Item.css";
 import { Link } from "react-router-dom";
 function Item({ id, slug, name, image, price, sale_price }) {
   return (
-    <div className="px-[10px]">
+    <div className="px-[10px] ">
       <Link
         to={`/detail/${slug}`}
         className="bg-slate-950 inline-block w-full   p-[20px] rounded-xl hover:opacity-80 hover:cursor-pointer"

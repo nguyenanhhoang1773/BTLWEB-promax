@@ -38,7 +38,7 @@ function Header() {
         .then(function (response) {
           // handle success
           setResultSearch(response.data);
-          console.log(response);
+          console.log("search response:", response);
         })
         .catch(function (error) {
           // handle error
@@ -148,6 +148,7 @@ function Header() {
                   {resultsSearch.map((product, index) => (
                     <SearchItem
                       id={product.id}
+                      slug={product.slug}
                       name={product.name}
                       image={product.image}
                       price={product.price}
@@ -159,12 +160,11 @@ function Header() {
               )}
             </div>
             <div className="header__items px-[6px]">
-              <a className="header__item">Điện thoại</a>
-              <a className="header__item">laptop</a>
-              <a className="header__item">Đồng Hồ</a>
-              <a className="header__item">Tai Nghe</a>
-              <a className="header__item">Giá Đỡ</a>
-              <a className="header__item">Đĩa game</a>
+              <a className="header__item hover:text-yellow-500">Đàn</a>
+              <a className="header__item hover:text-yellow-500">Piano</a>
+              <a className="header__item hover:text-yellow-500">Trống</a>
+              <a className="header__item hover:text-yellow-500">Ukele</a>
+              <a className="header__item hover:text-yellow-500">Violin</a>
             </div>
           </div>
           <div className="header__cart">

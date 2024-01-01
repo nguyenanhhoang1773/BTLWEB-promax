@@ -23,7 +23,7 @@ function DetailPage() {
   const Products = useSelector((state) => state.storeProducts.Products);
   const cartProducts = useSelector((state) => state.cartManage.products);
   const dispatch = useDispatch();
-  const { id: idProduct } = useParams();
+  const { slug: slugProduct } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
@@ -43,9 +43,6 @@ function DetailPage() {
             "http://localhost:8000/api/list-product"
           );
           dispatch(storePd(response.data));
-
-          // Giả sử dispatch là không đồng bộ, bạn có thể muốn đợi nó hoàn tất
-          // trước khi tiếp tục.
           await new Promise((resolve) => setTimeout(resolve, 0));
         } catch (error) {
           console.error("Lỗi khi lấy dữ liệu:", error);
@@ -57,13 +54,13 @@ function DetailPage() {
       setLoadingApp(false);
     }, 300);
     fetchData();
-  }, [idProduct]);
+  }, [slugProduct]);
   useEffect(() => {
     if (!Products) {
       return;
     }
     Products.forEach(({ id, name, slug, image, price, sale_price }) => {
-      if (idProduct == id) {
+      if (slugProduct == slug) {
         setProduct({
           id,
           name,
@@ -74,10 +71,10 @@ function DetailPage() {
         });
       }
     });
-  }, [Products, idProduct]);
+  }, [Products, slugProduct]);
   const handleAddToCart = (e) => {
     const num = cartProducts.filter((product) => {
-      return product.id == idProduct;
+      return product.slug === slugProduct;
     });
     if (num.length > 0) {
       setHaveProduct(true);
@@ -191,7 +188,7 @@ function DetailPage() {
                 <h3 className="max-w-[500px] text-yellow-400 text-[22px] font-[600]">
                   {product.name}
                 </h3>
-                <div className="flex mt-[12px] items-center">
+                {/* <div className="flex mt-[12px] items-center">
                   <span className=" mr-[4px]">4.5</span>
                   <span className="h-[30px]">
                     <StartIcon deltail />
@@ -204,12 +201,12 @@ function DetailPage() {
                   <span className="ml-[6px] text-[var(--color-primary)] ">
                     Đã Bán
                   </span>
-                </div>
+                </div> */}
                 <div className="flex mt-[10px] items-center">
-                  <span className="text-primary line-through">
+                  <span className="text-yellow-500 line-through">
                     {product.sale_price}đ
                   </span>
-                  <span className="text-[var(--color-primary)] text-[24px] ml-[10px]">
+                  <span className="text-yellow-500   text-[24px] ml-[10px]">
                     {product.price}đ
                   </span>
                   <div className="bg-[var(--color-primary)]  text-white inline-block  ml-[12px] px-[4px] rounded-sm">
@@ -247,14 +244,14 @@ function DetailPage() {
                     {!loading && (
                       <>
                         <CartIcon />
-                        <span className="ml-[8px] text-black">
+                        <span className="ml-[8px] font-[600] text-black">
                           Thêm Vào Giỏ Hàng
                         </span>
                       </>
                     )}
                     {loading && (
                       <FontAwesomeIcon
-                        className="text-[20px] animate-spin"
+                        className="text-[20px] text-yellow-500 animate-spin"
                         icon={faSpinner}
                       />
                     )}
