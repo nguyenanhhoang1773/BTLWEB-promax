@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { paths } from "../router";
 import { Link } from "react-router-dom";
-import { clearProducts } from "../features/CartManage/CartSlice";
+import { clearProducts, removeProduct } from "../features/CartManage/CartSlice";
 // import { useMediaQuery } frorouterm "react-responsive";
 
 function CartPage() {
@@ -21,6 +21,22 @@ function CartPage() {
   const [totalPrice, setTotalPrice] = useState("");
   const [showModal, setShowModal] = useState(false);
   const products = useSelector((state) => state.cartManage.products);
+  useEffect(() => {
+    let total = 0;
+    products.forEach((product) => {
+      total += Number(product.price.replace(",", ""));
+      console.log(total);
+    });
+    total = String(total);
+    if (Number(total.slice(0, total.length - 3)) !== 0) {
+      total = total.slice(0, total.length - 3) + "," + total.slice(-3);
+      setTotalPrice(total);
+    } else {
+      setTotalPrice(0);
+    }
+    setTotalPrice(total);
+  }, [products]);
+
   // useEffect(() => {
   //   let total = 0;
   //   products.forEach((product) => {

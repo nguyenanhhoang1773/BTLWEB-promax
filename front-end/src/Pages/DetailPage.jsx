@@ -77,6 +77,16 @@ function DetailPage() {
     );
   }, [Products, slugProduct]);
   const handleAddToCart = (e) => {
+    axios
+      .post("http://localhost:8000/api/addCart", {
+        id: product.id,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     const num = cartProducts.filter((product) => {
       return product.slug === slugProduct;
     });

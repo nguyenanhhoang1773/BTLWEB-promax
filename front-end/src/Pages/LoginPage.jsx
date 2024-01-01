@@ -21,6 +21,8 @@ function LoginPage() {
         const redirect = response.data.redirect;
         if (redirect === "/") {
           navigate(redirect);
+        } else {
+          alert("Sai email hoặc mật khẩu");
         }
       })
       .catch(function (error) {
