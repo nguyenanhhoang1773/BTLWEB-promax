@@ -88,7 +88,7 @@
                     <div class="form-group">
                         <label for="description">Mô tả sản phẩm:</label>
                         <textarea name="description" id="description" rows="10" cols="220">
-                            {{ old('description') }}            
+                            {{ old('description') }}
                         </textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
@@ -105,7 +105,7 @@
         function ChangeToSlug() {
             var productName, slug;
 
-            //Lấy text từ thẻ input title 
+            //Lấy text từ thẻ input title
             productName = document.getElementById("productName").value;
 
             //Đổi chữ hoa thành chữ thường
@@ -144,18 +144,5 @@
                 console.error(error);
             });
     </script>
-    @php
-        function showCategories($categories, $parent_id = 0, $char = '')
-        {
-            foreach ($categories as $key => $item) {
-                // Nếu là chuyên mục con thì hiển thị
-                if ($item->parent_id == $parent_id) {
-                    echo '<option value="' . $item->id . '">' . $char . $item->name . '</option>';
-                    unset($categories[$key]);
-                    // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                    showCategories($categories, $item->id, $char . '--');
-                }
-            }
-        }
-    @endphp
+
 @endsection

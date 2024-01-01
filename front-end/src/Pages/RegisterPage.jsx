@@ -26,7 +26,7 @@ function RegisterPage() {
       .then(function (response) {
         const urlRedirect = response.data.redirect;
         if (urlRedirect === "/login") {
-          navigate(`/${urlRedirect}`);
+          navigate(`${urlRedirect}`);
           console.log("successfully");
         }
       })
