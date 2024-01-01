@@ -22,7 +22,9 @@ import SearchItem from "../SearchItem";
 import { useState } from "react";
 import logo from "../../assets/img/4h.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
 function Header() {
+  const amountCart = useSelector((state) => state.cartManage.amount);
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const handleSearch = (e) => {
@@ -180,7 +182,7 @@ function Header() {
                 icon={faCartShopping}
               />
               <div className="absolute w-[18px] text-shadow h-[18px] text-[14px] flex justify-center items-center font-[700] bg-yellow-500 rounded-full top-[-6px] right-[-6px]">
-                7
+                {amountCart}
               </div>
             </Link>
           </div>
