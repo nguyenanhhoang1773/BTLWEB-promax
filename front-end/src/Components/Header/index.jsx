@@ -71,8 +71,14 @@ function Header() {
             <a className="header__route__item" href="#">
               Kết nối
             </a>
-            <FontAwesomeIcon className="ml-[4px] fa-icon" icon={faFacebook} />
-            <FontAwesomeIcon className="ml-[2px] fa-icon" icon={faInstagram} />
+            <FontAwesomeIcon
+              className="ml-[4px] fa-icon text-white"
+              icon={faFacebook}
+            />
+            <FontAwesomeIcon
+              className="ml-[2px] fa-icon text-white"
+              icon={faInstagram}
+            />
           </div>
           <div className="header__route--right">
             <>

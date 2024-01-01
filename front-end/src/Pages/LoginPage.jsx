@@ -3,21 +3,13 @@ import { useRef } from "react";
 import { Link, redirect } from "react-router-dom";
 
 function LoginPage() {
-  const nameField = useRef();
   const emailField = useRef();
   const passwordField = useRef();
-  const rePasswordField = useRef();
-  const handleRegister = () => {
-    const nameValue = nameField.current.value;
+  const handleLogin = () => {
     const emailValue = emailField.current.value;
     const passwordValue = passwordField.current.value;
-    const rePasswordValue = rePasswordField.current.value;
-    console.log(nameValue);
     console.log(emailValue);
     console.log(passwordValue);
-    if (passwordValue !== rePasswordValue) {
-      alert("Nhập lại sai mật khẩu!!!");
-    }
     axios
       .post("http://localhost:8000/api/login", {
         email: emailValue,
@@ -61,7 +53,7 @@ function LoginPage() {
           </p>
 
           <button
-            onClick={handleRegister}
+            onClick={handleLogin}
             className="bg-yellow-500 rounded-md font-[600] hover:bg-yellow-400  w-[80px] p-[10px]  mt-[20px] text-black"
           >
             Login
