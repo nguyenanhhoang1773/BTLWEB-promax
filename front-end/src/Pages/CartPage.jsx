@@ -67,7 +67,7 @@ function CartPage() {
         phone: phoneValue,
         address: addressValue,
         note: noteValue,
-        items: products,
+        items: JSON.stringify({ data: products }),
       })
       .then(function (response) {
         console.log(response);
