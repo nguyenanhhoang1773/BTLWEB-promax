@@ -100,8 +100,8 @@ function DetailPage() {
       axios
         .get("http://localhost:8000/api/addCart", {
           params: {
-            customerid: idUser,
-            productid: 51,
+            customerid: 55,
+            productid: product.id,
             name: product.name,
             saleprice: product.sale_price,
             price: product.price,
