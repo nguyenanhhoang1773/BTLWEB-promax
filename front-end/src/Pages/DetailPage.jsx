@@ -97,6 +97,7 @@ function DetailPage() {
       console.log("name:", product.name);
       console.log("saleprice:", product.sale_price);
       console.log("price:", product.price);
+      console.log("image:", product.image);
       axios
         .get("http://localhost:8000/api/addCart", {
           params: {
