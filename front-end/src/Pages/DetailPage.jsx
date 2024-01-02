@@ -105,6 +105,7 @@ function DetailPage() {
             name: product.name,
             saleprice: product.sale_price,
             price: product.price,
+            image: product.image,
           },
         })
         .then(function (response) {
