@@ -19,7 +19,7 @@ function LoginPage() {
         password: passwordValue,
       })
       .then(function (response) {
-        console.log(response);
+        console.log("Login response:", response.data);
         const redirect = response.data.redirect;
         const idUser = response.data.user[0].id;
         console.log(idUser);
