@@ -60,6 +60,7 @@ function CartPage() {
     const addressValue = addressRef.current.value;
     const phoneValue = phoneRef.current.value;
     const noteValue = noteRef.current.value;
+    console.log(products);
     axios
       .post("http://localhost:8000/api/checkout", {
         id: idUser,
@@ -67,7 +68,7 @@ function CartPage() {
         phone: phoneValue,
         address: addressValue,
         note: noteValue,
-        items: JSON.stringify({ data: products }),
+        items: products,
       })
       .then(function (response) {
         console.log(response);

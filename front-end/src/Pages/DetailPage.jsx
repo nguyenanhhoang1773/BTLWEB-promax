@@ -20,6 +20,7 @@ import Items from "../Components/Items";
 import axios from "axios";
 
 function DetailPage() {
+  const idUser = useSelector((state) => state.login.id);
   const Products = useSelector((state) => state.storeProducts.Products);
   const cartProducts = useSelector((state) => state.cartManage.products);
   const dispatch = useDispatch();
@@ -91,6 +92,20 @@ function DetailPage() {
         setLoading(false);
       }, 500);
       dispatch(addProduct({ ...product }));
+      axios
+        .post("http://localhost:8000/api/addCart", {
+          custommerid: idUser,
+          productid: product.id,
+          name: product.name,
+          saleprice: product.sale_price,
+          price: product.price,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
   return (

@@ -19,11 +19,12 @@ import { Link } from "react-router-dom";
 import { paths } from "../../router";
 import SearchItem from "../SearchItem";
 // import { db } from "../../api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/img/4h.png";
 import axios from "axios";
 import { useSelector } from "react-redux";
 function Header() {
+  const idUser = useSelector((state) => state.login.id);
   const amountCart = useSelector((state) => state.cartManage.amount);
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -38,9 +39,7 @@ function Header() {
           },
         })
         .then(function (response) {
-          // handle success
           setResultSearch(response.data);
-          console.log("search response:", response);
         })
         .catch(function (error) {
           // handle error
@@ -53,6 +52,22 @@ function Header() {
       setResultSearch([]);
     }
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/cart", {
+        params: {
+          id: idUser,
+        },
+      })
+      .then(function (response) {
+        setResultSearch(response.data);
+        console.log(" cart:", response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }, [idUser]);
   return (
     <div className="header bg-slate-900">
       <div className="header--wrapper mx-[var(--app-margin)]">

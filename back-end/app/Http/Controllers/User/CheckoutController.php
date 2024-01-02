@@ -26,23 +26,23 @@ class CheckoutController extends Controller
             // 'order_date' => $orderDate
         ]);
 
-        if ($order) {
+        // if ($order) {
 
-            $order_id = $order->id;
-            foreach ($req->items as $key => $value) {
-                $quantity = $value['quantity'];
-                OrdersDetail::create([
-                    'order_id' => $order_id,
-                    'product_id' => $key,
-                    'quantity' => $req->quantity,
-                    'price' => $req->sale_price > 0 ? $req->sale_price : $req->price
-                ]);
-            }
+            // $order_id = $order->id;
+            // foreach ($req->items as $key => $value) {
+                // $quantity = $value['quantity'];
+                // OrdersDetail::create([
+                //     'order_id' => $order_id,
+                //     'product_id' => $key,
+                //     'quantity' => $req->quantity,
+                //     'price' => $req->sale_price > 0 ? $req->sale_price : $req->price
+                // ]);
+            // }
 
-            return response()->json([
-                'redirect' => '/giohang',
-                'message' => 'Đặt hàng thành công',
-            ]);
-        }
+        //     return response()->json([
+        //         'redirect' => '/giohang',
+        //         'message' => 'Đặt hàng thành công',
+        //     ]);
+        // }
     }
 }
