@@ -17,6 +17,8 @@ class CheckoutController extends Controller
     {
         $totalMoney = 0;
         $cart = Cart::where('customer_id', $req->id)->get();
+        // return $cart;
+
         foreach ($cart as $product) {
             $totalMoney += ($product->sale_price > 0 ? $product->sale_price : $product->price  * $product->quantity);
         }
@@ -42,7 +44,7 @@ class CheckoutController extends Controller
         }
 
         return response()->json([
-            'redirect' => '/giohang',
+            'redirect' => '/',
             'message' => 'Đặt hàng thành công',
         ]);
     }

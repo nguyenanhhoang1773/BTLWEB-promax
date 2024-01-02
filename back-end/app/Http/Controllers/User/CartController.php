@@ -10,20 +10,22 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    
+
     public function index(Request $req)
     {
         $cart = Cart::where('customer_id', $req->id)->get();
         // $cart = Cart::get();
-
         return $cart;
     }
 
     public function addCart(Request $req)
     {
+        // return $req->all();
+
         $cart = Cart::create([
             'customer_id' => $req->customerid,
             'product_id' => $req->productid,
+            'quantity' => 1,
             'name' => $req->name,
             'sale_price' => $req->saleprice,
             'price' => $req->price
@@ -37,10 +39,8 @@ class CartController extends Controller
 
     public function deleteCart($id)
     {
-
     }
     public function clearCart()
     {
-        
     }
 }

@@ -15,8 +15,8 @@ class ProductController extends Controller
 
         $productData = $products->map(function ($product) {
             $product->image = asset('storage/images/' . $product->image);
-            $product->price = number_format( $product->price);
-            $product->sale_price = number_format( $product->sale_price);
+            // $product->price = number_format( $product->price);
+            // $product->sale_price = number_format( $product->sale_price);
             return $product;
         });
         // dd($productData);
