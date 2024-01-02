@@ -103,8 +103,8 @@ function DetailPage() {
             customerid: idUser,
             productid: product.id,
             name: product.name,
-            saleprice: product.sale_price,
-            price: product.price,
+            saleprice: 1231321,
+            price: 123123123,
           },
         })
         .then(function (response) {})
