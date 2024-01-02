@@ -19,6 +19,6 @@ class AdminAuthentication
         if (Auth::check() && Auth::user()->role == 0) {
             return  $next($request);
         }
-        return redirect()->route('login.index')->with('error','Để vào admin cần đăng nhập');
+        return redirect()->route('login.index')->with('error','Để vào admin cần đăng nhập bằng tài khoản admin');
     }
 }

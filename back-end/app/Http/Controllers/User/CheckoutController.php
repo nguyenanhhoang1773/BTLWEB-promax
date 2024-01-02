@@ -6,43 +6,45 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\OrdersDetail;
 use App\Models\Orders;
-use App\Helpers\Cart;
+use App\Models\Cart;
+// use App\Helpers\Cart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
-    public function submit_Form(Request $req, Cart $cart)
+    public function submit_Form(Request $req)
     {
-        $id_user =  Auth::user()->id;
-        //   dd($cart->totalprice);
-        $orderDate =  Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $totalMoney = 0;
+        $cart = Cart::where('customer_id', $req->id)->get();
+        foreach ($cart as $product) {
+            $totalMoney += ($product->sale_price > 0 ? $product->sale_price : $product->price  * $product->quantity);
+        }
         $order = Orders::create([
             'customer_id' => $req->id,
-            'total_amount' => $req->totalMoney,
+            'total_amount' => $totalMoney,
             'phone' => $req->phone,
             'address' => $req->address,
             'note' => $req->note,
-            // 'order_date' => $orderDate
         ]);
 
         if ($order) {
 
             $order_id = $order->id;
-            foreach ($req->items as $key => $value) {
-                $quantity = $value['quantity'];
+            foreach ($cart as $product) {
+                $quantity = 1;
                 OrdersDetail::create([
                     'order_id' => $order_id,
-                    'product_id' => $key,
-                    'quantity' => $req->quantity,
+                    'product_id' => $product->product_id,
+                    'quantity' => $quantity,
                     'price' => $req->sale_price > 0 ? $req->sale_price : $req->price
                 ]);
             }
-
-            return response()->json([
-                'redirect' => '/giohang',
-                'message' => 'Đặt hàng thành công',
-            ]);
         }
+
+        return response()->json([
+            'redirect' => '/giohang',
+            'message' => 'Đặt hàng thành công',
+        ]);
     }
 }

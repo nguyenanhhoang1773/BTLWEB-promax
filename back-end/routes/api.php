@@ -33,29 +33,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [UserController::class, 'login']);
 
-Route::post('/register', [UserController::class, 'register']);
-
 Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc');
 
-Route::get('/list-product',[ProductController::class,'getProduct']);
+Route::post('/register', [UserController::class, 'register']);
 
-Route::get('/category',[ProductController::class,'getCategory']);
+Route::get('/list-product', [ProductController::class, 'getProduct']);
 
-Route::get('/search',[SearchController::class,'searchProduct']);
+Route::get('/category', [ProductController::class, 'getCategory']);
 
-// Route::get('/cart', [CartController::class, 'index']);
+Route::get('/search', [SearchController::class, 'searchProduct']);
 
-// Route::post('/deletecart{id}', [CartController::class, 'deleteCart'])->name('deletecart.index');
+Route::get('/cart', [CartController::class, 'index']);
 
-// Route::post('/addCart', [CartController::class, 'addCart']);
+Route::post('/deletecart{id}', [CartController::class, 'deleteCart'])->name('deletecart.index');
 
-// Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
+Route::post('/addCart', [CartController::class, 'addCart']);
 
-Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
+Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
 
-
-Route::middleware('user')->group(function(){
-    
+Route::middleware('user')->group(function () {
+    Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
 });
 
 // Route::get('/history', [HistoryController::class, 'history'])->name('history');

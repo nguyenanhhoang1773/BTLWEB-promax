@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="" class="brand-link">
         <strong>Admin </strong>
-        {{-- <span class="brand-text font-weight-light">{{ Auth::User()->name }}</span> --}}
+        <span class="brand-text font-weight-light">{{ Auth::User()->name }}</span>
     </a>
 
 
@@ -15,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                {{-- <a href="{{ route('logoutAcc') }}">Đăng xuất</a> --}}
+                <a href="{{ route('logoutAcc') }}">Đăng xuất</a>
             </div>
         </div>
         <!-- SidebarSearch Form -->
