@@ -49,7 +49,6 @@ function CartPage() {
     setShowModal(true);
   };
   const handleHideModal = () => {
-    dispatch(clearProducts());
     setShowModal(false);
   };
   useEffect(() => {
@@ -60,15 +59,14 @@ function CartPage() {
     const addressValue = addressRef.current.value;
     const phoneValue = phoneRef.current.value;
     const noteValue = noteRef.current.value;
+    dispatch(clearProducts());
     console.log(products);
     axios
       .post("http://localhost:8000/api/checkout", {
         id: idUser,
-        totalMoney: totalPrice,
         phone: phoneValue,
         address: addressValue,
         note: noteValue,
-        items: products,
       })
       .then(function (response) {
         console.log(response);
@@ -79,14 +77,6 @@ function CartPage() {
           alert("Sai email hoặc mật khẩu");
         }
       })
-      .catch(function (error) {
-        console.log(error);
-      });
-    axios
-      .post("http://localhost:8000/api/checkout", {
-        id: idUser,
-      })
-      .then(function (response) {})
       .catch(function (error) {
         console.log(error);
       });
