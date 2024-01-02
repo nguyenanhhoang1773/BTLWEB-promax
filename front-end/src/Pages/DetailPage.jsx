@@ -100,14 +100,16 @@ function DetailPage() {
       axios
         .get("http://localhost:8000/api/addCart", {
           params: {
-            customerid: 55,
+            customerid: idUser,
             productid: 51,
-            name: "dat",
-            saleprice: 123123,
-            price: 1233,
+            name: product.name,
+            saleprice: product.sale_price,
+            price: product.price,
           },
         })
-        .then(function (response) {})
+        .then(function (response) {
+          console.log(response.data);
+        })
         .catch(function (error) {
           // handle error
           console.log(error);
