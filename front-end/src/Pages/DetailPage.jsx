@@ -98,19 +98,37 @@ function DetailPage() {
       console.log("saleprice:", product.sale_price);
       console.log("price:", product.price);
       axios
-        .post("http://localhost:8000/api/addCart", {
-          customerid: idUser,
-          productid: product.id,
-          name: product.name,
-          saleprice: product.sale_price,
-          price: product.price,
+        .get("http://localhost:8000/api/addCart", {
+          params: {
+            customerid: idUser,
+            productid: product.id,
+            name: product.name,
+            saleprice: product.sale_price,
+            price: product.price,
+          },
         })
-        .then(function (response) {
-          console.log(response);
-        })
+        .then(function (response) {})
         .catch(function (error) {
+          // handle error
           console.log(error);
+        })
+        .finally(function () {
+          // always executed
         });
+      // axios
+      //   .post("http://localhost:8000/api/addCart", {
+      //     customerid: idUser,
+      //     productid: product.id,
+      //     name: product.name,
+      //     saleprice: product.sale_price,
+      //     price: product.price,
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     }
   };
   return (
