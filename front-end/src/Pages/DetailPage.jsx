@@ -94,7 +94,7 @@ function DetailPage() {
       dispatch(addProduct({ ...product }));
       axios
         .post("http://localhost:8000/api/addCart", {
-          custommerid: idUser,
+          customerid: idUser,
           productid: product.id,
           name: product.name,
           saleprice: product.sale_price,

@@ -82,6 +82,14 @@ function CartPage() {
       .catch(function (error) {
         console.log(error);
       });
+    axios
+      .post("http://localhost:8000/api/checkout", {
+        id: idUser,
+      })
+      .then(function (response) {})
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   return (
     <div className="relative min-h-[800px] mt-[50px]">

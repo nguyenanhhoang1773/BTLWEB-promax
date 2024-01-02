@@ -22,10 +22,14 @@ import SearchItem from "../SearchItem";
 import { useEffect, useState } from "react";
 import logo from "../../assets/img/4h.png";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../features/CartManage/CartSlice";
+
 function Header() {
   const idUser = useSelector((state) => state.login.id);
   const amountCart = useSelector((state) => state.cartManage.amount);
+  const dispatch = useDispatch();
+  const amountProducts = useSelector((state) => state.cartManage.products);
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const handleSearch = (e) => {
@@ -60,8 +64,14 @@ function Header() {
         },
       })
       .then(function (response) {
-        setResultSearch(response.data);
-        console.log(" cart:", response);
+        const data = response.data;
+        dispatch(
+          setProducts({
+            amount: data.length,
+            products: [data],
+          })
+        );
+        console.log(" cart:", data);
       })
       .catch(function (error) {
         // handle error
