@@ -90,8 +90,8 @@ class CategoryController extends Controller
     // }
     public function index()
     {
-        
-        $categories = Category::orderBy('id','desc')->Search()->paginate(6);
+
+        $categories = Category::orderBy('id', 'desc')->Search()->paginate(6);
         return view('admin.category.index', compact('categories'));
     }
 
@@ -145,7 +145,7 @@ class CategoryController extends Controller
     {
         $rules = [
             'name' => 'required|unique:categories,name,' . $request->id
-        ];  
+        ];
         $message = [
             'name.required' => 'bắt buộc nhập thông tin',
             'name.unique' => 'Danh mục này đã tồn tại',
@@ -160,11 +160,12 @@ class CategoryController extends Controller
         }
     }
 
-   
+
     public function destroy(Request $request, Category $category)
     {
         try {
-          // Xóa sản phẩm
+            // Xóa sản phẩm
+            // dd($category);
             $category->delete();
             return redirect()->route('category.index')->with('msg', 'Xóa thành công ');
         } catch (\Throwable $th) {

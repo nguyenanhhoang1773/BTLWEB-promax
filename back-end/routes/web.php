@@ -44,7 +44,7 @@ use App\Http\Controllers\User\UserController;
 // Route::get('/add',[CategoryController::class,'store']);
 // Route::get('/insert-product',[AdminProductController::class,'index']);
 
-
+Route::get('/logoutAdmin', [LoginController::class, 'logoutAdmin'])->name('logoutAcc');
 Route::get('/login', [LoginController::class, 'login'])->name('login.index');
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::middleware('admin')->group(function () {

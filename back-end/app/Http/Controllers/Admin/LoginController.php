@@ -35,4 +35,9 @@ class LoginController extends Controller
             return view('admin.login.index')->with('error', 'Email hoặc mật sai');
         }
     }
+    public function logoutAdmin()
+    {
+        Auth::logout();
+        return redirect()->route('login.index');
+    }
 }
