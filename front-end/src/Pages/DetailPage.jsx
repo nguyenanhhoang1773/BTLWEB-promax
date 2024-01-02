@@ -92,6 +92,11 @@ function DetailPage() {
         setLoading(false);
       }, 500);
       dispatch(addProduct({ ...product }));
+      console.log("customerid:", idUser);
+      console.log("productid:", product.id);
+      console.log("name:", product.name);
+      console.log("saleprice:", product.sale_price);
+      console.log("price:", product.price);
       axios
         .post("http://localhost:8000/api/addCart", {
           customerid: idUser,
