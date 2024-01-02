@@ -29,7 +29,7 @@ class LoginController extends Controller
         ];
         $req->validate($rules, $message);
         // dd($req);
-        if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 0])) {
+        if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 1])) {
             return redirect()->route('admin.index');
         } else {
             return view('admin.login.index')->with('error', 'Email hoặc mật sai');

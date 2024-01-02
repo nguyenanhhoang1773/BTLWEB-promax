@@ -43,8 +43,17 @@ Route::get('/cart', [CartController::class, 'index']);
 
 Route::get('/addCart', [CartController::class, 'addCart']);
 
+Route::post('/deletecart', [CartController::class, 'deleteCart']);
+
+Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
+
 Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
 
+// Route::middleware('user')->group(function () {
+   
+// });
+
+// Route::get('/history', [HistoryController::class, 'history'])->name('history');
 
 
 

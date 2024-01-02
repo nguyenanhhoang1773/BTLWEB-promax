@@ -28,7 +28,8 @@ class CartController extends Controller
             'quantity' => 1,
             'name' => $req->name,
             'sale_price' => $req->saleprice,
-            'price' => $req->price
+            'price' => $req->price,
+            'image' => $req->image
         ]);
         // $cart =Cart::create($req->all());
         return response()->json([
@@ -37,10 +38,27 @@ class CartController extends Controller
         ]);
     }
 
-    public function deleteCart($id)
+    public function deleteCart(Request $req)
     {
+        $cart = Cart::where('customer_id', $req->customerid)->where('product_id', $req->productid)->get();
+
+        foreach($cart as $del){
+            $del->delete();           
+        } 
+
+        $carts = Cart::get();
+        return $carts;
+        
     }
-    public function clearCart()
+    public function clearCart(Request $req)
     {
+        $cart = Cart::where('customer_id', $req->customerid)->get();
+
+        foreach($cart as $del){
+            $del->delete();           
+        } 
+             
+        $carts = Cart::get();
+        return response()->json([]);
     }
 }

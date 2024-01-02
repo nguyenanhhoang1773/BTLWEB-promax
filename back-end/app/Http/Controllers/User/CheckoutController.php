@@ -17,11 +17,14 @@ class CheckoutController extends Controller
     {
         $totalMoney = 0;
         $cart = Cart::where('customer_id', $req->id)->get();
-        // return $cart;
 
+        // return $cart;
         foreach ($cart as $product) {
+
             $totalMoney += ($product->sale_price > 0 ? $product->sale_price : $product->price  * $product->quantity);
         }
+
+
         $order = Orders::create([
             'customer_id' => $req->id,
             'total_amount' => $totalMoney,
@@ -30,17 +33,20 @@ class CheckoutController extends Controller
             'note' => $req->note,
         ]);
 
+
         if ($order) {
             $order_id = $order->id;
             foreach ($cart as $product) {
-                $quantity = 1;
                 OrdersDetail::create([
                     'order_id' => $order_id,
                     'product_id' => $product->product_id,
-                    'quantity' => $quantity,
-                    'price' => $req->sale_price > 0 ? $req->sale_price : $req->price
+                    'quantity' => 1,
+                    'price' => $product->sale_price > 0 ? $product->sale_price : $product->price
                 ]);
             }
+        }
+        foreach ($cart as $item) {
+            $item->delete();
         }
 
         return response()->json([
