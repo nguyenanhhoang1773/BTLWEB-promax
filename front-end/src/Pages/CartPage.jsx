@@ -33,8 +33,9 @@ function CartPage() {
   useEffect(() => {
     let total = 0;
     products.forEach((product) => {
-      total += Number(product.price.replace(",", ""));
+      total += Number(product.price);
       console.log(total);
+      console.log(product.price);
     });
     total = String(total);
     if (Number(total.slice(0, total.length - 3)) !== 0) {
