@@ -68,7 +68,7 @@ function Header() {
         dispatch(
           setProducts({
             amount: data.length,
-            products: [data],
+            products: [...data],
           })
         );
         console.log(" cart:", data);
