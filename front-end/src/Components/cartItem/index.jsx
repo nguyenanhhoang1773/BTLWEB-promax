@@ -8,6 +8,8 @@ function CartItem({ id, name, image, price, sale_price }) {
   const idUser = useSelector((state) => state.login.id);
   const dispatch = useDispatch();
   const handleRemovePd = () => {
+    console.log("customerid:", idUser);
+    console.log("productid:", id);
     axios
       .post("http://localhost:8000/api/deletecart", {
         customerid: idUser,
