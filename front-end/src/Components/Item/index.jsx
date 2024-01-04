@@ -19,9 +19,9 @@ function Item({ id, slug, name, image, price, sale_price }) {
             {name}
           </h3>
           <p className="pt-[4px] font-[600] text-yellow-400">
-            {price}đ
+            {sale_price}đ
             <span className="text-[14px] ml-[6px] line-through text-yellow-300">
-              {sale_price}đ
+              {price}đ
             </span>
           </p>
           <p className="text-right text-[14px] font-[700]">

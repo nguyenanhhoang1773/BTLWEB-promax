@@ -23,9 +23,11 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/img/4h.png";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../features/CartManage/CartSlice";
+import {
+  setProducts,
+  clearProducts,
+} from "../../features/CartManage/CartSlice";
 import { logOut } from "../../features/Login/LoginSlice";
-
 function Header() {
   const isLogin = useSelector((state) => state.login.isLogin);
   const userName = useSelector((state) => state.login.name);
@@ -159,6 +161,7 @@ function Header() {
                 <button
                   onClick={() => {
                     dispatch(logOut());
+                    dispatch(clearProducts());
                     alert("Bạn đã đăng xuất");
                   }}
                   className="header__route__item  text-yellow-400 !text-[18px]"
