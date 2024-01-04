@@ -233,7 +233,7 @@ function DetailPage() {
               <div className="bg-white  rounded-r-md opacity-90">
                 <img
                   className="w-[400px]  rounded-sm py-[10px]"
-                  src={product.image}
+                  src={`http://127.0.0.1:8000/storage/images/${product.image}`}
                 />
               </div>
               <div className="flex-1 px-[20px] ml-[40px] py-[30px]">
