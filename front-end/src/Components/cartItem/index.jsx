@@ -2,6 +2,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import formatPrice from "../../calc";
 import { removeProduct } from "../../features/CartManage/CartSlice";
 import "./main.css";
 function CartItem({ id, name, image, price, sale_price }) {
@@ -34,10 +35,10 @@ function CartItem({ id, name, image, price, sale_price }) {
           {name}
         </h3>
         <span className="text-yellow-500 font-[700] text-[24px]">
-          {sale_price}đ
+          {formatPrice(sale_price)}đ
         </span>
         <span className="text-[rgba(0,0,0,0.5)] ml-[8px] line-through">
-          {price}đ
+          {formatPrice(price)}đ
         </span>
         <span className="ml-[8px] bg-yellow-500 rounded-xl p-[4px] text-white font-[600] text-shadow">
           Giảm 20%

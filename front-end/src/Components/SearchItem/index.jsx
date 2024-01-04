@@ -2,6 +2,7 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import formatPrice from "../../calc";
 import "./searchItem.css";
 function SearchItem({ id, name, image, price, sale_price, slug }) {
   return (
@@ -17,9 +18,11 @@ function SearchItem({ id, name, image, price, sale_price, slug }) {
         <div className="flex flex-col ml-[10px]">
           <h3 className="text-[20px] font-[600] mt-[2px]">{name}</h3>
           <div>
-            <span className="text-[20px] text-yellow-500">{price}đ</span>
+            <span className="text-[20px] text-yellow-500">
+              {formatPrice(sale_price)}đ
+            </span>
             <span className="text-yellow-500 line-through ml-[8px] text-[16px]">
-              {sale_price}đ
+              {formatPrice(price)}đ
             </span>
           </div>
         </div>
