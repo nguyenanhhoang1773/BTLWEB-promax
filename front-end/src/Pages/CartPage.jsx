@@ -94,6 +94,7 @@ function CartPage() {
       .catch(function (error) {
         console.log(error);
       });
+    handleHideModal();
   };
   const handleValidate = (e) => {
     console.log(e.target.name);

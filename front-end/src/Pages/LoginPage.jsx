@@ -1,13 +1,45 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { logIn } from "../features/Login/LoginSlice";
 function LoginPage() {
+  const [emailVali, setEmailVali] = useState(false);
+  const [emailValiRegrex, setEmailValiRegrex] = useState(false);
+  const [passVali, setPasswordVali] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailField = useRef();
   const passwordField = useRef();
+  const handleValidate = (e) => {
+    console.log(!!e.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/));
+    if (!e.target.value && e.target.name === "emailField") {
+      setEmailVali(true);
+    }
+    if (!e.target.value && e.target.name === "passField") {
+      setPasswordVali(true);
+    }
+    if (e.target.value && e.target.name === "emailField") {
+      setEmailVali(false);
+    }
+    if (e.target.value && e.target.name === "passField") {
+      setPasswordVali(false);
+    }
+    if (
+      e.target.value &&
+      e.target.name === "emailField" &&
+      !e.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    ) {
+      setEmailValiRegrex(true);
+    }
+    if (
+      e.target.value &&
+      e.target.name === "emailField" &&
+      !!e.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    ) {
+      setEmailValiRegrex(false);
+    }
+  };
   const handleLogin = () => {
     const emailValue = emailField.current.value;
     const passwordValue = passwordField.current.value;
@@ -42,16 +74,35 @@ function LoginPage() {
         </h3>
         <div className="mt-[20px]">
           <input
+            name="emailField"
+            onKeyUp={handleValidate}
             ref={emailField}
             className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Email"
           />
+          {emailVali && (
+            <p className="text-yellow-500 ml-[2px] text-[16px]">
+              Vui lòng nhập trường này.
+            </p>
+          )}
+          {emailValiRegrex && !emailVali && (
+            <p className="text-yellow-500 ml-[2px] text-[16px]">
+              Vui lòng nhập vào email.
+            </p>
+          )}
           <input
+            name="passField"
+            onKeyUp={handleValidate}
             ref={passwordField}
             type="password"
             className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
             placeholder="Mật khẩu"
           />
+          {passVali && (
+            <p className="text-yellow-500 ml-[2px] text-[16px]">
+              Vui lòng nhập trường này.
+            </p>
+          )}
         </div>
         <div className="flex justify-between items-center">
           <p className="text-white font-[500]">
