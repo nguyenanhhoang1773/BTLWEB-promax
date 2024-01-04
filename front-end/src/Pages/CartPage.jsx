@@ -49,22 +49,6 @@ function CartPage() {
 
     setTotalPrice(formatPrice(total));
   }, [amount]);
-  useEffect(() => {
-    let total = 0;
-    products.forEach((product) => {
-      total += Number(product.price);
-      console.log(total);
-      console.log(product.price);
-    });
-    total = String(total);
-    if (Number(total.slice(0, total.length - 3)) !== 0) {
-      total = total.slice(0, total.length - 3) + "," + total.slice(-3);
-      setTotalPrice(total);
-    } else {
-      setTotalPrice(0);
-    }
-    setTotalPrice(total);
-  }, [products]);
   const handleShowModal = () => {
     setShowModal(true);
   };
