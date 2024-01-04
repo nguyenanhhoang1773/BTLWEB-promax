@@ -19,7 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { paths } from "../../router";
 import SearchItem from "../SearchItem";
 // import { db } from "../../api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "../../assets/img/4h.png";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +38,11 @@ function Header() {
   const amountProducts = useSelector((state) => state.cartManage.products);
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
-
+  const inputRef = useRef();
+  const handleClickSearch = () => {
+    const inputValue = inputRef.current.value;
+    navigate(`/list/${inputValue}`);
+  };
   const handleSearch = (e) => {
     const value = e.target.value.trim();
     if (value) {
@@ -201,6 +205,7 @@ function Header() {
           <div className="header__filter max-w-[1100px]">
             <div className="header__search relative">
               <input
+                ref={inputRef}
                 onBlur={() => {
                   setTimeout(() => {
                     setShowResults(false);
@@ -210,11 +215,11 @@ function Header() {
                   setShowResults(true);
                 }}
                 onKeyUp={handleSearch}
-                placeholder="Máy Tính Ryzen 10"
+                placeholder="Đàn aucostic"
                 className="header__search--input text-black px-[10px]"
               />
               <button
-                onClick={handleSearch}
+                onClick={handleClickSearch}
                 className="header__search--btn bg-yellow-500"
               >
                 <FontAwesomeIcon className="fa-icon" icon={faMagnifyingGlass} />

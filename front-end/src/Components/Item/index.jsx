@@ -8,7 +8,7 @@ function Item({ id, slug, name, image, price, sale_price, list }) {
   return (
     <>
       {list && (
-        <div className="px-[10px]  w-[25%] mt-[20px]">
+        <div className="px-[10px] w-[25%] mt-[20px]">
           <Link
             to={`/detail/${slug}`}
             className="bg-slate-950 inline-block w-full   p-[20px] rounded-xl hover:opacity-80 hover:cursor-pointer"
