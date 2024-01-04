@@ -22,7 +22,7 @@ function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const idUser = useSelector((state) => state.login.id);
-  const amount = useSelector((state) => state.CartManage.amount);
+  const amount = useSelector((state) => state.cartManage.amount);
   console.log("idUser:", idUser);
   const nameRef = useRef();
   const addressRef = useRef();
