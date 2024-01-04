@@ -8,7 +8,7 @@ import {
   faHandsHolding,
   faFaceSmileWink,
 } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../features/CartManage/CartSlice";
@@ -24,6 +24,7 @@ function DetailPage() {
   const Products = useSelector((state) => state.storeProducts.Products);
   const cartProducts = useSelector((state) => state.cartManage.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { slug: slugProduct } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState({});
@@ -78,6 +79,11 @@ function DetailPage() {
     );
   }, [Products, slugProduct]);
   const handleAddToCart = (e) => {
+    if (!idUser) {
+      alert("Vui lòng đăng nhập để thực hiện thêm vào giỏ hàng...");
+      navigate("/login");
+      return;
+    }
     const num = cartProducts.filter((product) => {
       return product.slug === slugProduct;
     });
