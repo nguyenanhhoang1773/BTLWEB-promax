@@ -37,7 +37,7 @@ class UserController extends Controller
                 'errors' => $errors
             ]);
         } else {
-            if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 0])) {
+            if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 1])) {
                 return response()->json([
                     'user' => User::where('email',$req->email)->get(),
                     'redirect' => '/',

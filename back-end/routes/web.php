@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LoginController;
 
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\AccountUser;
+use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Admin\StatisticalController;
 
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::post('/login', [LoginController::class, 'postLogin']);
 Route::middleware('admin')->group(function () {
     Route::get('/', [DashBoardController::class, 'index'])->name('admin.index');
     Route::get('/statistical', [StatisticalController::class, 'index'])->name('statistical.index');
+    Route::get('/chart', [ChartController::class, 'getDataOrdersForChart'])->name('statistical.chart');
     Route::resource('category', CategoryController::class);
     Route::resource('product', AdminProductController::class);
     Route::resource('accountuser', AccountUser::class);
