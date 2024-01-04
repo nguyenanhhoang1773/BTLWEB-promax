@@ -1,1 +1,9 @@
-/*# sourceMappingURL=item.css.map */
+.icon-wrapper:hover .heart-regular   {
+    display: none;
+}
+.icon-wrapper:hover .heart-solid {
+    display: unset;
+}
+.heart-solid {
+    display: none;
+}

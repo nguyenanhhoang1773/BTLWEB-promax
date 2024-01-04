@@ -21,7 +21,7 @@ import axios from "axios";
 
 function DetailPage() {
   const idUser = useSelector((state) => state.login.id);
-  const Products = useSelector((state) => state.storeProducts.Products);
+  const Products = useSelector((state) => state.storeProducts.all);
   const cartProducts = useSelector((state) => state.cartManage.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
