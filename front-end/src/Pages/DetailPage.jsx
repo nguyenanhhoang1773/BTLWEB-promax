@@ -20,10 +20,11 @@ import Items from "../Components/Items";
 import axios from "axios";
 
 function DetailPage() {
+  const idUser = useSelector((state) => state.login.id);
   const Products = useSelector((state) => state.storeProducts.Products);
   const cartProducts = useSelector((state) => state.cartManage.products);
   const dispatch = useDispatch();
-  const { id: idProduct } = useParams();
+  const { slug: slugProduct } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
@@ -43,9 +44,6 @@ function DetailPage() {
             "http://localhost:8000/api/list-product"
           );
           dispatch(storePd(response.data));
-
-          // Giả sử dispatch là không đồng bộ, bạn có thể muốn đợi nó hoàn tất
-          // trước khi tiếp tục.
           await new Promise((resolve) => setTimeout(resolve, 0));
         } catch (error) {
           console.error("Lỗi khi lấy dữ liệu:", error);
@@ -57,26 +55,31 @@ function DetailPage() {
       setLoadingApp(false);
     }, 300);
     fetchData();
-  }, [idProduct]);
+  }, [slugProduct]);
   useEffect(() => {
     if (!Products) {
       return;
     }
-    Products.forEach(({ id, name, image, price, sale_price }) => {
-      if (idProduct == id) {
-        setProduct({
-          id,
-          name,
-          image,
-          price,
-          sale_price,
-        });
+    console.log(Products);
+    Products.forEach(
+      ({ id, name, slug, image, price, sale_price, description }) => {
+        if (slugProduct === slug) {
+          setProduct({
+            id,
+            name,
+            slug,
+            image,
+            price,
+            sale_price,
+            description,
+          });
+        }
       }
-    });
-  }, [Products, idProduct]);
+    );
+  }, [Products, slugProduct]);
   const handleAddToCart = (e) => {
     const num = cartProducts.filter((product) => {
-      return product.id == idProduct;
+      return product.slug === slugProduct;
     });
     if (num.length > 0) {
       setHaveProduct(true);
@@ -89,6 +92,47 @@ function DetailPage() {
         setLoading(false);
       }, 500);
       dispatch(addProduct({ ...product }));
+      console.log("customerid:", idUser);
+      console.log("productid:", product.id);
+      console.log("name:", product.name);
+      console.log("saleprice:", product.sale_price);
+      console.log("price:", product.price);
+      console.log("image:", product.image);
+      axios
+        .get("http://localhost:8000/api/addCart", {
+          params: {
+            customerid: idUser,
+            productid: product.id,
+            name: product.name,
+            saleprice: product.sale_price,
+            price: product.price,
+            image: product.image,
+          },
+        })
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+      // axios
+      //   .post("http://localhost:8000/api/addCart", {
+      //     customerid: idUser,
+      //     productid: product.id,
+      //     name: product.name,
+      //     saleprice: product.sale_price,
+      //     price: product.price,
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     }
   };
   return (
@@ -190,7 +234,7 @@ function DetailPage() {
                 <h3 className="max-w-[500px] text-yellow-400 text-[22px] font-[600]">
                   {product.name}
                 </h3>
-                <div className="flex mt-[12px] items-center">
+                {/* <div className="flex mt-[12px] items-center">
                   <span className=" mr-[4px]">4.5</span>
                   <span className="h-[30px]">
                     <StartIcon deltail />
@@ -203,12 +247,12 @@ function DetailPage() {
                   <span className="ml-[6px] text-[var(--color-primary)] ">
                     Đã Bán
                   </span>
-                </div>
+                </div> */}
                 <div className="flex mt-[10px] items-center">
-                  <span className="text-primary line-through">
+                  <span className="text-yellow-500 line-through">
                     {product.sale_price}đ
                   </span>
-                  <span className="text-[var(--color-primary)] text-[24px] ml-[10px]">
+                  <span className="text-yellow-500   text-[24px] ml-[10px]">
                     {product.price}đ
                   </span>
                   <div className="bg-[var(--color-primary)]  text-white inline-block  ml-[12px] px-[4px] rounded-sm">
@@ -246,14 +290,14 @@ function DetailPage() {
                     {!loading && (
                       <>
                         <CartIcon />
-                        <span className="ml-[8px] text-black">
+                        <span className="ml-[8px] font-[600] text-black">
                           Thêm Vào Giỏ Hàng
                         </span>
                       </>
                     )}
                     {loading && (
                       <FontAwesomeIcon
-                        className="text-[20px] animate-spin"
+                        className="text-[20px] text-yellow-500 animate-spin"
                         icon={faSpinner}
                       />
                     )}
@@ -267,29 +311,12 @@ function DetailPage() {
                 </div>
               </div>
               <div className="ml-[20px] p-[20px]">
-                <div className=" w-[400px] h-full border-[2px] rounded-xl border-yellow-400">
+                <div className=" w-[400px] max-h-[380px] overflow-hidden  h-full border-[2px] rounded-xl border-yellow-400">
                   <div className="bg-[var(--color-primary)] font-[700] text-[20px] text-yellow-400 text-center rounded-t-[8px]">
                     Thông tin sản phẩm
                   </div>
-                  <div className="  px-[10px] py-[8px] ">
-                    <div className="flex">
-                      <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
-                      </div>
-                      <span className="ml-[10px]">{product.infor1}</span>
-                    </div>
-                    <div className="mt-[8px] flex">
-                      <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
-                      </div>
-                      <span className="ml-[10px]">{product.infor2}</span>
-                    </div>
-                    <div className="mt-[8px] flex">
-                      <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
-                      </div>
-                      <span className="ml-[10px]">{product.infor3}</span>
-                    </div>
+                  <div className="px-[20px] py-[8px] ">
+                    {product.description}
                   </div>
                 </div>
               </div>

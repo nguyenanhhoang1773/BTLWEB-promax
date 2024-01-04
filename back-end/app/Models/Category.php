@@ -13,14 +13,15 @@ class Category extends Model
   use HasFactory;
   protected $fillable = ['name', 'status', 'parent_id'];
 
-    public function products()
-    {
-        return $this->hasMany(Product::class, 'category_id');
-    }
+  public function products()
+  {
+
+    return $this->belongsTo(Product::class,'product_id');
+  }
 
   public function scopeSearch($query)
   {
-    if ($key = request()->key) {
+    if ($key = request()->value) {
       $query = $query->where('name', 'like', '%' . $key . '%');
     }
     return $query;

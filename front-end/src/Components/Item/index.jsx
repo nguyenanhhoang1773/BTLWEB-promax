@@ -3,11 +3,11 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import "./Item.css";
 import { Link } from "react-router-dom";
-function Item({ id, name, image, price, sale_price }) {
+function Item({ id, slug, name, image, price, sale_price }) {
   return (
-    <div className="px-[10px]">
+    <div className="px-[10px] ">
       <Link
-        to={`/detail/${id}`}
+        to={`/detail/${slug}`}
         className="bg-slate-950 inline-block w-full   p-[20px] rounded-xl hover:opacity-80 hover:cursor-pointer"
       >
         <img className="w-full" src={image} />

@@ -19,23 +19,65 @@ import { Link } from "react-router-dom";
 import { paths } from "../../router";
 import SearchItem from "../SearchItem";
 // import { db } from "../../api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/img/4h.png";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../features/CartManage/CartSlice";
+
 function Header() {
+  const idUser = useSelector((state) => state.login.id);
+  const amountCart = useSelector((state) => state.cartManage.amount);
+  const dispatch = useDispatch();
+  const amountProducts = useSelector((state) => state.cartManage.products);
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const handleSearch = (e) => {
-    // if (e.target.value.trim()) {
-    //   const products = db.filter((product) => {
-    //     return product.title
-    //       .toLowerCase()
-    //       .includes(e.target.value.trim().toLowerCase());
-    //   });
-    //   setResultSearch(products);
-    // } else {
-    //   setResultSearch([]);
-    // }
+    const value = e.target.value.trim();
+    if (value) {
+      // console.log(value);
+      axios
+        .get("http://localhost:8000/api/search", {
+          params: {
+            value: value,
+          },
+        })
+        .then(function (response) {
+          setResultSearch(response.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+    } else {
+      setResultSearch([]);
+    }
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/cart", {
+        params: {
+          id: idUser,
+        },
+      })
+      .then(function (response) {
+        const data = response.data;
+        dispatch(
+          setProducts({
+            amount: data.length,
+            products: [...data],
+          })
+        );
+        console.log(" cart:", data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }, [idUser]);
   return (
     <div className="header bg-slate-900">
       <div className="header--wrapper mx-[var(--app-margin)]">
@@ -56,8 +98,14 @@ function Header() {
             <a className="header__route__item" href="#">
               Kết nối
             </a>
-            <FontAwesomeIcon className="ml-[4px] fa-icon" icon={faFacebook} />
-            <FontAwesomeIcon className="ml-[2px] fa-icon" icon={faInstagram} />
+            <FontAwesomeIcon
+              className="ml-[4px] fa-icon text-white"
+              icon={faFacebook}
+            />
+            <FontAwesomeIcon
+              className="ml-[2px] fa-icon text-white"
+              icon={faInstagram}
+            />
           </div>
           <div className="header__route--right">
             <>
@@ -82,13 +130,19 @@ function Header() {
               />
               <i className="fa-solid fa-icon fa-chevron-down"></i>
             </a>
-            <a className="header__route__item text-yellow-400 !text-[18px]">
+            <Link
+              to="/register"
+              className="header__route__item text-yellow-400 !text-[18px]"
+            >
               Đăng ký
-            </a>
+            </Link>
             <div className="item-line2 !bg-yellow-400"></div>
-            <a className="header__route__item ml-4 text-yellow-400 !text-[18px]">
+            <Link
+              to="/login"
+              className="header__route__item ml-4 text-yellow-400 !text-[18px]"
+            >
               Đăng nhập
-            </a>
+            </Link>
           </div>
         </div>
         <div className="header__container">
@@ -116,7 +170,10 @@ function Header() {
                 placeholder="Máy Tính Ryzen 10"
                 className="header__search--input text-black px-[10px]"
               />
-              <button className="header__search--btn bg-yellow-500">
+              <button
+                onClick={handleSearch}
+                className="header__search--btn bg-yellow-500"
+              >
                 <FontAwesomeIcon className="fa-icon" icon={faMagnifyingGlass} />
               </button>
               {resultsSearch.length > 0 && showResults && (
@@ -124,10 +181,11 @@ function Header() {
                   {resultsSearch.map((product, index) => (
                     <SearchItem
                       id={product.id}
-                      title={product.title}
-                      src={product.src}
-                      prevPrice={product.prevPrice}
-                      nextPrice={product.nextPrice}
+                      slug={product.slug}
+                      name={product.name}
+                      image={product.image}
+                      price={product.price}
+                      sale_price={product.sale_price}
                       key={index}
                     />
                   ))}
@@ -135,12 +193,11 @@ function Header() {
               )}
             </div>
             <div className="header__items px-[6px]">
-              <a className="header__item">Điện thoại</a>
-              <a className="header__item">laptop</a>
-              <a className="header__item">Đồng Hồ</a>
-              <a className="header__item">Tai Nghe</a>
-              <a className="header__item">Giá Đỡ</a>
-              <a className="header__item">Đĩa game</a>
+              <a className="header__item hover:text-yellow-500">Đàn</a>
+              <a className="header__item hover:text-yellow-500">Piano</a>
+              <a className="header__item hover:text-yellow-500">Trống</a>
+              <a className="header__item hover:text-yellow-500">Ukele</a>
+              <a className="header__item hover:text-yellow-500">Violin</a>
             </div>
           </div>
           <div className="header__cart">
@@ -150,7 +207,7 @@ function Header() {
                 icon={faCartShopping}
               />
               <div className="absolute w-[18px] text-shadow h-[18px] text-[14px] flex justify-center items-center font-[700] bg-yellow-500 rounded-full top-[-6px] right-[-6px]">
-                7
+                {amountCart}
               </div>
             </Link>
           </div>

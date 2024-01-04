@@ -3,11 +3,12 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
-class AdminAuthentication
+
+class UserAuthenticate
 {
     /**
      * Handle an incoming request.
@@ -19,6 +20,9 @@ class AdminAuthentication
         if (Auth::check() && Auth::user()->role == 1) {
             return  $next($request);
         }
-        return redirect()->route('login.index')->with('error','Để vào admin cần đăng nhập bằng tài khoản admin');
+        return response()->json([
+            'redirect'=>'/login',
+            'message'=>'Vui lòng đăng nhập để mua hàng',
+        ]);
     }
 }

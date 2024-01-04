@@ -12,10 +12,16 @@ class SearchController extends Controller
 {
     public function searchProduct(Request $req)
     {
-        $keyword = $req->input('key');
-        $products = Product::orderBy('created_at', 'desc')
-            ->Search()
-            ->paginate(5);
-        return view('fe.listproducts.search', compact('products', 'keyword'));
+        $products = Product::where('name', 'like', '%' . $req->value . '%')->get();;
+
+        $productData = $products->map(function ($product) {
+            $product->image = asset('storage/images/' . $product->image);
+            $product->price = number_format($product->price);
+            $product->sale_price = number_format($product->sale_price);
+            return $product;
+        });
+        // dd($productData);
+        return response()->json($productData);
+      
     }
 }

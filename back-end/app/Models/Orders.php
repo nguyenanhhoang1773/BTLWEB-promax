@@ -17,8 +17,6 @@ class Orders extends Model
         'address',
         'note',
     ] ;
-
-
     public function customer(){
         
         return $this->belongsTo(User::class, 'customer_id');

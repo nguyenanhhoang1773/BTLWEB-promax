@@ -1,43 +1,64 @@
 <?php
 
 namespace App\Http\Controllers\User;
+
 use App\Models\Product;
-use App\Helpers\Cart;
+use App\Models\Cart;
+// use App\Helpers\Cart;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function index(Cart $cart)
+
+    public function index(Request $req)
     {
-        // dd($cart);
-        return view('fe.cart', compact('cart'));
+        $cart = Cart::where('customer_id', $req->id)->get();
+        // $cart = Cart::get();
+        return $cart;
     }
 
-    public function addCart(Request $request, Cart $cart)
+    public function addCart(Request $req)
     {
+        // return $req->all();
 
-        $product = Product::find($request->id);
-        $quantity = $request->quantity;
-        $cart->add($product, $quantity);
-        return redirect()->route('cart.index');
+        $cart = Cart::create([
+            'customer_id' => $req->customerid,
+            'product_id' => $req->productid,
+            'quantity' => 1,
+            'name' => $req->name,
+            'sale_price' => $req->saleprice,
+            'price' => $req->price,
+            'image' => $req->image
+        ]);
+        // $cart =Cart::create($req->all());
+        return response()->json([
+            'redirect' => '/cart',
+            'message' => 'Thêm vào giỏ hàng thành công',
+        ]);
     }
-    public function deleteCart($id, Cart $cart)
+
+    public function deleteCart(Request $req)
     {
-        $cart->delete($id);
-        return redirect()->route('cart.index')->with('msg', 'Đã xóa sản phẩm khỏi giỏ hàng ');
+        $cart = Cart::where('customer_id', $req->customerid)->where('product_id', $req->productid)->get();
+
+        foreach($cart as $del){
+            $del->delete();           
+        } 
+
+        $carts = Cart::get();
+        return $carts;
+        
     }
-    // public function updateCart($id, Cart $cart){
-
-
-    //     $quantity = request('quantity');
-
-    //     $cart->update($id,$quantity);
-    //     return view('fe.cart', compact('cart'));
-    // }
-    public function clearCart(Cart $cart)
+    public function clearCart(Request $req)
     {
-        $cart->clear();
-        return redirect()->route('cart.index')->with('msg', 'Đã xóa toàn bộ sản phẩm khỏi giỏ hàng');
+        $cart = Cart::where('customer_id', $req->customerid)->get();
+
+        foreach($cart as $del){
+            $del->delete();           
+        } 
+             
+        $carts = Cart::get();
+        return response()->json([]);
     }
 }

@@ -6,49 +6,52 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\OrdersDetail;
 use App\Models\Orders;
-use App\Helpers\Cart;
+use App\Models\Cart;
+// use App\Helpers\Cart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
-    public function submit_Form(Request $req, Cart $cart)
+    public function submit_Form(Request $req)
     {
-        $id_user =  Auth::user()->id;
-        //   dd($cart->totalprice);
-        $orderDate =  Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $totalMoney = 0;
+        $cart = Cart::where('customer_id', $req->id)->get();
+
+        // return $cart;
+        foreach ($cart as $product) {
+
+            $totalMoney += ($product->sale_price > 0 ? $product->sale_price : $product->price  * $product->quantity);
+        }
+
+
         $order = Orders::create([
-            'customer_id' => $id_user,
-            'total_amount' => $cart->totalprice,
+            'customer_id' => $req->id,
+            'total_amount' => $totalMoney,
             'phone' => $req->phone,
             'address' => $req->address,
             'note' => $req->note,
-            'order_date' => $orderDate
         ]);
-        
+
+
         if ($order) {
-            
             $order_id = $order->id;
-            foreach ($cart->items as $key => $value) {
-                dd($key);
-                $quantity = $value['quantity'];
+            foreach ($cart as $product) {
                 OrdersDetail::create([
                     'order_id' => $order_id,
-                    'product_id' => $key,
-                    'quantity' => $quantity,
-                    'price' => $value['price']
+                    'product_id' => $product->product_id,
+                    'quantity' => 1,
+                    'price' => $product->sale_price > 0 ? $product->sale_price : $product->price
                 ]);
             }
-            session(['cart' =>  null]);
-            return response()->json([
-                'redirect' => '/giohang',
-                'message' => 'Đặt hàng thành công',
-            ]);
-        } else {
-            return response()->json([
-                'redirect' => '/giohang',
-                'message' => 'Đặt hàng không thành công',
-            ]);
         }
+        foreach ($cart as $item) {
+            $item->delete();
+        }
+
+        return response()->json([
+            'redirect' => '/',
+            'message' => 'Đặt hàng thành công',
+        ]);
     }
 }

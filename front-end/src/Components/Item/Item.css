@@ -1,13 +1,1 @@
-.icon-wrapper:hover .heart-solid {
-    display: unset;
-}
-.icon-wrapper:hover .heart-regular {
-    display: none;
-}
-.heart-solid {
-    display: none;
-}
-
-.product--item + .product--item {
-    /* margin-left: 20px; */
-}
+/*# sourceMappingURL=item.css.map */

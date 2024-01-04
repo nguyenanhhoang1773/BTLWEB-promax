@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\SearchController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CheckoutController;
 
 
 /*
@@ -23,23 +25,35 @@ use App\Http\Controllers\User\SearchController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-// Admin/category
-
-//end Admin/category
 
 
-
-Route::get('/login', [UserController::class, 'login']);
-
-Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
 
 Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc');
 
-Route::get('/list-product',[ProductController::class,'getProduct']);
+Route::post('/register', [UserController::class, 'register']);
 
-Route::get('/category',[ProductController::class,'getCategory']);
-Route::get('/search',[SearchController::class,'searchProduct']);
+Route::get('/list-product', [ProductController::class, 'getProduct']);
 
+Route::get('/category', [ProductController::class, 'getCategory']);
+
+Route::get('/search', [SearchController::class, 'searchProduct']);
+
+Route::get('/cart', [CartController::class, 'index']);
+
+Route::get('/addCart', [CartController::class, 'addCart']);
+
+Route::post('/deletecart', [CartController::class, 'deleteCart']);
+
+Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
+
+Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
+
+// Route::middleware('user')->group(function () {
+   
+// });
+
+// Route::get('/history', [HistoryController::class, 'history'])->name('history');
 
 
 

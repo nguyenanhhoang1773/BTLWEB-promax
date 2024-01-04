@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use DB;
 
 use App\Models\ImgProduct;
 use App\Models\OrdersDetail;
@@ -40,12 +39,17 @@ class Product extends Model
     }
     public function images()
     {
-        return $this->hasMany(ImgProducts::class, 'product_id', 'id');
+        return $this->hasMany(ImgProduct::class, 'product_id', 'id');
     }
 
 
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetail::class);
+
+        return $this->hasMany(OrdersDetail::class);
+    }
+    public function carts()
+    {
+        return $this->hasMany(Cart::class , 'product_id');
     }
 }

@@ -16,12 +16,12 @@ import banner2 from "../assets/img/piano-sale-20.jpg";
 function HomePage() {
   const dispatch = useDispatch();
   const Products = useSelector((state) => state.storeProducts.Products);
-  console.log(Products);
   const handleRegister = () => {};
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/list-product")
       .then(function (response) {
+        console.log("response:", response);
         dispatch(storePd(response.data));
       })
       .catch(function (error) {

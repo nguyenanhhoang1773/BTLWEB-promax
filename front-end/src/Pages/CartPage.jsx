@@ -12,41 +12,79 @@ import CartItem from "../Components/cartItem";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { paths } from "../router";
-import { Link } from "react-router-dom";
-import { clearProducts } from "../features/CartManage/CartSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { clearProducts, removeProduct } from "../features/CartManage/CartSlice";
+import { useRef } from "react";
+import axios from "axios";
 // import { useMediaQuery } frorouterm "react-responsive";
 
 function CartPage() {
-  const dispath = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const idUser = useSelector((state) => state.login.id);
+  console.log("idUser:", idUser);
+  const nameRef = useRef();
+  const addressRef = useRef();
+  const phoneRef = useRef();
+  const noteRef = useRef();
   const [totalPrice, setTotalPrice] = useState("");
   const [showModal, setShowModal] = useState(false);
   const products = useSelector((state) => state.cartManage.products);
   useEffect(() => {
     let total = 0;
     products.forEach((product) => {
-      total += Number(product.price.replace(".000", "").replace(".", ""));
+      total += Number(product.price);
+      console.log(total);
+      console.log(product.price);
     });
     total = String(total);
     if (Number(total.slice(0, total.length - 3)) !== 0) {
-      total = total.slice(0, total.length - 3) + "." + total.slice(-3) + ".000";
+      total = total.slice(0, total.length - 3) + "," + total.slice(-3);
       setTotalPrice(total);
     } else {
       setTotalPrice(0);
     }
+    setTotalPrice(total);
   }, [products]);
   const handleShowModal = () => {
     setShowModal(true);
   };
   const handleHideModal = () => {
-    dispath(clearProducts());
     setShowModal(false);
   };
   useEffect(() => {
     console.log(products);
   }, []);
+  const handleSubmit = () => {
+    const nameValue = nameRef.current.value;
+    const addressValue = addressRef.current.value;
+    const phoneValue = phoneRef.current.value;
+    const noteValue = noteRef.current.value;
+    dispatch(clearProducts());
+    console.log(products);
+    axios
+      .post("http://localhost:8000/api/checkout", {
+        id: idUser,
+        phone: phoneValue,
+        address: addressValue,
+        note: noteValue,
+      })
+      .then(function (response) {
+        console.log(response);
+        const redirect = response.data.redirect;
+        if (redirect === "/") {
+          navigate(redirect);
+        } else {
+          alert("Sai email hoặc mật khẩu");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return (
     <div className="relative min-h-[800px] mt-[50px]">
-      {showModal && (
+      {/* {showModal && (
         <div
           onClick={handleHideModal}
           className="fixed z-[99] flex items-center justify-center bg-[rgba(0,0,0,0.6)] top-0 right-0 left-0 bottom-0"
@@ -87,7 +125,7 @@ function CartPage() {
               ĐƠN HÀNG SẼ ĐƯỢC GIAO ĐẾN BẠN TRONG THỜI GIAN GẦN NHẤT!
             </p>
             <p className="text-green-100 text-shadow text-center font-[600] text-[16px] mt-[20px]">
-              XIN CẢM ƠN BẠN ĐÃ TIN TƯỞNG VÀ ĐẶT HÀNG TẠI TECHSTORE.
+              XIN CẢM ƠN BẠN ĐÃ TIN TƯỞNG VÀ ĐẶT HÀNG.
             </p>
             <div className="flex justify-center mt-[10px]">
               <FontAwesomeIcon
@@ -113,6 +151,53 @@ function CartPage() {
             </div>
           </div>
         </div>
+      )} */}
+      {showModal && (
+        <>
+          <div
+            onClick={handleHideModal}
+            className="fixed z-[99] flex items-center justify-center bg-[rgba(0,0,0,0.6)] top-0 right-0 left-0 bottom-0"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="flex flex-col bg-slate-800 py-[10px] px-[30px]"
+            >
+              <h3 className="text-center text-[22px] font-[600] text-yellow-500">
+                Thông tin đơn Hàng
+              </h3>
+              <span className="text-white">
+                Vui lòng cung cấp thông tin để chúng tôi có thể được phục vụ bạn
+                sớm nhất.
+              </span>
+              <input
+                ref={nameRef}
+                className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+                placeholder="Họ và Tên"
+              />
+              <input
+                ref={addressRef}
+                className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+                placeholder="Địa chỉ"
+              />
+              <input
+                ref={phoneRef}
+                className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+                placeholder="Số điện thoại"
+              />
+              <input
+                ref={noteRef}
+                className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
+                placeholder="Ghi chú"
+              />
+              <button
+                onClick={handleSubmit}
+                className="bg-yellow-500 w-full rounded-md font-[600] hover:bg-yellow-400  w-[80px] p-[10px]  mt-[20px] text-black"
+              >
+                Xác nhật đặt hàng
+              </button>
+            </div>
+          </div>
+        </>
       )}
       <div className=" absolute flex mt-[-12px] mt-[-70px]">
         <FontAwesomeIcon
@@ -171,7 +256,7 @@ function CartPage() {
         </div>
         <Link
           to={paths.Home}
-          className="text-yellow-500 block border-[2px] hover:opacity-80 hover:cursor-pointer font-[600] mt-[10px] rounded-md text-shadow text-[22px] py-[6px] px-[10px] text-center border-yellow-400"
+          className="text-yellow-500  block border-[2px] hover:opacity-80 hover:cursor-pointer font-[600] mt-[10px] rounded-md text-shadow text-[22px] py-[6px] px-[10px] text-center border-yellow-400"
         >
           CHỌN THÊM SẢN PHẨM KHÁC
         </Link>
