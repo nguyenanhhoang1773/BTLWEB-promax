@@ -17,7 +17,7 @@ import { clearProducts, removeProduct } from "../features/CartManage/CartSlice";
 import { useRef } from "react";
 import axios from "axios";
 // import { useMediaQuery } frorouterm "react-responsive";
-
+import formatPrice from "../calc";
 function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,6 +37,18 @@ function CartPage() {
   const [phoneValiNum, setPhoneValiNum] = useState(false);
   const [noteVali, setNoteVali] = useState(false);
   const products = useSelector((state) => state.cartManage.products);
+  useEffect(() => {
+    let total = 0;
+    if (products.length <= 0) {
+      setTotalPrice(0);
+      return;
+    }
+    products.forEach((product) => {
+      total += Number(product.price);
+    });
+
+    setTotalPrice(formatPrice(total));
+  }, [amount]);
   useEffect(() => {
     let total = 0;
     products.forEach((product) => {
@@ -86,7 +98,7 @@ function CartPage() {
       .then(function (response) {
         console.log(response);
         alert("Đặt hàng thành công!!!");
-        // const redirect = response.data.redirect;
+        // const redirect = response.data.redirect;CartItem
         // if (redirect === "/") {
         //   navigate(redirect);
         // } else {

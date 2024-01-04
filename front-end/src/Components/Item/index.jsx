@@ -3,6 +3,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import "./Item.css";
 import { Link } from "react-router-dom";
+import formatPrice from "../../calc";
 function Item({ id, slug, name, image, price, sale_price }) {
   return (
     <div className="px-[10px] ">
@@ -19,9 +20,9 @@ function Item({ id, slug, name, image, price, sale_price }) {
             {name}
           </h3>
           <p className="pt-[4px] font-[600] text-yellow-400">
-            {sale_price}đ
+            {formatPrice(sale_price)}đ
             <span className="text-[14px] ml-[6px] line-through text-yellow-300">
-              {price}đ
+              {formatPrice(price)}đ
             </span>
           </p>
           <p className="text-right text-[14px] font-[700]">
