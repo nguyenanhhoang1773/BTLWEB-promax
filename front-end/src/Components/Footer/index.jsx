@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Footer() {
   return (
     <div className="flex text-white mt-[40px]">
-      <div className="mt-[10px]] ">
+      <div className="flex-1 mt-[10px]] ">
         <h3 className="text-yellow-400 text-[22px] font-[600]">
           Tổng đài hỗ trợ
         </h3>
@@ -26,7 +26,7 @@ function Footer() {
           </li>
         </ul>
       </div>
-      <div className="mt-[10px]] ml-[20px] flex-1">
+      <div className="flex-1 mt-[10px]] ml-[20px] ">
         <h3 className="text-yellow-400 text-[22px] font-[600]">
           Thông tin và chính sách
         </h3>
@@ -54,7 +54,38 @@ function Footer() {
           </li>
         </ul>
       </div>
-      <div className="mt-[10px]] ml-[20px]">
+      <div className="flex-1 mt-[10px]] ml-[20px] ">
+        <h3 className="text-yellow-400 text-[22px] font-[600]">
+          Dịch vụ và thông tin khác
+        </h3>
+        <ul>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Khách hàng doanh nghiệp (B2B)
+          </li>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Ưu đãi thanh toán
+          </li>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Quy chế hoạt động
+          </li>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Chính sách Bảo hành
+          </li>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Liên hệ hợp tác kinh doanh
+          </li>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Tuyển dụng
+          </li>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Dịch vụ bảo hành điện thoại
+          </li>
+          <li className="hover:text-yellow-400 hover:underline hover:cursor-pointer">
+            Dịch vụ bảo hành mở rộng
+          </li>
+        </ul>
+      </div>
+      <div className="flex-1 mt-[10px]]  ml-[20px]">
         <h3 className="text-yellow-400 text-[22px] font-[600]">
           Kết nối với chúng tôi
         </h3>

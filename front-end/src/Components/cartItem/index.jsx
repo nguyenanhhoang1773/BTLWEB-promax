@@ -33,9 +33,11 @@ function CartItem({ id, name, image, price, sale_price }) {
         <h3 className="text-[rgba(0,0,0,0.8)] mb-[10px] font-[600] text-[22px]">
           {name}
         </h3>
-        <span className="text-yellow-500 font-[700] text-[24px]">{price}đ</span>
-        <span className="text-[rgba(0,0,0,0.5)] ml-[8px] line-through">
+        <span className="text-yellow-500 font-[700] text-[24px]">
           {sale_price}đ
+        </span>
+        <span className="text-[rgba(0,0,0,0.5)] ml-[8px] line-through">
+          {price}đ
         </span>
         <span className="ml-[8px] bg-yellow-500 rounded-xl p-[4px] text-white font-[600] text-shadow">
           Giảm 20%

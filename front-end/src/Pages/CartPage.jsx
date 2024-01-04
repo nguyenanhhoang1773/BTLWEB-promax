@@ -85,6 +85,7 @@ function CartPage() {
       })
       .then(function (response) {
         console.log(response);
+        alert("Đặt hàng thành công!!!");
         // const redirect = response.data.redirect;
         // if (redirect === "/") {
         //   navigate(redirect);

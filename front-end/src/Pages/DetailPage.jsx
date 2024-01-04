@@ -256,10 +256,10 @@ function DetailPage() {
                 </div> */}
                 <div className="flex mt-[10px] items-center">
                   <span className="text-yellow-500 line-through">
-                    {product.sale_price}đ
+                    {product.price}đ
                   </span>
                   <span className="text-yellow-500   text-[24px] ml-[10px]">
-                    {product.price}đ
+                    {product.sale_price}đ
                   </span>
                   <div className="bg-[var(--color-primary)]  text-white inline-block  ml-[12px] px-[4px] rounded-sm">
                     33% Giảm
