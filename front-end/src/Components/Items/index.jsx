@@ -12,7 +12,7 @@ function Imtes({ Products, amount, category }) {
         </h3>
         <Link
           className="text-[14px] hover:bg-yellow-400 mr-[10px] px-[6px] py-[2px] bg-yellow-500 text-black text-shadow font-[700] rounded-md"
-          to="/category"
+          to="/list/all"
         >
           All
         </Link>

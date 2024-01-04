@@ -19,10 +19,10 @@ function SearchItem({ id, name, image, price, sale_price, slug }) {
           <h3 className="text-[20px] font-[600] mt-[2px]">{name}</h3>
           <div>
             <span className="text-[20px] text-yellow-500">
-              {formatPrice(price)}đ
+              {formatPrice(sale_price)}đ
             </span>
             <span className="text-yellow-500 line-through ml-[8px] text-[16px]">
-              {formatPrice(sale_price)}đ
+              {formatPrice(price)}đ
             </span>
           </div>
         </div>
