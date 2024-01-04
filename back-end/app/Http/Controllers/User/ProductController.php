@@ -9,18 +9,29 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    // public function getProduct()
+    // {
+    //     $products = Product::all();
+
+    //     $productData = $products->map(function ($product) {
+    //         $product->image = asset('storage/images/' . $product->image);
+    //         // $product->price = number_format( $product->price);
+    //         // $product->sale_price = number_format( $product->sale_price);
+    //         return $product;
+    //     });
+    //     // dd($productData);
+    //     return response()->json($productData);
+    // }
     public function getProduct()
     {
         $products = Product::all();
-
-        $productData = $products->map(function ($product) {
-            $product->image = asset('storage/images/' . $product->image);
-            // $product->price = number_format( $product->price);
-            // $product->sale_price = number_format( $product->sale_price);
-            return $product;
-        });
+        $productStock = Product::where('stock', 0)->get();
+       
         // dd($productData);
-        return response()->json($productData);
+        return response()->json([
+            'stock'=>$productStock,
+            'products' => $products
+        ]);
     }
     public function getCategory()
     {

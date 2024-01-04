@@ -9,6 +9,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\SearchController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\HistoryController;
 
 
 /*
@@ -49,25 +50,11 @@ Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart
 
 Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
 
+Route::post('/history', [HistoryController::class, 'history'])->name('history');
+
 // Route::middleware('user')->group(function () {
    
 // });
-
-// Route::get('/history', [HistoryController::class, 'history'])->name('history');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

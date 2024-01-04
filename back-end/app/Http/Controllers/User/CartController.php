@@ -14,10 +14,8 @@ class CartController extends Controller
     public function index(Request $req)
     {
         $cart = Cart::where('customer_id', $req->id)->get();
-        // $cart = Cart::get();
         return $cart;
     }
-
     public function addCart(Request $req)
     {
         // return $req->all();
@@ -27,8 +25,8 @@ class CartController extends Controller
             'product_id' => $req->productid,
             'quantity' => 1,
             'name' => $req->name,
-            'sale_price' => $req->saleprice,
             'price' => $req->price,
+            'sale_price' => $req->saleprice,
             'image' => $req->image
         ]);
         // $cart =Cart::create($req->all());

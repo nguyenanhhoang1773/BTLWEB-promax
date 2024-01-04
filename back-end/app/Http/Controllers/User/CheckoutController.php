@@ -30,7 +30,7 @@ class CheckoutController extends Controller
             'total_amount' => $totalMoney,
             'phone' => $req->phone,
             'address' => $req->address,
-            'note' => $req->note,
+            'note' => $req->note 
         ]);
 
 
