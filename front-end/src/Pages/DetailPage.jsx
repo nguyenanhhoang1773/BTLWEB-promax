@@ -38,30 +38,34 @@ function DetailPage() {
     setShowModal(false);
   };
   useEffect(() => {
-    async function fetchData() {
-      if (!Products) {
-        try {
-          const response = await axios.get(
-            "http://localhost:8000/api/list-product"
-          );
-          dispatch(storePd(response.data));
-          await new Promise((resolve) => setTimeout(resolve, 0));
-        } catch (error) {
-          console.error("Lỗi khi lấy dữ liệu:", error);
-        }
-      }
-    }
+    axios
+      .get("http://localhost:8000/api/list-product")
+      .then(function (response) {
+        console.log("response:", response);
+        const all = response.data.products;
+        const stock = response.data.stock;
+        dispatch(
+          storePd({
+            all: all,
+            stock: stock,
+          })
+        );
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
     setLoadingApp(true);
     setTimeout(() => {
       setLoadingApp(false);
     }, 300);
-    fetchData();
   }, [slugProduct]);
   useEffect(() => {
     if (!Products) {
       return;
     }
-    console.log(Products);
     Products.forEach(
       ({ id, name, slug, image, price, sale_price, description }) => {
         if (slugProduct === slug) {
@@ -77,7 +81,8 @@ function DetailPage() {
         }
       }
     );
-  }, [Products, slugProduct]);
+  }, [Products]);
+
   const handleAddToCart = (e) => {
     if (!idUser) {
       alert("Vui lòng đăng nhập để thực hiện thêm vào giỏ hàng...");
@@ -256,10 +261,10 @@ function DetailPage() {
                 </div> */}
                 <div className="flex mt-[10px] items-center">
                   <span className="text-yellow-500 line-through">
-                    {formatPrice(product.price)}đ
+                    {product.price && formatPrice(product.price)}đ
                   </span>
                   <span className="text-yellow-500   text-[24px] ml-[10px]">
-                    {formatPrice(product.sale_price)}đ
+                    {product.sale_price && formatPrice(product.sale_price)}đ
                   </span>
                   <div className="bg-[var(--color-primary)]  text-white inline-block  ml-[12px] px-[4px] rounded-sm">
                     33% Giảm
