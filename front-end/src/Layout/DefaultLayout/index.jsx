@@ -1,6 +1,7 @@
 import Header from "../../Components/Header";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import Footer from "../../Components/Footer";
 function DefaultLayout({ children }) {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -12,6 +13,7 @@ function DefaultLayout({ children }) {
       <Header />
       <div className="mt-[133px] py-[40px] mx-[var(--app-margin)]">
         {children}
+        <Footer />
       </div>
     </div>
   );

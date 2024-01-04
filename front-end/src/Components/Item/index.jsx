@@ -10,9 +10,12 @@ function Item({ id, slug, name, image, price, sale_price }) {
         to={`/detail/${slug}`}
         className="bg-slate-950 inline-block w-full   p-[20px] rounded-xl hover:opacity-80 hover:cursor-pointer"
       >
-        <img className="w-full" src={image} />
+        <img
+          className="w-full"
+          src={`http://127.0.0.1:8000/storage/images/${image}`}
+        />
         <div className=" pt-[10px]  ">
-          <h3 className="text-white text-[20px] font-[700] truncate w-[100%] ">
+          <h3 className="text-white hover:underline hover:text-yellow-400 text-[20px] font-[700] truncate w-[100%] ">
             {name}
           </h3>
           <p className="pt-[4px] font-[600] text-yellow-400">
@@ -25,11 +28,11 @@ function Item({ id, slug, name, image, price, sale_price }) {
             Yêu thích
             <span className="ml-[6px] icon-wrapper">
               <FontAwesomeIcon
-                className="heart-solid text-yellow-400"
+                className="text-[16px] heart-solid text-yellow-400"
                 icon={faHeart}
               />
               <FontAwesomeIcon
-                className="heart-regular text-yellow-400"
+                className="text-[16px] heart-regular text-yellow-400"
                 icon={faHeartRegular}
               />
             </span>

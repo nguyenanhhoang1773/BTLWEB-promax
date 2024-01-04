@@ -8,7 +8,7 @@ import {
   faHandsHolding,
   faFaceSmileWink,
 } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../features/CartManage/CartSlice";
@@ -21,9 +21,10 @@ import axios from "axios";
 
 function DetailPage() {
   const idUser = useSelector((state) => state.login.id);
-  const Products = useSelector((state) => state.storeProducts.Products);
+  const Products = useSelector((state) => state.storeProducts.all);
   const cartProducts = useSelector((state) => state.cartManage.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { slug: slugProduct } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState({});
@@ -78,6 +79,11 @@ function DetailPage() {
     );
   }, [Products, slugProduct]);
   const handleAddToCart = (e) => {
+    if (!idUser) {
+      alert("Vui lòng đăng nhập để thực hiện thêm vào giỏ hàng...");
+      navigate("/login");
+      return;
+    }
     const num = cartProducts.filter((product) => {
       return product.slug === slugProduct;
     });
@@ -227,7 +233,7 @@ function DetailPage() {
               <div className="bg-white  rounded-r-md opacity-90">
                 <img
                   className="w-[400px]  rounded-sm py-[10px]"
-                  src={product.image}
+                  src={`http://127.0.0.1:8000/storage/images/${product.image}`}
                 />
               </div>
               <div className="flex-1 px-[20px] ml-[40px] py-[30px]">

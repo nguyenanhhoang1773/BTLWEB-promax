@@ -28,6 +28,7 @@ import { logOut } from "../../features/Login/LoginSlice";
 
 function Header() {
   const isLogin = useSelector((state) => state.login.isLogin);
+  const userName = useSelector((state) => state.login.name);
   const idUser = useSelector((state) => state.login.id);
   const amountCart = useSelector((state) => state.cartManage.amount);
   const dispatch = useDispatch();
@@ -150,12 +151,21 @@ function Header() {
               </>
             )}
             {isLogin && (
-              <button
-                onClick={() => dispatch(logOut())}
-                className="header__route__item  text-yellow-400 !text-[18px]"
-              >
-                Đăng xuất
-              </button>
+              <>
+                <span className="header__route__item  text-yellow-500 !text-[18px]">
+                  {userName}
+                </span>
+                <div className="item-line2 !bg-yellow-400 mr-[4px]"></div>
+                <button
+                  onClick={() => {
+                    dispatch(logOut());
+                    alert("Bạn đã đăng xuất");
+                  }}
+                  className="header__route__item  text-yellow-400 !text-[18px]"
+                >
+                  Đăng xuất
+                </button>
+              </>
             )}
           </div>
         </div>

@@ -10,7 +10,10 @@ function SearchItem({ id, name, image, price, sale_price, slug }) {
       className="flex hover:bg-slate-700 bg-slate-800 border-b-[2px] rounded-b-sm border-yellow-500 p-[10px]"
     >
       <div className="flex flex-1">
-        <img className="w-[80px]" src={image} />
+        <img
+          className="w-[80px]"
+          src={`http://127.0.0.1:8000/storage/images/${image}`}
+        />
         <div className="flex flex-col ml-[10px]">
           <h3 className="text-[20px] font-[600] mt-[2px]">{name}</h3>
           <div>

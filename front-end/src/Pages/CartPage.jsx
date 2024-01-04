@@ -22,6 +22,7 @@ function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const idUser = useSelector((state) => state.login.id);
+  const amount = useSelector((state) => state.cartManage.amount);
   console.log("idUser:", idUser);
   const nameRef = useRef();
   const addressRef = useRef();
@@ -29,6 +30,12 @@ function CartPage() {
   const noteRef = useRef();
   const [totalPrice, setTotalPrice] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [nameVali, setNameVali] = useState(false);
+  const [addressVali, setAddressVali] = useState(false);
+  const [phoneVali, setPhoneVali] = useState(false);
+  const [phoneValiLength, setPhoneValiLength] = useState(false);
+  const [phoneValiNum, setPhoneValiNum] = useState(false);
+  const [noteVali, setNoteVali] = useState(false);
   const products = useSelector((state) => state.cartManage.products);
   useEffect(() => {
     let total = 0;
@@ -60,6 +67,13 @@ function CartPage() {
     const addressValue = addressRef.current.value;
     const phoneValue = phoneRef.current.value;
     const noteValue = noteRef.current.value;
+    if (nameVali || addressVali || phoneVali || noteVali) {
+      return;
+    }
+    if (amount < 1) {
+      alert("Bạn chưa có sản phẩm nào trong giỏ hàng!!!");
+      return;
+    }
     dispatch(clearProducts());
     console.log(products);
     axios
@@ -81,6 +95,69 @@ function CartPage() {
       .catch(function (error) {
         console.log(error);
       });
+    handleHideModal();
+  };
+  const handleValidate = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
+    console.log(e.target.value.length);
+
+    if (!e.target.value) {
+      if (e.target.name === "nameField") {
+        setNameVali(true);
+      }
+      if (e.target.name === "addressField") {
+        setAddressVali(true);
+      }
+      if (e.target.name === "phoneField") {
+        setPhoneVali(true);
+      }
+      if (e.target.name === "noteField") {
+        setNoteVali(true);
+      }
+    } else if (e.target.value) {
+      if (e.target.name === "nameField") {
+        setNameVali(false);
+      }
+      if (e.target.name === "addressField") {
+        setAddressVali(false);
+      }
+      if (e.target.name === "phoneField") {
+        setPhoneVali(false);
+      }
+      if (e.target.name === "noteField") {
+        setNoteVali(false);
+      }
+    }
+    if (
+      e.target.value &&
+      e.target.name === "phoneField" &&
+      e.target.value.length !== 10
+    ) {
+      console.log("phone vali");
+      setPhoneValiLength(true);
+    }
+    if (
+      e.target.value &&
+      e.target.name === "phoneField" &&
+      e.target.value.length === 10
+    ) {
+      setPhoneValiLength(false);
+    }
+    if (
+      e.target.value &&
+      e.target.name === "phoneField" &&
+      !e.target.value.match(/^[0-9]+$/)
+    ) {
+      setPhoneValiNum(true);
+    }
+    if (
+      e.target.value &&
+      e.target.name === "phoneField" &&
+      e.target.value.match(/^[0-9]+$/)
+    ) {
+      setPhoneValiNum(false);
+    }
   };
   return (
     <div className="relative min-h-[800px] mt-[50px]">
@@ -170,25 +247,63 @@ function CartPage() {
                 sớm nhất.
               </span>
               <input
+                onKeyUp={handleValidate}
+                name="nameField"
                 ref={nameRef}
                 className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
                 placeholder="Họ và Tên"
               />
+              {nameVali && (
+                <p className="text-yellow-500 ml-[2px] text-[16px]">
+                  Vui lòng nhập trường này.
+                </p>
+              )}
               <input
+                name="addressField"
+                onKeyUp={handleValidate}
                 ref={addressRef}
                 className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
                 placeholder="Địa chỉ"
               />
+              {addressVali && (
+                <p className="text-yellow-500 ml-[2px] text-[16px]">
+                  Vui lòng nhập trường này.
+                </p>
+              )}
               <input
+                name="phoneField"
+                onKeyUp={handleValidate}
                 ref={phoneRef}
                 className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
                 placeholder="Số điện thoại"
               />
+              {phoneVali && (
+                <p className="text-yellow-500 ml-[2px] text-[16px]">
+                  Vui lòng nhập trường này.
+                </p>
+              )}
+              {phoneValiLength && !phoneVali && !phoneValiNum && (
+                <p className="text-yellow-500 ml-[2px] text-[16px]">
+                  Vui lòng nhập đủ 10 số.
+                </p>
+              )}
+              {phoneValiNum && !phoneVali && (
+                <p className="text-yellow-500 ml-[2px] text-[16px]">
+                  Giá trị bắt buộc là số.
+                </p>
+              )}
               <input
+                name="noteField"
+                onKeyUp={handleValidate}
                 ref={noteRef}
                 className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
                 placeholder="Ghi chú"
               />
+              {noteVali && (
+                <p className="text-yellow-500 ml-[2px] text-[16px]">
+                  Vui lòng nhập trường này.
+                </p>
+              )}
               <button
                 onClick={handleSubmit}
                 className="bg-yellow-500 w-full rounded-md font-[600] hover:bg-yellow-400  w-[80px] p-[10px]  mt-[20px] text-black"

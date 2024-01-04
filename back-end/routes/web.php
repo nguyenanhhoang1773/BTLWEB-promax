@@ -46,9 +46,9 @@ use App\Http\Controllers\User\UserController;
 // Route::get('/insert-product',[AdminProductController::class,'index']);
 
 Route::get('/logoutAdmin', [LoginController::class, 'logoutAdmin'])->name('logoutAcc');
-Route::get('/login', [LoginController::class, 'login'])->name('login.index');
-Route::post('/login', [LoginController::class, 'postLogin']);
-Route::middleware('admin')->group(function () {
+Route::get('/', [LoginController::class, 'login'])->name('login.index');
+Route::post('/', [LoginController::class, 'postLogin']);
+Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/', [DashBoardController::class, 'index'])->name('admin.index');
     Route::get('/statistical', [StatisticalController::class, 'index'])->name('statistical.index');
     Route::get('/chart', [ChartController::class, 'getDataOrdersForChart'])->name('statistical.chart');

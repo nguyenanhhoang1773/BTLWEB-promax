@@ -3,14 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 export const storePdSlice = createSlice({
   name: "storeProducts",
   initialState: {
-    Products: null,
+    all: null,
+    stock: null,
   },
   reducers: {
     storePd: (state, action) => {
-      state.Products = action.payload;
+      state.all = action.payload.all;
+      state.stock = action.payload.stock;
     },
     removePd: (state) => {
-      state.Products = null;
+      state.all = null;
+      state.stock = null;
     },
   },
 });

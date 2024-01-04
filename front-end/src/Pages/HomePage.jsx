@@ -15,14 +15,22 @@ import banner1 from "../assets/img/Blackfriday banner(1).jpg";
 import banner2 from "../assets/img/piano-sale-20.jpg";
 function HomePage() {
   const dispatch = useDispatch();
-  const Products = useSelector((state) => state.storeProducts.Products);
+  const allProduct = useSelector((state) => state.storeProducts.all);
+  const stockProduct = useSelector((state) => state.storeProducts.stock);
   const handleRegister = () => {};
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/list-product")
       .then(function (response) {
         console.log("response:", response);
-        dispatch(storePd(response.data));
+        const all = response.data.products;
+        const stock = response.data.stock;
+        dispatch(
+          storePd({
+            all: all,
+            stock: stock,
+          })
+        );
       })
       .catch(function (error) {
         console.log(error);
@@ -88,10 +96,10 @@ function HomePage() {
           </div>
         </div>
       </div>
-      {Products && (
+      {allProduct && (
         <>
-          <Items category="Category" Products={Products} />
-          <Items category="Category" Products={Products} />
+          <Items category="Sản phẩm nổi bật" Products={stockProduct} />
+          <Items category="Tất cả sản phẩm" Products={allProduct} />
         </>
       )}
     </>
