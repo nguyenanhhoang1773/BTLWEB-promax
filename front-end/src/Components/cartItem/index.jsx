@@ -25,7 +25,10 @@ function CartItem({ id, name, image, price, sale_price }) {
   };
   return (
     <div className="flex mt-[12px] opacity-90  border-l-[2px]  border-r-[2px]  border-yellow-500 bg-white rounded-md">
-      <img className="w-[160px] pl-[10px] py-[4px] rounded-md" src={image} />
+      <img
+        className="w-[160px] pl-[10px] py-[4px] rounded-md"
+        src={`http://127.0.0.1:8000/storage/images/${image}`}
+      />
       <div className="ml-[12px]  py-[12px]">
         <h3 className="text-[rgba(0,0,0,0.8)] mb-[10px] font-[600] text-[22px]">
           {name}

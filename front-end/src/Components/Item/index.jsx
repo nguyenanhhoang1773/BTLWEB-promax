@@ -10,7 +10,10 @@ function Item({ id, slug, name, image, price, sale_price }) {
         to={`/detail/${slug}`}
         className="bg-slate-950 inline-block w-full   p-[20px] rounded-xl hover:opacity-80 hover:cursor-pointer"
       >
-        <img className="w-full" src={image} />
+        <img
+          className="w-full"
+          src={`http://127.0.0.1:8000/storage/images/${image}`}
+        />
         <div className=" pt-[10px]  ">
           <h3 className="text-white text-[20px] font-[700] truncate w-[100%] ">
             {name}
