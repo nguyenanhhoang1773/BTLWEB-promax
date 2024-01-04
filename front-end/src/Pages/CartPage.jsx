@@ -93,6 +93,9 @@ function CartPage() {
   };
   const handleValidate = (e) => {
     console.log(e.target.name);
+    console.log(e.target.value);
+    console.log(e.target.value.length);
+
     if (!e.target.value) {
       if (e.target.name === "nameField") {
         setNameVali(true);
@@ -119,16 +122,19 @@ function CartPage() {
       if (e.target.name === "noteField") {
         setNoteVali(false);
       }
-    } else if (
+    }
+    if (
       e.target.value &&
       e.target.name === "phoneField" &&
       e.target.value.length !== 10
     ) {
+      console.log("phone vali");
       setPhoneValiLength(true);
-    } else if (
+    }
+    if (
       e.target.value &&
       e.target.name === "phoneField" &&
-      e.target.value.length == 10
+      e.target.value.length === 10
     ) {
       setPhoneValiLength(false);
     }
@@ -256,7 +262,7 @@ function CartPage() {
                   Vui lòng nhập trường này.
                 </p>
               )}
-              {phoneValiLength && (
+              {phoneValiLength && !phoneVali && (
                 <p className="text-yellow-500 ml-[2px] text-[16px]">
                   Vui lòng nhập đủ 10 số.
                 </p>
