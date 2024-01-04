@@ -22,6 +22,7 @@ function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const idUser = useSelector((state) => state.login.id);
+  const amount = useSelector((state) => state.CartManage.amount);
   console.log("idUser:", idUser);
   const nameRef = useRef();
   const addressRef = useRef();
@@ -65,8 +66,11 @@ function CartPage() {
     const addressValue = addressRef.current.value;
     const phoneValue = phoneRef.current.value;
     const noteValue = noteRef.current.value;
-    if (!nameValue || !addressValue || !phoneValue || !noteValue) {
-      alert("Các thông tin này là bắt buộc");
+    if (nameVali || addressVali || phoneVali || noteVali) {
+      return;
+    }
+    if (amount < 1) {
+      alert("Bạn chưa có sản phẩm nào trong giỏ hàng!!!");
       return;
     }
     dispatch(clearProducts());
