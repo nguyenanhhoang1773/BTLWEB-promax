@@ -24,8 +24,10 @@ import logo from "../../assets/img/4h.png";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../features/CartManage/CartSlice";
+import { logOut } from "../../features/Login/LoginSlice";
 
 function Header() {
+  const isLogin = useSelector((state) => state.login.isLogin);
   const idUser = useSelector((state) => state.login.id);
   const amountCart = useSelector((state) => state.cartManage.amount);
   const dispatch = useDispatch();
@@ -130,19 +132,31 @@ function Header() {
               />
               <i className="fa-solid fa-icon fa-chevron-down"></i>
             </a>
-            <Link
-              to="/register"
-              className="header__route__item text-yellow-400 !text-[18px]"
-            >
-              Đăng ký
-            </Link>
-            <div className="item-line2 !bg-yellow-400"></div>
-            <Link
-              to="/login"
-              className="header__route__item ml-4 text-yellow-400 !text-[18px]"
-            >
-              Đăng nhập
-            </Link>
+            {!isLogin && (
+              <>
+                <Link
+                  to="/register"
+                  className="header__route__item text-yellow-400 !text-[18px]"
+                >
+                  Đăng ký
+                </Link>
+                <div className="item-line2 !bg-yellow-400"></div>
+                <Link
+                  to="/login"
+                  className="header__route__item ml-4 text-yellow-400 !text-[18px]"
+                >
+                  Đăng nhập
+                </Link>
+              </>
+            )}
+            {isLogin && (
+              <button
+                onClick={() => dispatch(logOut())}
+                className="header__route__item  text-yellow-400 !text-[18px]"
+              >
+                Đăng xuất
+              </button>
+            )}
           </div>
         </div>
         <div className="header__container">
