@@ -155,9 +155,12 @@ function Header() {
                 <span className="header__route__item  text-yellow-500 !text-[18px]">
                   {userName}
                 </span>
-                <div className="item-line2 !bg-yellow-400"></div>
+                <div className="item-line2 !bg-yellow-400 mr-[4px]"></div>
                 <button
-                  onClick={() => dispatch(logOut())}
+                  onClick={() => {
+                    dispatch(logOut());
+                    alert("Bạn đã đăng xuất");
+                  }}
                   className="header__route__item  text-yellow-400 !text-[18px]"
                 >
                   Đăng xuất
