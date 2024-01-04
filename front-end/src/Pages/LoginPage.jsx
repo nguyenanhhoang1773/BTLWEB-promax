@@ -73,7 +73,7 @@ function LoginPage() {
       });
   };
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center min-h-[600px]">
       <div className="bg-slate-700 flex flex-col p-[20px] max-w-[500px]  rounded-xl ">
         <h3 className="text-center font-[700] text-yellow-500 text-[24px]">
           Login
