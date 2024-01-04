@@ -152,9 +152,10 @@ function Header() {
             )}
             {isLogin && (
               <>
-                <p className="header__route__item  text-yellow-400 !text-[18px]">
+                <span className="header__route__item  text-yellow-500 !text-[18px]">
                   {userName}
-                </p>
+                </span>
+                <div className="item-line2 !bg-yellow-400"></div>
                 <button
                   onClick={() => dispatch(logOut())}
                   className="header__route__item  text-yellow-400 !text-[18px]"
