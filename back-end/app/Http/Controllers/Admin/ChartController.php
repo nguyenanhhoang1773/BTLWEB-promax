@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
-use App\Models\OrdersDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -40,7 +39,7 @@ class ChartController extends Controller
 
         $datasets = [
             [
-                'label' => 'Thông kê đơn hàng',
+                'label' => 'Thống kê đơn hàng',
                 'data' => $data,
                 'backgroundColor' => $colors,
                 'borderWidth' => '1'
@@ -55,8 +54,8 @@ class ChartController extends Controller
         ->whereYear('created_at', date('Y'))
         ->groupBy(DB::raw('MONTH(created_at)'))
         ->get();
-        // dd($datasRevenueForChart);
-        
+
+
         $labelsRevenue = [];
         $dataRevenue = [];
 
@@ -70,23 +69,20 @@ class ChartController extends Controller
                     break;
                 }
             }
-            
+
             array_push($labelsRevenue,$monthRevenue);
             array_push($dataRevenue,$countRevenue);
         }
-
+        
         $datasetsRevenue = [
             [
-                'label' => 'Thông kê doanh thu',
+                'label' => 'Thống kê doanh thu',
                 'data' => $dataRevenue,
                 'backgroundColor' => $colors,
                 'borderColor' =>'rgba(154, 205, 50, 1)',
                 'borderWidth' => '1'
             ]
         ];
-       // dd($datasetsRevenue);
         return view('admin.statistical.chart', compact('datasets','labels','datasetsRevenue','labelsRevenue'));
-
     }
-
 }
