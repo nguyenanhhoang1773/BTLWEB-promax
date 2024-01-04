@@ -15,7 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faBell, faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { paths } from "../../router";
 import SearchItem from "../SearchItem";
 // import { db } from "../../api";
@@ -29,6 +29,7 @@ import {
 } from "../../features/CartManage/CartSlice";
 import { logOut } from "../../features/Login/LoginSlice";
 function Header() {
+  const navigate = useNavigate();
   const isLogin = useSelector((state) => state.login.isLogin);
   const userName = useSelector((state) => state.login.name);
   const idUser = useSelector((state) => state.login.id);
@@ -37,6 +38,7 @@ function Header() {
   const amountProducts = useSelector((state) => state.cartManage.products);
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
+
   const handleSearch = (e) => {
     const value = e.target.value.trim();
     if (value) {
@@ -61,6 +63,12 @@ function Header() {
       setResultSearch([]);
     }
   };
+  const handleLogout = () => {
+    dispatch(logOut());
+    dispatch(clearProducts());
+    navigate("/");
+    alert("Bạn đã đăng xuất");
+  };
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/cart", {
@@ -70,10 +78,22 @@ function Header() {
       })
       .then(function (response) {
         const data = response.data;
+        const newData = [];
+        data.forEach((value) => {
+          let obj = {
+            id: value.product_id,
+            customer_id: value.customer_id,
+            name: value.name,
+            price: value.price,
+            sale_price: value.sale_price,
+            image: value.image,
+          };
+          newData.push(obj);
+        });
         dispatch(
           setProducts({
             amount: data.length,
-            products: [...data],
+            products: [...newData],
           })
         );
         console.log(" cart:", data);
@@ -159,11 +179,7 @@ function Header() {
                 </span>
                 <div className="item-line2 !bg-yellow-400 mr-[4px]"></div>
                 <button
-                  onClick={() => {
-                    dispatch(logOut());
-                    dispatch(clearProducts());
-                    alert("Bạn đã đăng xuất");
-                  }}
+                  onClick={handleLogout}
                   className="header__route__item  text-yellow-400 !text-[18px]"
                 >
                   Đăng xuất
