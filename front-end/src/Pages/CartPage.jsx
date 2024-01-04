@@ -34,6 +34,7 @@ function CartPage() {
   const [addressVali, setAddressVali] = useState(false);
   const [phoneVali, setPhoneVali] = useState(false);
   const [phoneValiLength, setPhoneValiLength] = useState(false);
+  const [phoneValiNum, setPhoneValiNum] = useState(false);
   const [noteVali, setNoteVali] = useState(false);
   const products = useSelector((state) => state.cartManage.products);
   useEffect(() => {
@@ -142,6 +143,20 @@ function CartPage() {
       e.target.value.length === 10
     ) {
       setPhoneValiLength(false);
+    }
+    if (
+      e.target.value &&
+      e.target.name === "phoneField" &&
+      !e.target.value.match(/^[0-9]+$/)
+    ) {
+      setPhoneValiNum(true);
+    }
+    if (
+      e.target.value &&
+      e.target.name === "phoneField" &&
+      e.target.value.match(/^[0-9]+$/)
+    ) {
+      setPhoneValiNum(false);
     }
   };
   return (
@@ -267,9 +282,14 @@ function CartPage() {
                   Vui lòng nhập trường này.
                 </p>
               )}
-              {phoneValiLength && !phoneVali && (
+              {phoneValiLength && !phoneVali && !phoneValiNum && (
                 <p className="text-yellow-500 ml-[2px] text-[16px]">
                   Vui lòng nhập đủ 10 số.
+                </p>
+              )}
+              {phoneValiNum && !phoneVali && (
+                <p className="text-yellow-500 ml-[2px] text-[16px]">
+                  Giá trị bắt buộc là số.
                 </p>
               )}
               <input
