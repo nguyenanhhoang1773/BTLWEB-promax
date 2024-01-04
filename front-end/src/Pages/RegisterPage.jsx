@@ -75,7 +75,10 @@ function RegisterPage() {
         console.log("register:", response);
         if (urlRedirect === "/login") {
           navigate(`${urlRedirect}`);
+          alert("Đã đăng ký tài khoản thành công.");
           console.log("successfully");
+        } else {
+          alert("email đã tồn tại.");
         }
       })
       .catch(function (error) {
