@@ -54,9 +54,15 @@ function LoginPage() {
         console.log("Login response:", response.data);
         const redirect = response.data.redirect;
         const idUser = response.data.user[0].id;
+        const name = response.data.user[0].name;
         console.log(idUser);
         if (redirect === "/") {
-          dispatch(logIn(idUser));
+          dispatch(
+            logIn({
+              id: idUser,
+              name: name,
+            })
+          );
           navigate(redirect);
         } else {
           alert("Sai email hoặc mật khẩu");

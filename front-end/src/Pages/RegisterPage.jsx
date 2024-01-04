@@ -62,6 +62,7 @@ function RegisterPage() {
     const rePasswordValue = rePasswordField.current.value;
     if (passwordValue !== rePasswordValue) {
       alert("Nhập lại sai mật khẩu!!!");
+      return;
     }
     axios
       .post("http://localhost:8000/api/register", {
