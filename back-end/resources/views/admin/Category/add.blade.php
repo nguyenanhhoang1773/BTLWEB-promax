@@ -52,11 +52,6 @@ Thêm danh mục
             <a href="{{route('category.index')}}" class="btn btn-info">Quay lại</a>
         </form>
     </div>
-<<<<<<< HEAD
-@endsection
-@php
 
-@endphp
-=======
 @endsection
->>>>>>> 33dcfc24536e0cd30d5f0de23e2d06733ca15cbd
+

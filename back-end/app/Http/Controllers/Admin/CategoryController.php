@@ -124,9 +124,9 @@ class CategoryController extends Controller
 
         try {
             Category::create($request->all());
-            return redirect()->route('category.index')->with('msg', 'thêm mới thành công ');
+            return redirect()->route('category.index')->with('msg', 'Thêm mới thành công ');
         } catch (\Throwable $th) {
-            return redirect()->route('category.create')->with('msg', 'thêm thất bại ');
+            return redirect()->route('category.create')->with('msg', 'Thêm thất bại ');
         }
     }
 

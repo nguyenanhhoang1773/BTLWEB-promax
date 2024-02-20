@@ -60,7 +60,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|confirmed|min:6',
-
         ];
 
         $messages = [

@@ -22,6 +22,7 @@ function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const idUser = useSelector((state) => state.login.id);
+  const name = useSelector((state) => state.login.name);
   const amount = useSelector((state) => state.cartManage.amount);
   console.log("idUser:", idUser);
   const nameRef = useRef();
@@ -157,7 +158,7 @@ function CartPage() {
     }
   };
   return (
-    <div className="relative min-h-[800px] mt-[50px]">
+    <div className="relative min-h-[800px]  mt-[50px]">
       {/* {showModal && (
         <div
           onClick={handleHideModal}
@@ -234,7 +235,7 @@ function CartPage() {
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="flex flex-col bg-slate-800 py-[10px] px-[30px]"
+              className="flex flex-col bg-slate-800 py-[30px] rounded-xl px-[30px]"
             >
               <h3 className="text-center text-[22px] font-[600] text-yellow-500">
                 Thông tin đơn Hàng
@@ -246,6 +247,7 @@ function CartPage() {
               <input
                 onKeyUp={handleValidate}
                 name="nameField"
+                value={name}
                 ref={nameRef}
                 className="w-full text-white text-[18px] mt-[20px] px-[10px] bg-slate-900 rounded-md py-[4px]"
                 placeholder="Họ và Tên"

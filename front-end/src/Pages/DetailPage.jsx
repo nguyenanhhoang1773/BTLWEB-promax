@@ -32,7 +32,48 @@ function DetailPage() {
   const [loadingApp, setLoadingApp] = useState(true);
   const [haveProduct, setHaveProduct] = useState(false);
   const handleShowModal = () => {
-    setShowModal(true);
+    if (!idUser) {
+      alert("Vui lòng đăng nhập để thực hiện mua hàng...");
+      navigate("/login");
+      return;
+    }
+    const num = cartProducts.filter((product) => {
+      return product.slug === slugProduct;
+    });
+    if (num.length > 0) {
+      setHaveProduct(true);
+      setTimeout(() => {
+        setHaveProduct(false);
+      }, 1000);
+    } else {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+      dispatch(addProduct({ ...product }));
+      axios
+        .get("http://localhost:8000/api/addCart", {
+          params: {
+            customerid: idUser,
+            productid: product.id,
+            name: product.name,
+            saleprice: product.sale_price,
+            price: product.price,
+            image: product.image,
+          },
+        })
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+        navigate("/cart")
+    }
   };
   const handleHideModal = () => {
     setShowModal(false);

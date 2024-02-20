@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="category_id">Chọn danh mục:</label>
                         <select class="form-control" id="category_id" name="category_id">
-                            <option value="4">chọn danh mục</option>
+                            <option value="20">chọn danh mục</option>
                             @php
                                 showCategories($categories);
                             @endphp
@@ -64,6 +64,11 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    
+
+                </div>
+
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Ảnh:</label>
                         <input type="file" class="" id="photo" name="photo"><br>
@@ -77,15 +82,10 @@
                         <input type="file" class="form-control" id="detail_image" name="photos[]" multiple>
 
                     </div>
-
-                </div>
-
-                <div class="col-md-6">
-
                     <div class="form-group">
                         <label for="description">Mô tả sản phẩm:</label>
-                        <textarea name="description" id="description" rows="10" cols="220">{{ $product->description }}    
-                        </textarea>
+                        <input type="text" class="form-control" name="description" id="description" value="{{$product->description}}">
+                        {{ old('description') }}
                         <input type="hidden" name="id" value="{{ $product->id }}">
                     </div>
                     <button type="submit" class="btn btn-success">xác nhận thay đổi</button>
@@ -136,30 +136,5 @@
         }
     </script>
 
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#description'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
 @endsection
-@php
 
-//đệ quy menu đa cấp 
-        function showCategories($categories, $parent_id = 0, $char = '')
-    {
-        foreach ($categories as $key => $item)
-        {
-            // Nếu là chuyên mục con thì hiển thị
-            if ($item->parent_id == $parent_id)
-            {
-        echo '<option value="'.$item->id.'">'.$char.$item->name.'</option>';
-                unset($categories[$key]);
-                
-                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                showCategories($categories, $item->id, $char.'--');
-            }
-        }
-    }
-@endphp

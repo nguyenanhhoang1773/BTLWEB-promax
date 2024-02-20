@@ -162,7 +162,7 @@ class AdminProductController extends Controller
     {
         $products = Product::orderBy('created_at', 'desc')
             ->Search()
-            ->paginate(3);
+            ->paginate(5);
         return view('admin.product.index', compact('products'));
     }
 
@@ -298,6 +298,7 @@ class AdminProductController extends Controller
         $product->price = $request->price;
         $product->sale_price = $request->sale_price;
         $product->category_id = $request->category_id;
+        $product->description = $request->description;
 
         // Lưu các thay đổi vào cơ sở dữ liệu
         // dd($product->category_id);

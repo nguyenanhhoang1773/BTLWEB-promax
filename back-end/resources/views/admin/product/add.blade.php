@@ -87,9 +87,12 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Mô tả sản phẩm:</label>
-                        <textarea name="description" id="description" rows="10" cols="220">
+                        {{-- <textarea name="description" id="description" rows="10" cols="220">
                             {{ old('description') }}
-                        </textarea>
+                        </textarea> --}}
+                        <textarea type="text" class="form-control" name="description" id="description" rows="4" cols="50">
+                        {{ old('description') }}
+                    </textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
                     <a href="{{ route('admin.index') }}" class="btn btn-info">Quay lại</a>
@@ -137,12 +140,12 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         ClassicEditor
             .create(document.querySelector('#description'))
             .catch(error => {
                 console.error(error);
             });
-    </script>
+    </script> --}}
 
 @endsection

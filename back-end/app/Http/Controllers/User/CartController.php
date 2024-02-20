@@ -29,7 +29,6 @@ class CartController extends Controller
             'sale_price' => $req->saleprice,
             'image' => $req->image
         ]);
-        // $cart =Cart::create($req->all());
         return response()->json([
             'redirect' => '/cart',
             'message' => 'Thêm vào giỏ hàng thành công',

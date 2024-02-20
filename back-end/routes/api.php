@@ -46,11 +46,11 @@ Route::get('/addCart', [CartController::class, 'addCart']);
 
 Route::post('/deletecart', [CartController::class, 'deleteCart']);
 
-Route::get('/clearcart', [CartController::class, 'clearCart'])->name('clear.cart');
+Route::get('/clearcart', [CartController::class, 'clearCart']);
 
 Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
 
-Route::post('/history', [HistoryController::class, 'history'])->name('history');
+Route::post('/history', [HistoryController::class, 'history']);
 
 // Route::middleware('user')->group(function () {
    
