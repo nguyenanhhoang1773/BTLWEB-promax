@@ -9,7 +9,7 @@ class StatisticalController extends Controller
 {
     public function index()
     {
-        $orders = Orders::has('orderDetails')->with('orderDetails.product')->get();
+        $orders = Orders::orderBy('created_at', 'desc')->has('orderDetails')->with('orderDetails.product')->get();
         // dd($orders);
         return view('admin.statistical.all',compact('orders'));
     }  

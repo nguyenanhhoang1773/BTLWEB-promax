@@ -52,24 +52,3 @@ Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
 
 Route::post('/history', [HistoryController::class, 'history']);
 
-// Route::middleware('user')->group(function () {
-   
-// });
-
-
-
-// Route::get('/list-product', [ProductController::class, 'getProduct']);
-
-// Route::prefix('/admin')->middleware('admin')->group(function () {
-//     Route::get('/category', [CategoryController::class, 'index']);
-//     Route::get('/category/{id}', [CategoryController::class, 'showListByID']);
-//     Route::post('/category', [CategoryController::class, 'store']);
-//     Route::put('/category/{id}', [CategoryController::class, 'update']);
-//     Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
-
-//     Route::get('/product',[AdminProductController::class ,'index']);    
-//     Route::get('/product/{id}', [AdminProductController::class, 'showListByID']);
-//     Route::post('/product', [AdminProductController::class, 'store']);
-//     Route::put('/product/{id}', [AdminProductController::class, 'update']);
-//     Route::delete('/product/{id}', [AdminProductController::class, 'destroy']);
-// });

@@ -23,7 +23,7 @@
                 @forelse ($order as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->id }}</td>
+                        <td>4hSome-{{ $item->id }}</td>
                         <td>{{ $item->customer->name }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
