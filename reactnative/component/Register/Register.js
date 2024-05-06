@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 
 
-const Login = () => {
+const Register = () => {
 
   const [email, setEmail] = useState('')
   const [checkEmail, setCheckEmail] = useState(true)
@@ -26,10 +26,16 @@ const Login = () => {
         <View style={{ margin: 30 }}>
 
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Đăng Nhập</Text>
+            <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Đăng ký</Text>
           </View>
 
-      
+          <View style={styles.form}>
+            <Text style={styles.title}>Họ tên: </Text>
+            <View >
+              <Ionicons name='person-add-sharp' style={styles.icon} />
+              <TextInput placeholder='Nhập Họ và tên' style={styles.input} />
+            </View>
+          </View>
 
           <View style={styles.form}>
             <Text style={styles.title}>Thông tin email </Text>
@@ -50,6 +56,14 @@ const Login = () => {
               <TextInput placeholder='Nhập mật khẩu' style={styles.input} />
             </View>
           </View>
+
+          <View style={styles.form}>
+            <Text style={styles.title}>Nhập lại mật khẩu: </Text>
+            <View >
+              <Ionicons name='lock-closed-outline' style={styles.icon} />
+              <TextInput placeholder='Nhập lại mật khẩu' style={styles.input} />
+            </View>
+          </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 5 }}>
             <Text style={{ color: 'blue' }}>Tôi đã có tài khoản</Text>
             <Text style={{ color: 'blue' }}>Quên mật khẩu ?</Text>
@@ -58,7 +72,7 @@ const Login = () => {
             <View style={{ borderRadius: 20, borderWidth: 1, alignItems: 'center', paddingVertical: 10, marginTop: 20, backgroundColor: '#0066FF' }}>
               <Text
 
-                style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }} >Đăng nhập</Text>
+                style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }} >Đăng ký tài khoản</Text>
             </View>
           </TouchableOpacity>
           <Text style={{ paddingTop: 20, textAlign: 'center' }}>Hoặc đăng ký bằng</Text>
@@ -74,7 +88,7 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Register
 
 const styles = StyleSheet.create({
   form: {

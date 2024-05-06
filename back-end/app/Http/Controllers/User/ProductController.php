@@ -24,14 +24,21 @@ class ProductController extends Controller
     // }
     public function getProduct()
     {
-        $products = Product::orderBy('id','desc')->get();
-        $productStock = Product::where('stock', 1)->orderBy('id','desc')->get();
-        
-        return response()->json([
-            // 'percent'=> percent($products->price, $products->sale_price),
-            'stock'=>$productStock,
-            'products' => $products
-        ]);
+        $products = Product::orderBy('id', 'desc')->get();
+        $productStock = Product::where('stock', 1)->orderBy('id', 'desc')->get();
+
+        return response()->json(
+            $products
+        );
+    }
+    public function getProductStock()
+    {
+
+        $productStock = Product::where('stock', 1)->orderBy('id', 'desc')->get();
+
+        return response()->json(
+            $productStock
+        );
     }
     public function getCategory()
     {
