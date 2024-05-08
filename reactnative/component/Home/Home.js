@@ -12,7 +12,7 @@ const Home = ({ navigation, route }) => {
 
 
   const getApi = () => {
-    axios.get('http://10.0.2.2:8000/api/list-product')
+    axios.get('http://10.0.3.2:8000/api/list-product')
       .then((response) => {
         setProduct(response.data)
         setLoad(false);
@@ -23,13 +23,13 @@ const Home = ({ navigation, route }) => {
 
   }
   const getProductStock = () => {
-    axios.get('http://10.0.2.2:8000/api/list-product-stock')
+    axios.get('http://10.0.3.2:8000/api/list-product-stock')
       .then((response) => {
         setStock(response.data)
         setLoad(false);
       })
       .catch((error) => {
-        console.log('lỗii', error)
+        console.log('lỗiii', error)
       })
 
   }
@@ -42,39 +42,40 @@ const Home = ({ navigation, route }) => {
 
   }, []);
   const price = 'ee'
-  function formatPrice(price) {
+  function formatPrice(price = price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
   return (
     <SafeAreaView>
       <View
-        style={{ backgroundColor: 'red', flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 10, paddingTop: 20 }}>
+        style={{ backgroundColor: 'red', flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 10, paddingTop: 30 }}>
         <View style={{ width: '75%', marginRight: 20 }}>
           <Ionicons name="search-outline" style={{ fontSize: 20, position: 'absolute', zIndex: 999, left: 5, top: 5 }} />
-          <TextInput style={{ backgroundColor: '#EEEEEE', borderWidth: 1, borderColor: 'black', borderRadius: 5, paddingLeft: 25 }} />
+          <TextInput style={{ backgroundColor: '#EEEEEE', borderWidth: 1, borderColor: 'black', borderRadius: 5, paddingLeft: 25, width: '100%', height: 30 }} />
         </View>
         <Ionicons name="cart-outline" style={{ fontSize: 30, width: '10%', marginRight: 10 }} />
         <Ionicons name="chatbubble-ellipses-outline" style={{ fontSize: 30, width: '10%' }} onPress={() => alert('Tính năng chát chưa sẵn sàng ok')} />
-
       </View>
-      <View style={{ marginHorizontal: 5, marginBottom: 125 }}>
-        <ScrollView style={{ paddingHorizontal: 10 }}>
+
+      <ScrollView style={{ marginBottom: 125, backgroundColor: '#F5F5F5' }}>
+        <Image source={require('../../assets/logo.jpeg')} style={{ width: '100%', height: 200, marginTop:10 }} />
+        <View style={{ paddingHorizontal: 10, marginHorizontal: 5, }}>
           <Text style={{ fontSize: 16, color: 'red', paddingVertical: 10 }}>Sản phẩm nổi bật</Text>
           <ScrollView horizontal style={{ paddingVertical: 10 }}>
             {stock.map((item, index) => {
               return (
                 <TouchableOpacity key={index}>
                   <View style={{ marginRight: 20, }}>
-                    <Text  style={{ textAlign: 'center' }}>{item.name ? (item.name.length > 15 ? item.name.slice(0, 15) + '...' : item.name) : ''}</Text>
+                    <Text style={{ textAlign: 'center' }}>{item.name ? (item.name.length > 15 ? item.name.slice(0, 15) + '...' : item.name) : ''}</Text>
                     <Image
-                      source={{ uri: `http://10.0.2.2:8000/storage/images/${item.image}` }}
+                      source={{ uri: `http://10.0.3.2:8000/storage/images/${item.image}` }}
                       style={{ width: 120, height: 90, overflow: 'hidden', borderRadius: 10 }} />
                   </View>
                 </TouchableOpacity>
               )
             })}
           </ScrollView>
-          <Text style={{ marginVertical: 10 }}>Danh sách sản phẩm ok</Text>
+          <Text style={{ marginVertical: 10, color: 'red', fontSize: 18 }}>DEAL TỐT DÀNH CHO BẠN MỚI</Text>
           <FlatList
             scrollEnabled={false}
             data={product}
@@ -83,21 +84,22 @@ const Home = ({ navigation, route }) => {
             renderItem={({ item }) =>
               <View style={{ paddingBottom: 20 }}>
                 <TouchableOpacity onPress={() => alert('đang xử lý')} >
-                  <Image source={{ uri: `http://10.0.2.2:8000/storage/images/${item.image}` }} style={{ width: 180, height: 150, borderWidth: 1, borderColor: 'black' }} />
-                  <View style={{ borderWidth: 1, backgroundColor: 'red', paddingLeft: 5 }}>
-                    <Text style={{ textDecorationLine: 'line-through' }}>Giá: {formatPrice(item.price)}đ</Text>
-                    <Text>Giá: {formatPrice(item.sale_price)}</Text>
+                  <Image source={{ uri: `http://10.0.3.2:8000/storage/images/${item.image}` }} style={{ width: 180, height: 150 }} />
+                  <View style={{ borderWidth: 1, backgroundColor: '#FFEEE8', paddingLeft: 5 }}>
                     <Text style={{ fontWeight: 'bold' }}>{item.name ? (item.name.length > 20 ? item.name.slice(0, 20) + '...' : item.name) : ''}</Text>
+                    <Text style={{ textDecorationLine: 'line-through' }}>Giá cũ: {formatPrice(item.price)}đ</Text>
+                    <Text>Còn: {formatPrice(item.sale_price)}</Text>
+
                   </View>
                 </TouchableOpacity>
               </View>
             }
           />
 
-        </ScrollView>
+        </View>
 
 
-      </View >
+      </ScrollView >
 
     </SafeAreaView>
 

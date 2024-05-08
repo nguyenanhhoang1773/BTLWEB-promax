@@ -6,6 +6,7 @@ import Home from './component/Home/Home'
 import Login from './component/Login/Login'
 import Register from './component/Register/Register'
 import Cart from './component/Cart/Cart'
+import Detail from './component/Detail/Detail'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -31,6 +32,8 @@ const MyStack = () => {
             iconName = focused ? 'cart-outline' : 'cart-sharp';
           } else if (route.name === 'Register') {
             iconName = focused ? 'aperture-outline' : 'aperture-sharp';
+          }else if (route.name === 'Detail') {
+            iconName = focused ? 'cash-outline' : 'cash-sharp';
           }
 
           // You can return any component that you like here!
@@ -39,10 +42,15 @@ const MyStack = () => {
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
       })}>
+       
         <Tab.Screen
           options={{ headerShown: false }}
           name="Home"
           component={Home} />
+           <Tab.Screen
+          options={{ headerShown: false }}
+          name="Detail"
+          component={Detail} />
         <Tab.Screen
           name="Register"
           options={{ headerShown: false }}
@@ -59,7 +67,7 @@ const MyStack = () => {
           name="Cart"
           component={Cart} />
 
-        
+
 
       </Tab.Navigator>
     </NavigationContainer>
