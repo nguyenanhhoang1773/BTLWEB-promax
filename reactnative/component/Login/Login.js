@@ -3,22 +3,19 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 
-
-
-
-const Login = () => {
+const Login = ({ navigation }) => {
 
   const [email, setEmail] = useState('')
   const [checkEmail, setCheckEmail] = useState(true)
 
   const handleValidate = () => {
     const regux = new RegExp('[^@]{2,64}@[^.]{2,253}\.[0-9a-z-.]{2,63}')
-    if(regux.test(email)){
+    if (regux.test(email)) {
       setCheckEmail(true)
-    } else{
+    } else {
       setCheckEmail(false)
     }
-    
+
   }
   return (
     <SafeAreaView>
@@ -29,7 +26,7 @@ const Login = () => {
             <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Đăng Nhập</Text>
           </View>
 
-      
+
 
           <View style={styles.form}>
             <Text style={styles.title}>Thông tin email </Text>
@@ -39,7 +36,7 @@ const Login = () => {
                 placeholder='Nhập email' style={styles.input}
                 onChangeText={(text) => setEmail(text)}
               />
-             {checkEmail ? '': <Text style={{color:'red'}}>Sai định dạng</Text>}
+              {checkEmail ? '' : <Text style={{ color: 'red' }}>Sai định dạng</Text>}
             </View>
           </View>
 
@@ -51,14 +48,14 @@ const Login = () => {
             </View>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 5 }}>
-            <Text style={{ color: 'blue' }}>Tôi đã có tài khoản</Text>
+            <Text style={{ color: 'blue' }} onPress={() => navigation.navigate('Register')}>Tôi chưa có tài khoản</Text>
             <Text style={{ color: 'blue' }}>Quên mật khẩu ?</Text>
           </View>
-          <TouchableOpacity onPress={() => handleValidate()}>
+          <TouchableOpacity onPress={() => navigation.navigate('TabNavigation')}>
             <View style={{ borderRadius: 20, borderWidth: 1, alignItems: 'center', paddingVertical: 10, marginTop: 20, backgroundColor: '#0066FF' }}>
               <Text
 
-                style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }} >Đăng nhập</Text>
+                style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }}  >Đăng nhập</Text>
             </View>
           </TouchableOpacity>
           <Text style={{ paddingTop: 20, textAlign: 'center' }}>Hoặc đăng ký bằng</Text>
