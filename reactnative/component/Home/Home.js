@@ -2,12 +2,12 @@ import { Button, SafeAreaView, StyleSheet, Text, View, Image, FlatList, Touchabl
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
-
+import Swiper from 'react-native-swiper';
 
 const Home = ({ navigation, route }) => {
 
   const [product, setProduct] = useState([])
-  const [stock, setStock] = useState(['dat'])
+  const [stock, setStock] = useState([])
   const [load, setLoad] = useState(true)
 
 
@@ -57,14 +57,24 @@ const Home = ({ navigation, route }) => {
         <Ionicons name="chatbubble-ellipses-outline" style={{ fontSize: 30, width: '10%' }} onPress={() => alert('Tính năng chát chưa sẵn sàng ok')} />
       </View>
 
-      <ScrollView style={{ marginBottom: 125, backgroundColor: '#F5F5F5' }}>
-        <Image source={require('../../assets/logo.jpeg')} style={{ width: '100%', height: 200, marginTop:10 }} />
+      <ScrollView style={{ marginBottom: 60, backgroundColor: '#F5F5F5' }}>
+        <Swiper autoplay={true} style={{ height: 200  , marginTop:5}}>
+          <View style={styles.slide}>
+            <Image source={{uri: `https://antimatter.vn/wp-content/uploads/2022/11/hinh-anh-gai-xinh-viet-nam.jpg`}} style={{ width: '90%', height: '100%', alignSelf:'center' }} />
+          </View>  
+           <View style={styles.slide}>
+            <Image source={{uri: `https://phunugioi.com/wp-content/uploads/2020/04/hinh-anh-gai-xinh-rang-khenh.jpg`}} style={{ width: '90%', height: '100%', alignSelf:'center' }} />
+          </View> 
+          <View style={styles.slide}>
+            <Image source={{uri: `https://allimages.sgp1.digitaloceanspaces.com/photographereduvn/2022/07/1656872943_849_Top-500-hinh-anh-nguoi-mau-Bikini-dep-sexy-nong.jpg`}} style={{ width: '90%', height: '100%', alignSelf:'center' }} />
+          </View>       
+        </Swiper>
         <View style={{ paddingHorizontal: 10, marginHorizontal: 5, }}>
           <Text style={{ fontSize: 16, color: 'red', paddingVertical: 10 }}>Sản phẩm nổi bật</Text>
           <ScrollView horizontal style={{ paddingVertical: 10 }}>
             {stock.map((item, index) => {
               return (
-                <TouchableOpacity key={index}>
+                <TouchableOpacity key={index} onPress={() => navigation.navigate('Detail')}>
                   <View style={{ marginRight: 20, }}>
                     <Text style={{ textAlign: 'center' }}>{item.name ? (item.name.length > 15 ? item.name.slice(0, 15) + '...' : item.name) : ''}</Text>
                     <Image
@@ -74,6 +84,7 @@ const Home = ({ navigation, route }) => {
                 </TouchableOpacity>
               )
             })}
+
           </ScrollView>
           <Text style={{ marginVertical: 10, color: 'red', fontSize: 18 }}>DEAL TỐT DÀNH CHO BẠN MỚI</Text>
           <FlatList
@@ -83,13 +94,12 @@ const Home = ({ navigation, route }) => {
             columnWrapperStyle={styles.row}
             renderItem={({ item }) =>
               <View style={{ paddingBottom: 20 }}>
-                <TouchableOpacity onPress={() => alert('đang xử lý')} >
+                <TouchableOpacity onPress={() => navigation.navigate('Detail')} >
                   <Image source={{ uri: `http://10.0.3.2:8000/storage/images/${item.image}` }} style={{ width: 180, height: 150 }} />
                   <View style={{ borderWidth: 1, backgroundColor: '#FFEEE8', paddingLeft: 5 }}>
                     <Text style={{ fontWeight: 'bold' }}>{item.name ? (item.name.length > 20 ? item.name.slice(0, 20) + '...' : item.name) : ''}</Text>
                     <Text style={{ textDecorationLine: 'line-through' }}>Giá cũ: {formatPrice(item.price)}đ</Text>
                     <Text>Còn: {formatPrice(item.sale_price)}</Text>
-
                   </View>
                 </TouchableOpacity>
               </View>
@@ -97,10 +107,7 @@ const Home = ({ navigation, route }) => {
           />
 
         </View>
-
-
       </ScrollView >
-
     </SafeAreaView>
 
 
@@ -114,5 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between'
 
-  }
+  },
+
 })

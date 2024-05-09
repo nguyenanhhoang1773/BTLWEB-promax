@@ -2,7 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View 
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons';
-const Detail = () => {
+const Detail = ({navigation}) => {
     const [quantity, setQuantity] = useState(1)
     const [feedback, setFeedback] = useState('')
     const plus = () => {
@@ -21,7 +21,10 @@ const Detail = () => {
             <View>
                 <ScrollView>
                     <View >
-                        <Ionicons name="arrow-back-outline" style={{ fontSize: 25, padding: 5, backgroundColor: '#DDDDDD', position: 'absolute', zIndex: 2, left: 10, borderRadius: 50, top: 10 }} />
+                        <Ionicons 
+                        onPress={()=>navigation.goBack()}
+                        name="arrow-back-outline" 
+                        style={{ fontSize: 25, padding: 5, backgroundColor: '#DDDDDD', position: 'absolute', zIndex: 2, left: 10, borderRadius: 50, top: 10 }} />
                         <Ionicons name="cart-outline" style={{ fontSize: 25, padding: 5, backgroundColor: '#DDDDDD', position: 'absolute', zIndex: 2, right: 10, borderRadius: 50, top: 10 }} />
                         <Ionicons name="share-social-outline" style={{ fontSize: 25, padding: 5, backgroundColor: '#DDDDDD', position: 'absolute', zIndex: 2, right: 50, borderRadius: 50, top: 10 }} />
                         <Image source={{ uri: `https://tse1.mm.bing.net/th?id=OIP.F0BPYYW2VVfMFpi8F3huqAHaE7&pid=Api&P=0&h=180` }} style={{ width: '100%', height: 300 }} />
