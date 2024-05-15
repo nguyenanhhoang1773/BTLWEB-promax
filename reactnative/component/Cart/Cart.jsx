@@ -18,8 +18,7 @@ import ItemCart from "../ItemCart/ItemCart";
 const Cart = ({ route, navigation }) => {
 
   const [cart, setCart] = useState([])
-  const getCart = () => {
-    Totol()
+  const getCart = () => {    
     axios.get('http://10.0.3.2:8000/api/cart', { id: 60 })
       .then((response) => {
         setCart(response.data)
@@ -31,7 +30,6 @@ const Cart = ({ route, navigation }) => {
       })
   }
   const Deletecart = (product_id) => {
-    Totol()
     console.log(product_id)
     axios.post('http://10.0.3.2:8000/api/deletecart', {
       customerid: 60,
@@ -47,18 +45,9 @@ const Cart = ({ route, navigation }) => {
       })
   }
   //khi project bắt đầu thì hàm useEffect đc chạy đầu tiên
-  const [totol, setTotol] = useState('')
-  const Totol = () => {
-    axios.get('http://10.0.3.2:8000/api/totol')
-      .then((response) => {
-        setTotol(response.data)
-      })
-      .catch((error) => {
-        console.log('lỗiii', error)
-      })
-  }
+  
   useEffect(() => {
-
+    
     getCart();
   }, []);
 
@@ -105,7 +94,7 @@ const Cart = ({ route, navigation }) => {
                   onPress={() => alert('Đã xóa sản phẩm')}
                 >
                   <Ionicons
-                    onPress={() => {  Deletecart(item.product_id) }}
+                    onPress={() => { Deletecart(item.product_id) }}
                     name="trash-outline" style={{ fontSize: 30, marginRight: 20, paddingRight: 20, color: 'red', borderRightWidth: 1 }} />
                 </TouchableOpacity>
 
@@ -120,7 +109,7 @@ const Cart = ({ route, navigation }) => {
                     {item.name ? (item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name) : ''}
                   </Text>
                   <Text style={styles.price}>
-                    {formatPrice(item.sale_price != 0 ? item.sale_price : item.price)}đ x{item.quantity} = {formatPrice((item.sale_price != 0 ? item.sale_price : item.price )* item.quantity)}đ
+                    {formatPrice(item.sale_price != 0 ? item.sale_price : item.price )}đ x{item.quantity} = {formatPrice(item.sale_price != 0 ? item.sale_price : item.price * item.quantity)}đ
                   </Text>
                 </View>
 
@@ -128,13 +117,13 @@ const Cart = ({ route, navigation }) => {
             );
           }}
         />
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>Tổng tiền:{formatPrice(totol)} </Text>
+        <View style={{marginTop:10}}>
+          <Text style={{textAlign:'right', fontWeight:'bold'}}>Tổng tiền:{formatPrice(totol)} </Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 5 }}>
           <Text style={{ padding: 10, backgroundColor: 'red', marginLeft: 10, borderRadius: 5, fontSize: 16 }}>Xóa hết</Text>
           <Text style={{ padding: 10, backgroundColor: '#66FFFF', marginLeft: 10, borderRadius: 5, fontSize: 16 }}>Mua hàng</Text>
-          <Text onPress={() => { getCart() }} style={{ padding: 10, backgroundColor: '#FFFF33', marginLeft: 10, borderRadius: 5, fontSize: 16 }}>Tải lại sản phẩm</Text>
+          <Text onPress={() => getCart()} style={{ padding: 10, backgroundColor: '#FFFF33', marginLeft: 10, borderRadius: 5, fontSize: 16 }}>Tải lại sản phẩm</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
