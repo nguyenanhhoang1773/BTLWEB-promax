@@ -20,8 +20,8 @@ const TabNavigation = () => {
                     iconName = focused ? 'cart-outline' : 'cart-sharp';
                 } else if (route.name === 'Register') {
                     iconName = focused ? 'aperture-outline' : 'aperture-sharp';
-                } else if (route.name === 'Infomation') {
-                    iconName = focused ? 'cash-outline' : 'cash-sharp';
+                } else if (route.name === 'Tôi') {
+                    iconName = focused ? 'person-outline' : 'person';
                 }
 
                 // You can return any component that you like here!
@@ -34,16 +34,14 @@ const TabNavigation = () => {
                 options={{ headerShown: false }}
                 name="Home"
                 component={Home} />
-
-            <Tab.Screen
+                 <Tab.Screen
                 options={{ headerShown: false }}
                 name="Cart"
                 component={Cart} />
             <Tab.Screen
                 options={{ headerShown: false }}
-                name="Infomation"
+                name="Tôi"
                 component={Infomation} />
-
 
         </Tab.Navigator>
 

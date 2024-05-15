@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
@@ -16,10 +16,28 @@ const Register = ({ navigation }) => {
     }
 
   }
+  const [loading, setLoading] = useState(false);
+
   return (
     <SafeAreaView>
-      <ScrollView>
-        <View style={{ margin: 30 }}>
+      {loading && (
+        <View style={{
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 10000
+        }}>
+          <ActivityIndicator size="large" color="#3498db" />
+        </View>
+      )}
+      <ScrollView style={{ paddingBottom: 150 }} >
+        <View style={{ padding: 30 }}>
 
           <View style={{ alignItems: 'center' }}>
             <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Đăng ký</Text>
@@ -61,14 +79,21 @@ const Register = ({ navigation }) => {
             </View>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 5 }}>
-            <Text style={{ color: 'blue' }} onPress={()=>navigation.navigate('Login')}>Tôi đã có tài khoản</Text>
+            <Text style={{ color: 'blue' }} onPress={() => navigation.navigate('Login')}>Tôi đã có tài khoản</Text>
             <Text style={{ color: 'blue' }}>Quên mật khẩu ?</Text>
           </View>
-          <TouchableOpacity onPress={() => handleValidate()}>
+          <TouchableOpacity onPress={() => {
+
+            setLoading(true);
+            setTimeout(() => {
+            handleValidate()
+              setLoading(false);
+              alert('Đăng ký không thành công')
+            }, 3000);
+
+          }}>
             <View style={{ borderRadius: 20, borderWidth: 1, alignItems: 'center', paddingVertical: 10, marginTop: 20, backgroundColor: '#0066FF' }}>
-              <Text
-                onPress={() => alert('ok')}
-                style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }} >Đăng ký tài khoản</Text>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }} >Đăng ký tài khoản</Text>
             </View>
           </TouchableOpacity>
           <Text style={{ paddingTop: 20, textAlign: 'center' }}>Hoặc đăng ký bằng</Text>

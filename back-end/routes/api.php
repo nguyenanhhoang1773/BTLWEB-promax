@@ -35,11 +35,14 @@ Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc
 Route::post('/register', [UserController::class, 'register']);
 
 Route::get('/list-product', [ProductController::class, 'getProduct']);
+
+Route::post('/list-image', [ProductController::class, 'image']);
+
 Route::get('/list-product-stock', [ProductController::class, 'getProductStock']);
 
 Route::get('/category', [ProductController::class, 'getCategory']);
 
-Route::get('/search', [SearchController::class, 'searchProduct']);
+Route::post('/search', [SearchController::class, 'searchProduct']);
 
 Route::get('/cart', [CartController::class, 'index']);
 
