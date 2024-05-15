@@ -33,6 +33,7 @@ function ItemCart({ title, price, url, sale, branch }) {
   return (
     <View>
       <View style={styles.branch}>
+        <AntDesign name="stepforward" size={24} color="black" />
         <Text
           style={{ fontSize: 22, paddingVertical: 6, paddingHorizontal: 26 }}
         >
@@ -90,6 +91,9 @@ function ItemCart({ title, price, url, sale, branch }) {
                 height: 24,
                 alignItems: "center",
                 justifyContent: "center",
+                borderTopLeftRadius: 8,
+                borderBottomLeftRadius: 8,
+                borderRightWidth: 0,
               }}
               onPress={decreaseQuantity}
             >
@@ -116,6 +120,9 @@ function ItemCart({ title, price, url, sale, branch }) {
                 height: 24,
                 alignItems: "center",
                 justifyContent: "center",
+                borderTopRightRadius: 8,
+                borderBottomRightRadius: 8,
+                borderLeftWidth: 0,
               }}
               onPress={increaseQuantity}
             >
@@ -129,7 +136,8 @@ function ItemCart({ title, price, url, sale, branch }) {
           style={{
             borderTopWidth: 1,
             borderColor: "#ccc",
-            alignItems: "center",
+            alignItems: "flex-end",
+            paddingHorizontal: 22,
             padding: 4,
           }}
         >
@@ -164,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     flex: 1,
-    paddingVertical: 20,
+    paddingVertical: 30,
     paddingHorizontal: 24,
     // alignItems: "center",
   },
@@ -176,7 +184,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
   },
   price: {
     color: colors.primary,
