@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\Product;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
+use App\Models\ImgProduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -29,6 +30,14 @@ class ProductController extends Controller
 
         return response()->json(
             $products
+        );
+    }
+    public function image(Request $request)
+    {
+        $image = ImgProduct::where('product_id', $request->image)->get();
+
+        return response()->json(
+            $image
         );
     }
     public function getProductStock()

@@ -10,9 +10,9 @@ use App\Models\Product;
 
 class SearchController extends Controller
 {
-    public function searchProduct(Request $req)
+    public function  searchProduct(Request $req)
     {
-        $products = Product::where('name', 'like', '%' . $req->value . '%')->get();;
+        $products = Product::where('name', 'like', '%' . $req->value . '%')->take(5)->get();
         return response()->json($products);
     }
     // public function searchKey(Request $req)
