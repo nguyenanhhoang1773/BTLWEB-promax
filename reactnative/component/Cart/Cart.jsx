@@ -18,7 +18,8 @@ import ItemCart from "../ItemCart/ItemCart";
 const Cart = ({ route, navigation }) => {
 
   const [cart, setCart] = useState([])
-  const getCart = () => {    
+  const getCart = () => { 
+    Totol()   
     axios.get('http://10.0.3.2:8000/api/cart', { id: 60 })
       .then((response) => {
         setCart(response.data)
@@ -30,6 +31,7 @@ const Cart = ({ route, navigation }) => {
       })
   }
   const Deletecart = (product_id) => {
+    Totol()
     console.log(product_id)
     axios.post('http://10.0.3.2:8000/api/deletecart', {
       customerid: 60,
@@ -51,6 +53,16 @@ const Cart = ({ route, navigation }) => {
     getCart();
   }, []);
 
+  const [totol, setTotol] = useState('')
+  const Totol = () => {
+    axios.get('http://10.0.3.2:8000/api/totol')
+      .then((response) => {
+        setTotol(response.data)
+      })
+      .catch((error) => {
+        console.log('lỗiii', error)
+      })
+  }
   function formatPrice(price = price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
@@ -109,7 +121,7 @@ const Cart = ({ route, navigation }) => {
                     {item.name ? (item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name) : ''}
                   </Text>
                   <Text style={styles.price}>
-                    {formatPrice(item.sale_price != 0 ? item.sale_price : item.price )}đ x{item.quantity} = {formatPrice(item.sale_price != 0 ? item.sale_price : item.price * item.quantity)}đ
+                    {formatPrice(item.sale_price != 0 ? item.sale_price : item.price )}đ x{item.quantity} = {formatPrice((item.sale_price != 0 ? item.sale_price : item.price) * item.quantity)}đ
                   </Text>
                 </View>
 
