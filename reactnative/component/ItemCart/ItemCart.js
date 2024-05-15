@@ -4,42 +4,41 @@ import {
   StyleSheet,
   Switch,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
-import CheckBox from "react-native-check-box";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from "../../constants/constants";
 function ItemCart({
-  title,
+  id,
+  name,
   price,
-  url,
+  image,
+  quantity
 }) {
-  const [isEnabled, setIsEnabled] =
-    useState(false);
+  
   return (
     <View style={styles.wrapper}>
-      <CheckBox
-        style={{
-          padding: 10,
-          borderRadius: 30,
-        }}
-        onClick={() =>
-          setIsEnabled((pre) => !pre)
-        }
-        isChecked={isEnabled}
-        // leftText={"CheckBox"}
-      />
+      <TouchableOpacity
+        onPress={() => alert('Đã xóa sản phẩm')}
+      >
+        <Ionicons
+          onPress={() => console.log(id)}
+          name="trash-outline" style={{ fontSize: 30, marginRight: 20, paddingRight: 20, color: 'red', borderRightWidth: 1 }} />
+      </TouchableOpacity>
+
       <Image
         style={styles.img}
         source={{
-          uri: url,
+          uri: `http://10.0.3.2:8000/storage/images/${image}`,
         }}
       />
       <View style={styles.description}>
         <Text style={styles.title}>
-          {title}
+          {name ? (name.length > 25 ? name.slice(0, 25) + '...' : name) : ''}
         </Text>
         <Text style={styles.price}>
-          {price}đ
+          {formatPrice(price)}đ x{quantity} = {formatPrice(price * quantity)}đ
         </Text>
       </View>
     </View>
@@ -52,18 +51,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     backgroundColor: "white",
+    borderWidth: 1,
     padding: 16,
-    // alignItems: "center",
+    alignItems: 'center'
   },
   img: {
-    width: 40,
+    width: 60,
+    height: 60,
     padding: 10,
   },
   description: {
     marginLeft: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 16,
   },
   price: {
     color: colors.primary,

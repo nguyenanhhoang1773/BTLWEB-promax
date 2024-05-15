@@ -15,20 +15,14 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "axios": "^1.6.8",
-<<<<<<< HEAD
+
     "expo": "~50.0.17",
     "expo-checkbox": "^3.0.0",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
     "react-native-elements": "^3.4.3",
-=======
-    "expo": "^51.0.0",
-    "expo-status-bar": "~1.11.1",
-    "react": "18.2.0",
-    "react-native": "0.73.6",
-    "react-native-check-box": "^2.1.7",
->>>>>>> 072dba89a37bf9f0b3c47981553c45b914024f0f
+
     "react-native-gesture-handler": "~2.14.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-modal": "^13.0.1",

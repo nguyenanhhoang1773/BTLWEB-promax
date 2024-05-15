@@ -17,6 +17,7 @@ const Detail = ({ route, navigation }) => {
         description,
         created_at } = route.params;
     useEffect(() => {
+        
         console.log('okee')
 
         axios.post('http://10.0.3.2:8000/api/list-image', { image: id })
@@ -53,7 +54,24 @@ const Detail = ({ route, navigation }) => {
 
     const AddCart = () => {
         setLoading(true);
+        axios.post('http://10.0.3.2:8000/api/addCart', {
+            customerid: 60,
+            productid: id,
+            quantity: quantity,
+            name: name,
+            price: price,
+            saleprice: sale_price,
+            image: image
 
+        })
+            .then((response) => {
+
+                console.log('add successfully')
+
+            })
+            .catch((error) => {
+                console.log('lỗiii', error)
+            })
         // Simulate a delay of 3 seconds
         setTimeout(() => {
             setLoading(false);
@@ -63,7 +81,7 @@ const Detail = ({ route, navigation }) => {
                     text: 'Trở lại',
                     onPress: () => navigation.navigate('TabNavigation')
                 },
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                { text: 'OK', onPress: () => console.log('ok') },
             ]);
         }, 3000);
     }
