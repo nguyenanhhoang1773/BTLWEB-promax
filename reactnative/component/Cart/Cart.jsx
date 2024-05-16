@@ -117,7 +117,6 @@ const Cart = ({ route, navigation }) => {
                   price={item.price}
                   url={item.url}
                   branch={item.branch}
-                  sale={item.sale}
                   currentQuantity={item.quantity}
                 />
                 // <View style={styles.wrapper}>

@@ -21,8 +21,7 @@ function ItemCart({
   title,
   price,
   url,
-  sale,
-  branch,
+  branch = "Luxury and more",
   currentQuantity,
   deleteCart,
 }) {
@@ -180,7 +179,7 @@ function ItemCart({
               marginLeft: 6,
             }}
           >
-            voucher giảm đến {sale}k
+            voucher giảm đến 20%
           </Text>
         </View>
       </TouchableHighlight>
