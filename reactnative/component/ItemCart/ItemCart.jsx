@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Image,
   Pressable,
@@ -10,16 +10,28 @@ import {
 } from "react-native";
 import CheckBox from "react-native-check-box";
 import { colors } from "../../constants/constants";
-
 import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { Foundation } from "@expo/vector-icons";
+import axios from "axios";
 
-function ItemCart({ title, price, url, sale, branch }) {
-  const [isEnabled, setIsEnabled] = useState(false);
+function ItemCart({
+  id,
+  title,
+  price,
+  url,
+  sale,
+  branch,
+  currentQuantity,
+  deleteCart,
+}) {
   const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    setQuantity(currentQuantity);
+  }, []);
   const handleSelect = () => {};
-  const handleDelete = () => {
-    alert("deleted");
-  };
   const increaseQuantity = () => {
     setQuantity((pre) => ++pre);
   };
@@ -31,123 +43,144 @@ function ItemCart({ title, price, url, sale, branch }) {
   };
 
   return (
-    <View>
-      <View style={styles.branch}>
-        <AntDesign name="stepforward" size={24} color="black" />
-        <Text
-          style={{ fontSize: 22, paddingVertical: 6, paddingHorizontal: 26 }}
-        >
-          {branch}
-        </Text>
-      </View>
+    <View style={{ backgroundColor: "white", marginTop: 4, borderRadius: 6 }}>
       <TouchableHighlight
         onPress={handleSelect}
         underlayColor={colors.secondary}
         style={styles.touchable}
       >
-        <View style={styles.wrapper}>
-          <View
-            style={{
-              flexDirection: "row",
-            }}
-          >
-            <Pressable
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                marginRight: 4,
-              }}
-              onPress={handleDelete}
-            >
-              <Text
-                style={{
-                  color: colors.primary,
-                  fontSize: 16,
-                  padding: 4,
-                  marginRight: 8,
-                }}
-              >
-                Xoá
-              </Text>
-            </Pressable>
-            <Image
-              style={styles.img}
-              source={{
-                uri: url,
-              }}
+        <View>
+          <View style={styles.branch}>
+            <Entypo
+              style={{ fontSize: 16 }}
+              name="shop"
+              size={24}
+              color={colors.primary}
             />
-            <View style={styles.description}>
-              <Text style={styles.title}>{title}</Text>
-              <Text style={styles.price}>{price}đ</Text>
-            </View>
-          </View>
-          <View style={styles.counter}>
-            <TouchableHighlight
-              underlayColor={colors.secondary}
+            <Text
               style={{
-                borderWidth: 1,
-                borderColor: colors.tertiary,
-                width: 24,
-                height: 24,
-                alignItems: "center",
-                justifyContent: "center",
-                borderTopLeftRadius: 8,
-                borderBottomLeftRadius: 8,
-                borderRightWidth: 0,
+                fontSize: 16,
+                marginLeft: 4,
+                color: colors.primary,
+                fontWeight: 700,
               }}
-              onPress={decreaseQuantity}
             >
-              <Text style={{ color: colors.tertiary }}>-</Text>
-            </TouchableHighlight>
+              {branch}
+            </Text>
+          </View>
+          <View style={styles.wrapper}>
             <View
               style={{
-                borderWidth: 1,
-                borderColor: colors.tertiary,
-                width: 24,
-                height: 24,
-                alignItems: "center",
-                justifyContent: "center",
+                flexDirection: "row",
               }}
             >
-              <Text style={{ color: colors.tertiary }}>{quantity}</Text>
+              <Pressable
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginRight: 4,
+                }}
+                onPress={() => {
+                  deleteCart(id);
+                }}
+              >
+                <FontAwesome6
+                  style={{ marginRight: 10 }}
+                  name="trash-can"
+                  size={20}
+                  color={colors.tertiary}
+                />
+              </Pressable>
+              <Image
+                style={styles.img}
+                source={{
+                  uri: url,
+                }}
+              />
+              <View style={styles.description}>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.price}>{price}đ</Text>
+              </View>
             </View>
-            <TouchableHighlight
-              underlayColor={colors.secondary}
-              style={{
-                borderWidth: 1,
-                borderColor: colors.tertiary,
-                width: 24,
-                height: 24,
-                alignItems: "center",
-                justifyContent: "center",
-                borderTopRightRadius: 8,
-                borderBottomRightRadius: 8,
-                borderLeftWidth: 0,
-              }}
-              onPress={increaseQuantity}
-            >
-              <Text style={{ color: colors.tertiary }}>+</Text>
-            </TouchableHighlight>
+            <View style={styles.counter}>
+              <TouchableHighlight
+                underlayColor={colors.secondary}
+                style={{
+                  borderWidth: 1,
+                  borderColor: colors.tertiary,
+                  width: 24,
+                  height: 24,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderTopLeftRadius: 8,
+                  borderBottomLeftRadius: 8,
+                  borderRightWidth: 0,
+                }}
+                onPress={decreaseQuantity}
+              >
+                <Text style={{ color: colors.tertiary }}>-</Text>
+              </TouchableHighlight>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: colors.tertiary,
+                  width: 24,
+                  height: 24,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: colors.primary,
+
+                    fontWeight: 600,
+                  }}
+                >
+                  {quantity}
+                </Text>
+              </View>
+              <TouchableHighlight
+                underlayColor={colors.secondary}
+                style={{
+                  borderWidth: 1,
+                  borderColor: colors.tertiary,
+                  width: 24,
+                  height: 24,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderTopRightRadius: 8,
+                  borderBottomRightRadius: 8,
+                  borderLeftWidth: 0,
+                }}
+                onPress={increaseQuantity}
+              >
+                <Text style={{ color: colors.tertiary }}>+</Text>
+              </TouchableHighlight>
+            </View>
           </View>
         </View>
       </TouchableHighlight>
       <TouchableHighlight>
         <View
           style={{
+            flexDirection: "row",
             borderTopWidth: 1,
             borderColor: "#ccc",
-            alignItems: "flex-end",
-            paddingHorizontal: 22,
+            alignItems: "center",
+            paddingHorizontal: 26,
             padding: 4,
           }}
         >
+          <Foundation name="burst-sale" size={22} color={colors.primary} />
           <Text
             style={{
               fontSize: 16,
               color: colors.primary,
+              marginLeft: 6,
             }}
           >
-            Voucher giảm đến {sale}k
+            voucher giảm đến {sale}k
           </Text>
         </View>
       </TouchableHighlight>
@@ -161,20 +194,18 @@ const styles = StyleSheet.create({
     color: "#aaa",
   },
   branch: {
-    borderTopWidth: 8,
-    borderColor: colors.secondary,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 6,
+    paddingHorizontal: 26,
   },
-  touchable: {
-    borderTopWidth: 1,
-    borderColor: "#ccc",
-  },
+  touchable: {},
   wrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
     flex: 1,
-    paddingVertical: 30,
-    paddingHorizontal: 24,
-    // alignItems: "center",
+    paddingVertical: 4,
+    paddingHorizontal: 26,
   },
   img: {
     width: 40,
@@ -189,6 +220,7 @@ const styles = StyleSheet.create({
   price: {
     color: colors.primary,
     fontSize: 16,
+    fontWeight: 600,
   },
   counter: {
     flexDirection: "row",
