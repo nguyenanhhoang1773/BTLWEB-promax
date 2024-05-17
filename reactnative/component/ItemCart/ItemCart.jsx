@@ -24,7 +24,7 @@ function ItemCart({
   branch = "Luxury and more",
   currentQuantity,
   deleteCart,
-  saleprice, 
+  saleprice,
   productid
 }) {
   const [quantity, setQuantity] = useState(0);
@@ -33,7 +33,7 @@ function ItemCart({
     console.log(url)
     setQuantity(currentQuantity);
   }, []);
-  const handleSelect = () => {};
+  const handleSelect = () => { };
   const increaseQuantity = () => {
     setQuantity((pre) => ++pre);
   };
@@ -49,8 +49,8 @@ function ItemCart({
 
 
 
-  const HandleVoucher =(price, saleprice)=>{
-    const voucher = (1-(saleprice/price)) *100
+  const HandleVoucher = (price, saleprice) => {
+    const voucher = (1 - (saleprice / price)) * 100
     return Math.round(voucher);
   }
   return (
@@ -109,67 +109,67 @@ function ItemCart({
                 }}
               />
               <View style={styles.description}>
-                <Text style={styles.title}>{ (name.length > 25 ? name.slice(0, 25) + '...' : name)}</Text>
+                <Text style={styles.title}>{(name.length > 25 ? name.slice(0, 25) + '...' : name)}</Text>
                 <Text style={styles.price}>{formatPrice(saleprice > 0 ? saleprice : price)}đ</Text>
                 <View style={styles.counter}>
-              <TouchableHighlight
-                underlayColor={colors.secondary}
-                style={{
-                  borderWidth: 1,
-                  borderColor: colors.tertiary,
-                  width: 24,
-                  height: 24,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderTopLeftRadius: 8,
-                  borderBottomLeftRadius: 8,
-                  borderRightWidth: 0,
-                }}
-                onPress={decreaseQuantity}
-              >
-                <Text style={{ color: colors.tertiary }}>-</Text>
-              </TouchableHighlight>
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: colors.tertiary,
-                  width: 24,
-                  height: 24,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    color: colors.primary,
+                  <TouchableHighlight
+                    underlayColor={colors.secondary}
+                    style={{
+                      borderWidth: 1,
+                      borderColor: colors.tertiary,
+                      width: 24,
+                      height: 24,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderTopLeftRadius: 8,
+                      borderBottomLeftRadius: 8,
+                      borderRightWidth: 0,
+                    }}
+                    onPress={decreaseQuantity}
+                  >
+                    <Text style={{ color: colors.tertiary }}>-</Text>
+                  </TouchableHighlight>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: colors.tertiary,
+                      width: 24,
+                      height: 24,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: colors.primary,
 
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {quantity}
-                </Text>
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {quantity}
+                    </Text>
+                  </View>
+                  <TouchableHighlight
+                    underlayColor={colors.secondary}
+                    style={{
+                      borderWidth: 1,
+                      borderColor: colors.tertiary,
+                      width: 24,
+                      height: 24,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderTopRightRadius: 8,
+                      borderBottomRightRadius: 8,
+                      borderLeftWidth: 0,
+                    }}
+                    onPress={increaseQuantity}
+                  >
+                    <Text style={{ color: colors.tertiary }}>+</Text>
+                  </TouchableHighlight>
+                </View>
               </View>
-              <TouchableHighlight
-                underlayColor={colors.secondary}
-                style={{
-                  borderWidth: 1,
-                  borderColor: colors.tertiary,
-                  width: 24,
-                  height: 24,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderTopRightRadius: 8,
-                  borderBottomRightRadius: 8,
-                  borderLeftWidth: 0,
-                }}
-                onPress={increaseQuantity}
-              >
-                <Text style={{ color: colors.tertiary }}>+</Text>
-              </TouchableHighlight>
             </View>
-              </View>
-            </View>
-            
+
           </View>
         </View>
       </TouchableHighlight>
@@ -192,7 +192,7 @@ function ItemCart({
               marginLeft: 6,
             }}
           >
-             { HandleVoucher(price, saleprice) > 0 ?`voucher giảm đến ${HandleVoucher(price, saleprice)} % `  : ''} 
+            {HandleVoucher(price, saleprice) > 0 ? `voucher giảm đến ${HandleVoucher(price, saleprice)} % ` : ''}
           </Text>
         </View>
       </TouchableHighlight>

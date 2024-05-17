@@ -6,7 +6,8 @@ import axios from 'axios';
 const Search = ({ route, navigation }) => {
     const [product, setProduct] = useState([])
     const [loading, setLoading] = useState(false);
-    const { key } = route.params;
+    const { key, customerid } = route.params;
+    console.log(customerid + ' search')
 
     useEffect(() => {
         axios.post('http://10.0.3.2:8000/api/search', { value: key })
@@ -42,6 +43,7 @@ const Search = ({ route, navigation }) => {
                                     setLoading(false);
                                     navigation.navigate('Detail',
                                         {
+                                            customer: customerid,
                                             id: item.id,
                                             name: item.name,
                                             image: item.image,

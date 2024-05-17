@@ -5,7 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 
 const Infomation = ({ navigation, route }) => {
-  const { id, name, email } = route.params;
+  const { customer, name, email } = route.params;
   console.log(name)
   return (
     <SafeAreaView>
@@ -20,7 +20,7 @@ const Infomation = ({ navigation, route }) => {
         <View>
           <Text style={{ fontSize: 25 }}>{name}</Text>
           <Text>Email: {email}</Text>
-          <Text >Thành viên: {id}</Text>
+          <Text >Thành viên: {customer}</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Login')} ><Text>ĐĂNG XUẤT</Text></TouchableOpacity>
         </View>
       </View>

@@ -82,8 +82,8 @@ const Home = ({ navigation, route }) => {
 
   // sản phâmr chuyểntrang và hiển thị  khi đc ấn nút tìm kiếm
   const SearchProduct = () => {
-    console.log('ok')
-    navigation.navigate('Search', { key })
+    console.log(customer + "SearchProduct")
+    navigation.navigate('Search', { key, customerid: customer })
     setKey('')
     setSearch([])
   }

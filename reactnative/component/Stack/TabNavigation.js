@@ -7,9 +7,9 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = ({ navigation, route }) => {
-    const { customer, name, email } = route.params;
-
-    return (
+  const { customer, name, email } = route.params;
+  // React.useEffect(() =>{alert('xin chào ' + name)} )
+  return (
 
 
     <Tab.Navigator
@@ -30,31 +30,31 @@ const TabNavigation = ({ navigation, route }) => {
           }
 
 
-                // You can return any component that you like here!
-                return <Ionicons name={iconName} size={size} color={color} />;
-            },
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',
-        })}>
-            <Tab.Screen
-                options={{ headerShown: false }}
-                name="Home"
-                initialParams={{ customer: customer, name: name, email: email }}
-                component={Home} />
-            <Tab.Screen
-                options={{ headerShown: false }}
-                name="Cart"
-                initialParams={{ customer: customer, name: name, email: email }}
-                component={Cart} />
-            <Tab.Screen
-                options={{ headerShown: false }}
-                name="Tôi"
-                initialParams={{ customer: customer, name: name, email: email }}
-                component={Infomation} />
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Home"
+        initialParams={{ customer: customer, name: name, email: email }}
+        component={Home} />
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Cart"
+        initialParams={{ customer: customer, name: name, email: email }}
+        component={Cart} />
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Tôi"
+        initialParams={{ customer: customer, name: name, email: email }}
+        component={Infomation} />
 
-        </Tab.Navigator>
+    </Tab.Navigator>
 
-    )
+  )
 }
 
 export default TabNavigation
