@@ -51,7 +51,7 @@ function ItemCart({
 
   const HandleVoucher =(price, saleprice)=>{
     const voucher = (1-(saleprice/price)) *100
-    return voucher;
+    return Math.round(voucher);
   }
   return (
     <View style={{ backgroundColor: "white", marginTop: 4, borderRadius: 6 }}>
@@ -192,7 +192,7 @@ function ItemCart({
               marginLeft: 6,
             }}
           >
-            voucher giảm đến {HandleVoucher(price, saleprice)} %
+             { HandleVoucher(price, saleprice) > 0 ?`voucher giảm đến ${HandleVoucher(price, saleprice)} % `  : ''} 
           </Text>
         </View>
       </TouchableHighlight>
