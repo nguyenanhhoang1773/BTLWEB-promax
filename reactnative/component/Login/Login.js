@@ -2,22 +2,98 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView,
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const Login = ({ navigation }) => {
 
   const [email, setEmail] = useState('')
-  const [checkEmail, setCheckEmail] = useState(true)
+  const [password, setPassword] = useState('')
+  const [checkMail, setCheckMail] = useState(true)
+  const [checkPassWord, setCheckPassWord] = useState(true)
+  const [login, setLogin] = useState([])
+  const [id, setId] = useState('')
 
-  const handleValidate = () => {
-    const regux = new RegExp('[^@]{2,64}@[^.]{2,253}\.[0-9a-z-.]{2,63}')
-    if (regux.test(email)) {
-      setCheckEmail(true)
-    } else {
-      setCheckEmail(false)
+
+  // const handleValidate = () => {
+
+  //   axios.post(`http://10.0.3.2:8000/api/login`, { email: email, password: password })
+  //   .then((response) => {
+  //     setLogin(response.data)
+  //   })
+  //   .catch((error) => {
+  //     console.log('lỗiii', error)
+  //   })
+
+
+  //     if (email.length === 0) {
+  //       setCheckMail(false);
+  //     } else if (password.length === 0) {
+  //       setCheckPassWord(false)
+  //       setCheckMail(true)
+
+  //     } else {
+  //       setCheckMail(true)
+  //       setCheckPassWord(true)
+  //       setLoading(true);
+  //       if (login.state) {
+
+  //         const customer = login.user
+  //         customer.map((item, index) => {
+  //           setTimeout(() => {
+  //             setLoading(false);
+  //             navigation.navigate('TabNavigation', { id: item.id, name:item.name , email: item.email })         
+  //           console.log(item.id)
+  //         })
+  //       }, 3000);
+  //       } else {
+  //         setTimeout(() => {
+  //           setLoading(false);
+  //           alert('Tài khoản hoặc mật khẩu không chính xác')
+  //         }, 3000);
+  //       }
+  //     }
+
+  // }
+  const handleValidate = async () => {
+    try {
+      const response = await axios.post(`http://10.0.3.2:8000/api/login`, { email: email, password: password });
+      setLogin(response.data);
+      if (email.length === 0) {
+        setCheckMail(false);
+      } else if (password.length === 0) {
+        setCheckPassWord(false);
+        setCheckMail(true);
+      } else {
+        setCheckMail(true);
+        setCheckPassWord(true);
+
+        setLoading(true);
+      }
+    } catch (error) {
+      console.log('lỗiii', error);
+    }
+  };
+  useEffect(() => {
+    if (typeof (login.state) !== "undefined") {
+      if (login.state) {
+        const customer = login.user;
+        customer.map((item, index) => {
+          setTimeout(() => {
+            setLoading(false);
+            navigation.navigate('TabNavigation', { customer: item.id, name: item.name, email: item.email });
+            console.log(item.id);
+          }, 3000);
+        });
+      } else {
+        setTimeout(() => {
+          setLoading(false);
+          alert('Tài khoản hoặc mật khẩu không chính xác');
+        }, 3000);
+      }
     }
 
-
-  }
+  }, [login])
   const [loading, setLoading] = useState(false);
   return (
     <SafeAreaView>
@@ -37,7 +113,7 @@ const Login = ({ navigation }) => {
         </View>
       )}
 
-      <View style={{ padding: 30 , width:'100%',height:'100%'}}>
+      <View style={{ padding: 30, width: '100%', height: '100%' }}>
 
         <View style={{ alignItems: 'center' }}>
           <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Đăng Nhập</Text>
@@ -53,7 +129,7 @@ const Login = ({ navigation }) => {
               placeholder='Nhập email' style={styles.input}
               onChangeText={(text) => setEmail(text)}
             />
-            {checkEmail ? '' : <Text style={{ color: 'red' }}>Sai định dạng</Text>}
+            {checkMail ? '' : <Text style={{ color: 'red' }}>Không được để trống dữ liệu</Text>}
           </View>
         </View>
 
@@ -61,25 +137,21 @@ const Login = ({ navigation }) => {
           <Text style={styles.title}>Nhập mật khẩu: </Text>
           <View >
             <Ionicons name='lock-closed-outline' style={styles.icon} />
-            <TextInput placeholder='Nhập mật khẩu' style={styles.input} />
+            <TextInput
+              secureTextEntry={true}
+              onChangeText={(text) => setPassword(text)}
+              placeholder='Nhập mật khẩu' style={styles.input} />
+            {checkPassWord ? '' : <Text style={{ color: 'red' }}>Không được để trống dữ liệu</Text>}
+
           </View>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 5 }}>
           <Text style={{ color: 'blue' }} onPress={() => navigation.navigate('Register')}>Tôi chưa có tài khoản</Text>
           <Text style={{ color: 'blue' }}>Quên mật khẩu ?</Text>
         </View>
-        <TouchableOpacity onPress={() => {
-          setLoading(true);
-          setTimeout(() => {
-            setLoading(false);
-            navigation.navigate('TabNavigation')
-          }, 3000);
-        }
-        }>
+        <TouchableOpacity onPress={() => { handleValidate() }}>
           <View style={{ borderRadius: 20, borderWidth: 1, alignItems: 'center', paddingVertical: 10, marginTop: 20, backgroundColor: '#0066FF' }}>
-            <Text
-
-              style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }}  >Đăng nhập</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }}  >Đăng nhập</Text>
           </View>
         </TouchableOpacity>
         <Text style={{ paddingTop: 20, textAlign: 'center' }}>Hoặc đăng ký bằng</Text>

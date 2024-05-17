@@ -5,7 +5,9 @@ import Infomation from '../Infomation/Infomation'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 const Tab = createBottomTabNavigator();
-const TabNavigation = () => {
+const TabNavigation = ({ navigation, route }) => {
+    const { customer, name, email } = route.params;
+
     return (
 
         <Tab.Navigator screenOptions={({ route }) => ({
@@ -33,14 +35,17 @@ const TabNavigation = () => {
             <Tab.Screen
                 options={{ headerShown: false }}
                 name="Home"
+                initialParams={{ customer: customer, name: name, email: email }}
                 component={Home} />
-                 <Tab.Screen
+            <Tab.Screen
                 options={{ headerShown: false }}
                 name="Cart"
+                initialParams={{ customer: customer, name: name, email: email }}
                 component={Cart} />
             <Tab.Screen
                 options={{ headerShown: false }}
                 name="Tôi"
+                initialParams={{ customer: customer, name: name, email: email }}
                 component={Infomation} />
 
         </Tab.Navigator>

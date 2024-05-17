@@ -13,14 +13,14 @@ class CartController extends Controller
 
     public function index(Request $req)
     {
-        $cart = Cart::where('customer_id', 60)->get();
+        $cart = Cart::where('customer_id', $req->customerid)->get();
         return $cart;
     }
 
-    public function totol()
+    public function totol(Request $req)
     {
         $totol = 0;
-        $cart = Cart::get();
+        $cart = Cart::where('customer_id', $req->customerid)->get();
         foreach ($cart as $price) {
             $totol += $price->quantity * ($price->sale_price != 0 ?  $price->sale_price : $price->price) ;
         }
@@ -56,6 +56,8 @@ class CartController extends Controller
         $carts = Cart::get();
         return $carts;
     }
+
+    
     public function clearCart(Request $req)
     {
         $cart = Cart::where('customer_id', $req->customerid)->get();

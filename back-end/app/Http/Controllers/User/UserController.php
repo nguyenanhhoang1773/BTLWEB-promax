@@ -39,15 +39,14 @@ class UserController extends Controller
         } else {
             if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'role' => 0])) {
                 return response()->json([
-                    'user' => User::where('email',$req->email)->get(),
-                    'redirect' => '/',
-                    'message' => 'Đăng nhập thành công',
+                    'user' => User::where('email', $req->email)->get(),
+                    'state' => true,
+
                 ]);
             } else {
 
                 return response()->json([
-                    'redirect' => '/login',
-                    'message' => 'Email hoặc mật khẩu sai',
+                    'state' => false,
                 ]);
             }
         }
@@ -57,27 +56,21 @@ class UserController extends Controller
     public function register(Request $req)
     {
         $rules = [
-            'name' => 'required',
             'email' => 'required|unique:users',
-            'password' => 'required|confirmed|min:6',
         ];
 
         $messages = [
-            'name.required' => 'Vui lòng nhập tên của bạn',
-
-            'email.required' => 'Vui lòng nhập email ',
             'email.unique' => 'Email này đã tồn tại ',
-
-            'password.required' => 'Hãy nhập mật khẩu',
-            'password.confirmed' => 'Mật khẩu xác thực không đúng ',
-            'password.min' => 'Mật khẩu ít nhất :min ký tự'
         ];
 
         $validator = Validator::make($req->all(), $rules, $messages);
 
         if ($validator->fails()) {
             $errors = $validator->errors()->messages();
-            return response()->json(['success' => false, 'errors' => $errors]);
+            return response()->json([
+                'state' => false,
+                'errors' => $errors
+            ]);
         } else {
             // Tiếp tục xử lý nếu validate thành công
             $ok =  Hash::make($req->password);
@@ -86,16 +79,13 @@ class UserController extends Controller
             try {
                 User::create($req->all());
                 return response()->json([
-                    'redirect' => '/login',
-                    'message' => 'Đăng kí tài khoản thành công'
+                    'state' => true
                 ]);
             } catch (\Throwable $th) {
                 return response()->json([
-                    'redirect' => '/register',
-                    'message' => 'Đăng kí tài khoản không thành công'
+                    'state' => true
                 ]);
             }
         }
     }
-
 }

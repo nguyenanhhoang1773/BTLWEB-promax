@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [UserController::class, 'login']);
 
-Route::post('/logoutAcc', [UserController::class, 'logoutAcc'])->name('logoutAcc');
+Route::post('/logoutAcc', [UserController::class, 'logoutAcc']);
 
 Route::post('/register', [UserController::class, 'register']);
 
@@ -44,14 +44,15 @@ Route::get('/category', [ProductController::class, 'getCategory']);
 
 Route::post('/search', [SearchController::class, 'searchProduct']);
 
-Route::get('/cart', [CartController::class, 'index']);
-Route::get('/totol', [CartController::class, 'totol']);
+Route::post('/cart', [CartController::class, 'index']);
+
+Route::post('/totol', [CartController::class, 'totol']);
 
 Route::post('/addCart', [CartController::class, 'addCart']);
 
 Route::post('/deletecart', [CartController::class, 'deleteCart']);
 
-Route::get('/clearcart', [CartController::class, 'clearCart']);
+Route::get('/claercart', [CartController::class, 'clearCart']);
 
 Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
 

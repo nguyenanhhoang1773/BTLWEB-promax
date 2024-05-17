@@ -5,17 +5,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 
 const Home = ({ navigation, route }) => {
-
-
+  const { customer, name, email } = route.params;
+  console.log(customer + ' home')
   // useState hàm đc sử dụng khi có sựu tahy đổi dữ liệu
   const [product, setProduct] = useState([])
   const [stock, setStock] = useState([])
   const [search, setSearch] = useState([])
   const [loading, setLoading] = useState(false);
   const [key, setKey] = useState('');
-
-
-
   //hàm lấy ra toàn bộ sản phẩm
   const getApi = () => {
     axios.get('http://10.0.3.2:8000/api/list-product')
@@ -47,7 +44,6 @@ const Home = ({ navigation, route }) => {
 
   //khi project bắt đầu thì hàm useEffect đc chạy đầu tiên
   useEffect(() => {
-    console.log('ok')
     getProductStock();
     getApi();
 
@@ -141,6 +137,7 @@ const Home = ({ navigation, route }) => {
                   setLoading(false);
                   navigation.navigate('Detail',
                     {
+                      customer: customer,
                       id: item.id,
                       name: item.name,
                       image: item.image,
@@ -194,6 +191,7 @@ const Home = ({ navigation, route }) => {
                     setLoading(false);
                     navigation.navigate('Detail',
                       {
+                        customer: customer,
                         id: item.id,
                         name: item.name,
                         image: item.image,
@@ -235,6 +233,7 @@ const Home = ({ navigation, route }) => {
                     setLoading(false);
                     navigation.navigate('Detail',
                       {
+                        customer: customer,
                         id: item.id,
                         name: item.name,
                         image: item.image,

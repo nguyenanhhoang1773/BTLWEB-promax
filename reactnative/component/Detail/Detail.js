@@ -8,6 +8,7 @@ const Detail = ({ route, navigation }) => {
 
     const [listImage, setListImage] = useState([])
     const {
+        customer,
         id,
         name,
         image,
@@ -16,14 +17,12 @@ const Detail = ({ route, navigation }) => {
         category_id,
         description,
         created_at } = route.params;
-    useEffect(() => {
-        
-        console.log('okee')
 
+    useEffect(() => {
         axios.post('http://10.0.3.2:8000/api/list-image', { image: id })
             .then((response) => {
                 setListImage(response.data)
-                console.log(response.data)
+                console.log(customer + ' detail')
 
             })
             .catch((error) => {
@@ -55,7 +54,7 @@ const Detail = ({ route, navigation }) => {
     const AddCart = () => {
         setLoading(true);
         axios.post('http://10.0.3.2:8000/api/addCart', {
-            customerid: 60,
+            customerid: customer,
             productid: id,
             quantity: quantity,
             name: name,
@@ -65,9 +64,7 @@ const Detail = ({ route, navigation }) => {
 
         })
             .then((response) => {
-
                 console.log('add successfully')
-
             })
             .catch((error) => {
                 console.log('lỗiii', error)
@@ -75,16 +72,19 @@ const Detail = ({ route, navigation }) => {
         // Simulate a delay of 3 seconds
         setTimeout(() => {
             setLoading(false);
-            Alert.alert('Thông báo', 'Thêm vào giỏ hàng thành công \nCảm ơn quý khách', [
+            Alert.alert('Thông báo', 'Thêm vào giỏ hàng thành công', [
 
                 {
                     text: 'Trở lại',
-                    onPress: () => navigation.navigate('TabNavigation')
+                    onPress: () => navigation.goBack()
                 },
                 { text: 'OK', onPress: () => console.log('ok') },
             ]);
         }, 3000);
     }
+
+
+
     return (
         <SafeAreaView>
             {/* xử lý dữ liệu khi mua hàng hoặc thêm vào giỏ hàng */}
@@ -108,12 +108,16 @@ const Detail = ({ route, navigation }) => {
                     onPress={() => AddCart()}
                     style={{ backgroundColor: '#FFEEE8', paddingVertical: 15, width: '50%', textAlign: 'center', fontSize: 18, borderColor: '#EE4D2D', borderWidth: 2 }}>Thêm vào giỏ hàng</Text>
                 <Text
-                    onPress={() => navigation.navigate('Cart')}
-                    style={{ backgroundColor: '#EE4D2D', paddingVertical: 15, width: '50%', textAlign: 'center', fontSize: 18 }}>Mua ngay</Text>
+                    onPress={() => {
+                        setLoading(true);
+                        setTimeout(() => {
+                            setLoading(false);
+                            navigation.navigate('Cart', { customerid: customer })
+                        }, 3000);
+                    }}
+                    style={{ backgroundColor: '#EE4D2D', paddingVertical: 15, width: '50%', textAlign: 'center', fontSize: 18 }}>Giỏ hàng </Text>
             </View>
-
             <View>
-
                 <ScrollView >
                     <View >
                         <Ionicons
@@ -171,6 +175,7 @@ const Detail = ({ route, navigation }) => {
 
                         {/* Tên sản phẩm */}
                         <View style={{ marginTop: 10 }}>
+                            <Text style={{ fontSize: 18 }}>{name}</Text>
                             <Text style={{ fontSize: 18 }}>{name}</Text>
                         </View>
 

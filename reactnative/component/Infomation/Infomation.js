@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 
-const Infomation = ({ navigation }) => {
+const Infomation = ({ navigation, route }) => {
+  const { id, name, email } = route.params;
+  console.log(name)
   return (
     <SafeAreaView>
 
@@ -16,12 +18,13 @@ const Infomation = ({ navigation }) => {
             source={{ uri: 'https://tse4.mm.bing.net/th?id=OIP.NViuNGuOAzDfh9XA23EZQAHaKo&pid=Api&P=0&h=180' }} />
         </View>
         <View>
-          <Text style={{ fontSize: 25 }}>Hoàng Tiến Đạt</Text>
-          <Text>Email</Text>
-          <Text >Thành viên: <Ionicons name="logo-usd" style={{ fontSize: 15 }} /> </Text>
+          <Text style={{ fontSize: 25 }}>{name}</Text>
+          <Text>Email: {email}</Text>
+          <Text >Thành viên: {id}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')} ><Text>ĐĂNG XUẤT</Text></TouchableOpacity>
         </View>
       </View>
-      <ScrollView style={{ backgroundColor: '#F5F5F5', marginBottom:120 }}>
+      <ScrollView style={{ backgroundColor: '#F5F5F5', marginBottom: 120 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 10, alignItems: 'center', marginHorizontal: 10 }}>
           <Text style={{ fontWeight: 'bold' }}>Đơn hàng</Text>
 
@@ -129,7 +132,7 @@ const Infomation = ({ navigation }) => {
           <View >
             <Text style={{ fontWeight: 'bold' }}>Hỗ trợ</Text>
           </View>
-          <View style={{ borderBottomWidth: 1, paddingBottom: 5, borderColor:'#c1cdcd' }}>
+          <View style={{ borderBottomWidth: 1, paddingBottom: 5, borderColor: '#c1cdcd' }}>
             <TouchableOpacity >
               <View style={{ paddingTop: 20, flexDirection: 'row', alignItems: 'center', marginLeft: 5 }}>
                 <Ionicons name="help-circle-outline" style={{ fontSize: 22, marginRight: 5 }} />
