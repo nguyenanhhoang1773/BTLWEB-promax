@@ -17,17 +17,20 @@ import { Foundation } from "@expo/vector-icons";
 import axios from "axios";
 
 function ItemCart({
-  id,
-  title,
+
+  name,
   price,
   url,
   branch = "Luxury and more",
   currentQuantity,
   deleteCart,
+  saleprice, 
+  productid
 }) {
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
+    console.log(url)
     setQuantity(currentQuantity);
   }, []);
   const handleSelect = () => {};
@@ -40,7 +43,16 @@ function ItemCart({
     }
     setQuantity((pre) => --pre);
   };
+  function formatPrice(price = price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 
+
+
+  const HandleVoucher =(price, saleprice)=>{
+    const voucher = (1-(saleprice/price)) *100
+    return voucher;
+  }
   return (
     <View style={{ backgroundColor: "white", marginTop: 4, borderRadius: 6 }}>
       <TouchableHighlight
@@ -61,7 +73,7 @@ function ItemCart({
                 fontSize: 16,
                 marginLeft: 4,
                 color: colors.primary,
-                fontWeight: 700,
+                fontWeight: 'bold',
               }}
             >
               {branch}
@@ -77,10 +89,10 @@ function ItemCart({
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginRight: 4,
+                  marginRight: 20,
                 }}
                 onPress={() => {
-                  deleteCart(id);
+                  deleteCart(productid);
                 }}
               >
                 <FontAwesome6
@@ -93,15 +105,13 @@ function ItemCart({
               <Image
                 style={styles.img}
                 source={{
-                  uri: url,
+                  uri: `http://10.0.3.2:8000/storage/images/${url}`,
                 }}
               />
               <View style={styles.description}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.price}>{price}đ</Text>
-              </View>
-            </View>
-            <View style={styles.counter}>
+                <Text style={styles.title}>{ (name.length > 25 ? name.slice(0, 25) + '...' : name)}</Text>
+                <Text style={styles.price}>{formatPrice(saleprice > 0 ? saleprice : price)}đ</Text>
+                <View style={styles.counter}>
               <TouchableHighlight
                 underlayColor={colors.secondary}
                 style={{
@@ -133,7 +143,7 @@ function ItemCart({
                   style={{
                     color: colors.primary,
 
-                    fontWeight: 600,
+                    fontWeight: 'bold',
                   }}
                 >
                   {quantity}
@@ -157,6 +167,9 @@ function ItemCart({
                 <Text style={{ color: colors.tertiary }}>+</Text>
               </TouchableHighlight>
             </View>
+              </View>
+            </View>
+            
           </View>
         </View>
       </TouchableHighlight>
@@ -179,7 +192,7 @@ function ItemCart({
               marginLeft: 6,
             }}
           >
-            voucher giảm đến 20%
+            voucher giảm đến {HandleVoucher(price, saleprice)} %
           </Text>
         </View>
       </TouchableHighlight>
@@ -207,19 +220,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 26,
   },
   img: {
-    width: 40,
+    width: 60,
     padding: 10,
   },
   description: {
     marginLeft: 10,
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
   },
   price: {
     color: colors.primary,
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: 'bold',
   },
   counter: {
     flexDirection: "row",

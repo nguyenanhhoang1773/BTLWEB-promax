@@ -52,7 +52,7 @@ Route::post('/addCart', [CartController::class, 'addCart']);
 
 Route::post('/deletecart', [CartController::class, 'deleteCart']);
 
-Route::get('/claercart', [CartController::class, 'clearCart']);
+Route::post('/clearcart', [CartController::class, 'clearCart']);
 
 Route::post('/checkout', [CheckoutController::class, 'submit_Form']);
 

@@ -5,7 +5,10 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  ActivityIndicator,
+  Alert
+
 } from "react-native";
 import axios from "axios";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -15,45 +18,66 @@ import React, { useEffect, useState } from "react";
 import ItemCart from "../ItemCart/ItemCart.jsx";
 import ModalPayment from "../Modal/ModalPayment.jsx";
 const Cart = ({ route, navigation }) => {
+  const { customer, name, email } = route.params;
 
-  const [cart, setCart] = useState([])
-  const getCart = () => { 
-    Totol()   
-    axios.get('http://10.0.3.2:8000/api/cart', { id: 60 })
+  const [cart, setCart] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [totol, setTotol] = useState("");
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const getCart = () => {
+    Totol();
+
+    axios.post('http://10.0.3.2:8000/api/cart', { customerid: customer })
       .then((response) => {
-        setCart(response.data)
-        console.log('okk')
-
+        setCart(response.data);
+        // console.log(cart);
       })
       .catch((error) => {
         console.log("lỗiii", error);
       });
   };
-  const Deletecart = (product_id) => {
-    Totol()
-    console.log(product_id)
-    axios.post('http://10.0.3.2:8000/api/deletecart', {
-      customerid: 60,
-      productid: product_id,
-    })
-      .then((response) => {
-        getCart()
-        console.log('delete successfully')
 
-      })
-      .catch((error) => {
-        console.log('lỗiii', error)
-      })
-  }
-  //khi project bắt đầu thì hàm useEffect đc chạy đầu tiên
-  
-  useEffect(() => {
-    
-    getCart();
-  }, []);
+  const Deletecart = (product_id) => {
+    console.log(product_id)
+
+    setTimeout(() => {
+
+      Alert.alert('Thông báo', 'Bạn có muốn xóa sản phẩm', [
+
+        {
+          text: 'Không',
+          onPress: () => console.log('no')
+        },
+        {
+          text: 'Xóa sản phẩm', onPress: () => {
+            Totol()
+            console.log(product_id)
+            axios.post('http://10.0.3.2:8000/api/deletecart', {
+              customerid: customer,
+              productid: product_id,
+            })
+              .then((response) => {
+                getCart()
+                console.log('delete successfully')
+
+              })
+              .catch((error) => {
+                console.log('lỗiii', error)
+              })
+          }
+        },
+      ]);
+    }, 1000);
+  };
+
 
   const Totol = () => {
-    axios.get('http://10.0.3.2:8000/api/totol')
+
+    axios.post('http://10.0.3.2:8000/api/totol', { customerid: customer })
+
       .then((response) => {
         setTotol(response.data);
         console.log(response.data);
@@ -62,38 +86,53 @@ const Cart = ({ route, navigation }) => {
         console.log("lỗiii", error);
       });
   };
+
+
   function formatPrice(price = price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
   const handleShowModal = () => {
     navigation.navigate("Checkout");
   };
+
+
+
+
   const clearCart = () => {
+    console.log(customer + 'user')
     axios
       .post("http://10.0.3.2:8000/api/clearcart", {
-        customerid: 60,
+        customerid: customer,
       })
       .then((response) => {
         alert("deleted all items successfully");
+        getCart()
       })
       .catch((error) => {
         alert("deleted all items failed");
       });
   };
+
+
+
   return (
-    <SafeAreaView style={{
-      backgroundColor: "white",
-      flex: 1,
-    }}>
-      <View
+
+    cart.length > 0 && (
+      <SafeAreaView
+
         style={{
-          justifyContent: "center",
-          flexDirection: "row",
+          flex: 1,
+          backgroundColor: colors.secondary,
         }}
       >
-        <View>
-          <Text
-            style={styles.text_header}
+        <View
+          style={{
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{ backgroundColor: "white", flex: 1, alignItems: "center" }}
           >
             <Text style={[styles.text_header, { color: colors.primary }]}>
               Giỏ hàng
@@ -111,59 +150,83 @@ const Cart = ({ route, navigation }) => {
             renderItem={({ item, index }) => {
               return (
                 <ItemCart
+                  productid={item.product_id}
                   deleteCart={Deletecart}
-                  title={item.title}
+                  name={item.name}
                   price={item.price}
-                  url={item.url}
+                  saleprice={item.sale_price}
+                  url={item.image}
                   branch={item.branch}
                   currentQuantity={item.quantity}
                 />
-                // <View style={styles.wrapper}>
-                //   <TouchableOpacity onPress={() => alert("Đã xóa sản phẩm")}>
-                //     <Ionicons
-                //       onPress={() => {
-                //         Deletecart(item.product_id);
-                //       }}
-                //       name="trash-outline"
-                //       style={{
-                //         fontSize: 30,
-                //         marginRight: 20,
-                //         paddingRight: 20,
-                //         color: "red",
-                //         borderRightWidth: 1,
-                //       }}
-                //     />
-                //   </TouchableOpacity>
+              );
+            }}
+          />
+          <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+              Tổng tiền:{formatPrice(totol)}{" "}
+            </Text>
+          </View>
+          <View
+            style={{
+              paddingHorizontal: 10,
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              paddingBottom: 20,
 
-                <Image
-                  style={styles.img}
-                  source={{
-                    uri: `http://10.0.3.2:8000/storage/images/${item.image}`,
-                  }}
-                />
-                <View style={styles.description}>
-                  <Text style={styles.title}>
-                    {item.name ? (item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name) : ''}
-                  </Text>
-                  <Text style={styles.price}>
-                    {formatPrice(item.sale_price != 0 ? item.sale_price : item.price )}đ x{item.quantity} = {formatPrice((item.sale_price != 0 ? item.sale_price : item.price) * item.quantity)}đ
-                  </Text>
-                </View>
+              marginTop: 5,
+            }}
+          >
+            <TouchableOpacity onPress={clearCart} activeOpacity={0.7}>
+              <Text
+                style={{
+                  padding: 10,
+                  backgroundColor: "black",
+                  color: "white",
+                  marginLeft: 10,
+                  fontWeight: 'bold',
+                  borderRadius: 5,
+                  fontSize: 16,
+                }}
+              >
+                Xóa hết
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleShowModal} activeOpacity={0.7}>
+              <Text
+                style={{
+                  padding: 10,
+                  backgroundColor: colors.primary,
+                  color: "white",
+                  marginLeft: 10,
+                  fontWeight: 'bold',
+                  borderRadius: 5,
+                  fontSize: 16,
+                }}
+              >
+                Mua hàng
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>getCart()} activeOpacity={0.7}>
+              <Text
+                style={{
+                  padding: 10,
+                  backgroundColor: 'blue',
+                  color: "white",
+                  marginLeft: 10,
+                  fontWeight: 'bold',
+                  borderRadius: 5,
+                  fontSize: 16,
+                }}
+              >
+                Reload
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    )
 
-              </View>
-            );
-          }}
-        />
-        <View style={{marginTop:10}}>
-          <Text style={{textAlign:'right', fontWeight:'bold'}}>Tổng tiền:{formatPrice(totol)} </Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 5 }}>
-          <Text style={{ padding: 10, backgroundColor: 'red', marginLeft: 10, borderRadius: 5, fontSize: 16 }}>Xóa hết</Text>
-          <Text style={{ padding: 10, backgroundColor: '#66FFFF', marginLeft: 10, borderRadius: 5, fontSize: 16 }}>Mua hàng</Text>
-          <Text onPress={() => getCart()} style={{ padding: 10, backgroundColor: '#FFFF33', marginLeft: 10, borderRadius: 5, fontSize: 16 }}>Tải lại sản phẩm</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
   );
 };
 
