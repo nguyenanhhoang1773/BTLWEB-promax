@@ -17,15 +17,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import ItemCart from "../ItemCart/ItemCart.jsx";
 import ModalPayment from "../Modal/ModalPayment.jsx";
+// import { useNavigation } from "@react-navigation/native";
 const Cart = ({ route, navigation }) => {
+
   const { customer, name, email } = route.params;
   console.log(customer + ' cart')
   const [cart, setCart] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [totol, setTotol] = useState("");
+
   useEffect(() => {
-    getCart();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getCart();
+    });
+    console.log(unsubscribe)
+    // return unsubscribe;
+  }, [navigation]);
 
   const getCart = () => {
     Totol();
@@ -91,7 +98,11 @@ const Cart = ({ route, navigation }) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
   const handleShowModal = () => {
-    navigation.navigate("Checkout");
+
+
+    setTimeout(() => {
+      navigation.navigate('Checkout', { customerid: customer })
+    }, 3000);
   };
 
 
@@ -239,40 +250,42 @@ const Cart = ({ route, navigation }) => {
               Mua hàng
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => getCart()} activeOpacity={0.7}>
-            <Text
-              style={{
-                padding: 10,
-                backgroundColor: 'blue',
-                color: "white",
-                marginLeft: 10,
-                fontWeight: 'bold',
-                borderRadius: 5,
-                fontSize: 16,
-              }}
-            >
-              Reload
-            </Text>
-          </TouchableOpacity>
+
         </View>
       </ScrollView>
     </SafeAreaView>) :
-      <TouchableOpacity onPress={() => getCart()} activeOpacity={0.7} style={{justifyContent:'center', width:'100%', height:'100%'}}>
-        <Text
+      (<SafeAreaView>
+        <View
           style={{
-            padding: 10,
-            backgroundColor: 'blue',
-            color: "white",
-            marginLeft: 10,
-            fontWeight: 'bold',
-            borderRadius: 5,
-            fontSize: 16,
-            textAlign:'center'
+            justifyContent: "center",
+            flexDirection: "row",
           }}
         >
-          Hiển Thị sản phẩm
-        </Text>
-      </TouchableOpacity>
+          <View
+            style={{ backgroundColor: "white", flex: 1, alignItems: "center" }}
+          >
+            <Text style={[styles.text_header, { color: colors.primary }]}>
+              Giỏ hàng
+            </Text>
+          </View>
+        </View>
+        <TouchableOpacity activeOpacity={0.7} style={{ width: '100%', height: '100%' }}>
+          <Text
+            style={{
+              padding: 10,
+              // backgroundColor: 'blue',
+              color: "black",
+              marginLeft: 10,
+              fontWeight: 'bold',
+              borderRadius: 5,
+              fontSize: 16,
+              textAlign: 'center'
+            }}
+          >
+            Hiện tại giỏ hàng chưa có sản phẩm
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>)
   )
 
 

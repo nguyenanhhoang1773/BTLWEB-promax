@@ -74,6 +74,7 @@ const Login = ({ navigation }) => {
       console.log('lỗiii', error);
     }
   };
+  
   useEffect(() => {
     if (typeof (login.state) !== "undefined") {
       if (login.state) {

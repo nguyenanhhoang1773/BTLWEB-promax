@@ -122,7 +122,9 @@ const Home = ({ navigation, route }) => {
             style={{ backgroundColor: '#EEEEEE', borderWidth: 1, borderColor: 'black', borderRadius: 5, paddingLeft: 25, width: '100%', height: 30 }} />
 
         </View>
-        <Ionicons name="cart-outline" style={{ fontSize: 30, width: '10%', marginRight: 10 }} />
+        <Ionicons 
+        onPress={()=>{navigation.navigate('Cart', {customer: customer})}}
+        name="cart-outline" style={{ fontSize: 30, width: '10%', marginRight: 10 }} />
         <Ionicons name="chatbubble-ellipses-outline" style={{ fontSize: 30, width: '10%' }} onPress={() => alert('Tính năng chát chưa sẵn sàng ok')} />
       </View>
 

@@ -21,7 +21,7 @@ class CheckoutController extends Controller
         // return $cart;
         foreach ($cart as $product) {
 
-            $totalMoney += ($product->sale_price > 0 ? $product->sale_price : $product->price  * $product->quantity);
+            $totalMoney += ($product->sale_price > 0 ? $product->sale_price * $product->quantity : $product->price  * $product->quantity);
         }
 
 
@@ -30,7 +30,7 @@ class CheckoutController extends Controller
             'total_amount' => $totalMoney,
             'phone' => $req->phone,
             'address' => $req->address,
-            'note' => $req->note 
+            'note' => $req->note
         ]);
 
 
@@ -40,7 +40,7 @@ class CheckoutController extends Controller
                 OrdersDetail::create([
                     'order_id' => $order_id,
                     'product_id' => $product->product_id,
-                    'quantity' => 1,
+                    'quantity' => $product->quantity,
                     'price' => $product->sale_price > 0 ? $product->sale_price : $product->price
                 ]);
             }

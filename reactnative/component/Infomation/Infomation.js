@@ -6,7 +6,11 @@ import Swiper from 'react-native-swiper';
 
 const Infomation = ({ navigation, route }) => {
   const { customer, name, email } = route.params;
-  console.log(name)
+  console.log(customer)
+
+  const HistoryCart = () => {
+    navigation.navigate('History', { customer: customer })
+  }
   return (
     <SafeAreaView>
 
@@ -21,14 +25,14 @@ const Infomation = ({ navigation, route }) => {
           <Text style={{ fontSize: 25 }}>{name}</Text>
           <Text>Email: {email}</Text>
           <Text >Thành viên: {customer}</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')} ><Text>ĐĂNG XUẤT</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')} ><Text>ĐĂNG XUẤT</Text></TouchableOpacity>
         </View>
       </View>
       <ScrollView style={{ backgroundColor: '#F5F5F5', marginBottom: 120 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 10, alignItems: 'center', marginHorizontal: 10 }}>
           <Text style={{ fontWeight: 'bold' }}>Đơn hàng</Text>
 
-          <Text>Lịch sử đơn hàng <Ionicons name="chevron-forward-outline" style={{ fontSize: 15 }} /></Text>
+          <Text onPress={() => HistoryCart()} >Lịch sử đơn hàng <Ionicons name="chevron-forward-outline" style={{ fontSize: 15 }} /></Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 30 }}>
           <TouchableOpacity>

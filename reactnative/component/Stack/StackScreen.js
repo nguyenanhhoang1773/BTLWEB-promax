@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Login from "../Login/Login";
+import History from "../History/History";
+import CartHistory from "../CartHistory/CartHistory";
 import Checkout from "../Checkout/Checkout";
 import Register from "../Register/Register";
 import Detail from "../Detail/Detail";
@@ -14,7 +16,13 @@ const StackScreen = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+
+      
+
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="History" component={History} options={{ headerShown: false }} />
+        <Stack.Screen name="CartHistory" component={CartHistory} options={{ headerShown: false }} />
         <Stack.Screen name="TabNavigation" component={TabNavigation} options={{ headerShown: false }} />
         <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
         <Stack.Screen name="Detail" component={Detail} options={{ headerShown: false }} />

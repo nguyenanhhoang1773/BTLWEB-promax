@@ -1,10 +1,14 @@
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
 import React, { useState } from 'react'
 import CheckBox from 'expo-checkbox';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context'
+import axios from 'axios';
 
-const Checkout = () => {
+const Checkout = ({ route, navigation }) => {
+
+    const { customerid } = route.params;
+    console.log(customerid + ' checkout')
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [note, setNote] = useState('');
@@ -22,22 +26,34 @@ const Checkout = () => {
         setSelectionOnline(true);
     };
     const Confirm = () => {
-        if (isSelectedOnline == true) {
-            console.log(phone)
-            console.log(address)
-            console.log(note)
-
-            console.log('online------------------------------------------------')
-            console.log(isSelectedOnline)
-            alert('thanh toán online')
+        if (phone.length === 0 || address.length === 0) {
+            Alert.alert('Thông báo', 'Số điên thoại \nđịa chỉ giao hàng không được bỏ trống', [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ]);
+        } else if (!isSelectedCash && !isSelectedOnline) {
+            alert('vui òng chọn phương thức thanh toán')
         } else {
-            alert(' cảm ơn quý khách đã đặt hàng')
-            console.log('cash-------------------------------------------------')
-            console.log(isSelectedCash)
-            console.log(phone)
-            console.log(address)
-            console.log(note)
+            if (isSelectedOnline == true) {
+                alert('hệ thống thanh toán online hiện tại đang bị giãn đoạn.\nQuý khách vui lòng lựa chọn phương thức thanh tóan khác')
+            } else {
+                axios.post('http://10.0.3.2:8000/api/checkout',
+                    {
+                        id: customerid,
+                        phone: phone,
+                        address: address,
+                        note: note ? note : 'Không có ghi chú'
+
+                    })
+                    .then((response) => {
+                        console.log('ok')
+                        alert('đặt hàng thành công')
+                    })
+                    .catch((error) => {
+                        console.log('lỗiii', error)
+                    })
+            }
         }
+
     }
     return (
         <SafeAreaView style={{ backgroundColor: '#FFFFE0', height: '100%' }}>
@@ -64,7 +80,7 @@ const Checkout = () => {
                     </View>
                     <View style={styles.container}>
                         <Ionicons
-                            name="book-outline"
+                            name="book-outline" F
                             style={styles.icon} />
                         <TextInput
                             onChangeText={(text) => { setNote(text) }}
