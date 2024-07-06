@@ -60,6 +60,20 @@
     <script src="{{ asset('assets') }}/plugins/chart.js/Chart.min.js"></script>
     <script src="{{ asset('assets') }}/dist/js/pages/dashboard3.js"></script>
     @yield('custom')
+
+    {{-- <script>
+        var xacnhan = document.querySelector(".xacnhan");
+
+        // Gán sự kiện click cho nút
+        xacnhan.addEventListener("click", function() {
+            xacnhan.classList.toggle("xacnhan2");
+            if (xacnhan.classList.contains("xacnhan2")) {
+                xacnhan.textContent = "Đã xác nhận";
+            } else {
+                xacnhan.textContent = "Chưa xác nhận";
+            }
+        });
+    </script> --}}
 </body>
 
 </html>

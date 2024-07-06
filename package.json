@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.17",
-    "chart.js": "^4.4.1"
+    "chart.js": "^4.4.1",
+    "jsonwebtoken": "^9.0.2"
   }
 }

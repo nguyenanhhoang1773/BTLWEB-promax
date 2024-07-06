@@ -63,7 +63,7 @@
                     @endforeach
                     <tr>
                         <td colspan="6" class="text-right">
-                            <h5><button id="xacnhan" href="" class=" btn xacnhan">Chưa xác nhận</button></h5>  <h5><strong>Tổng tiền:</strong> {{ number_format($item->total_amount) }} vnđ </h5>
+                              <h5><strong>Tổng tiền:</strong> {{ number_format($item->total_amount) }} vnđ </h5>
                         </td>
                     </tr>
                 @empty
@@ -73,17 +73,5 @@
         </table>
 
     </div>
-    <script>
-        var xacnhan = document.querySelector(".xacnhan");
-
-        // Gán sự kiện click cho nút
-        xacnhan.addEventListener("click", function() {
-            xacnhan.classList.toggle("xacnhan2");
-            if (xacnhan.classList.contains("xacnhan2")) {
-                xacnhan.textContent = "Đã xác nhận";
-            } else {
-                xacnhan.textContent = "Chưa xác nhận";
-            }
-        });
-    </script>
+    
 @endsection

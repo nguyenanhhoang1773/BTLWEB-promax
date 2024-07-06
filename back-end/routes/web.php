@@ -56,4 +56,5 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('product', AdminProductController::class);
     Route::resource('accountuser', AccountUser::class);
     Route::get('/cartdetail', [DashBoardController::class, 'cartDetail'])->name('cartdetail');
+    Route::post('/confirm', [DashBoardController::class, 'confirm'])->name('confirm');
 });

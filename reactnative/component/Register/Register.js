@@ -71,7 +71,7 @@ const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{}}>
       {loading && (
         <View style={{
           height: '100%',

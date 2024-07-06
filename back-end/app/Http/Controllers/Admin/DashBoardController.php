@@ -25,4 +25,27 @@ class DashBoardController extends Controller
         // dd($orders);
         return view('admin.cartDetail.index', compact('orders'));
     }
+    public function confirm(Request $req)
+    {
+
+        $orders = Orders::has('orderDetails')->with('orderDetails.product')->where('id', $req->id)->get();
+
+        
+        foreach($orders as $item){
+            
+        }
+        if($item->state == 0 ){
+            $item->state = 1;
+        }else {
+            $item->state = 0;
+        }
+        // dd($item->state);
+        try {
+            $item->save();
+            return redirect()->route('admin.index')->with('msg', 'Cập nhật trạng thái đơn hàng thành công');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('msg', 'Cập nhật trạng thái thành công');
+        }
+        return view('admin.index', compact('orders'));
+    }
 }

@@ -30,7 +30,7 @@ function ItemCart({
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
-    console.log(url)
+    // console.log(url)
     setQuantity(currentQuantity);
   }, []);
   const handleSelect = () => { };
@@ -50,7 +50,7 @@ function ItemCart({
 
 
   const HandleVoucher = (price, saleprice) => {
-    const voucher = (1 - (saleprice / price)) * 100
+    const voucher = (1 - ((saleprice > 0 ? saleprice : price) / price)) * 100
     return Math.round(voucher);
   }
   return (
@@ -141,7 +141,7 @@ function ItemCart({
                   >
                     <Text
                       style={{
-                        color: colors.primary,
+                        color: 'green',
 
                         fontWeight: 'bold',
                       }}

@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator } from 'react-native'
+import { StyleSheet, Alert, Text, View, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+// import jwt from 'jsonwebtoken';
 
 const Login = ({ navigation }) => {
 
@@ -13,48 +14,8 @@ const Login = ({ navigation }) => {
   const [checkPassWord, setCheckPassWord] = useState(true)
   const [login, setLogin] = useState([])
   const [id, setId] = useState('')
+  const [loading, setLoading] = useState(false);
 
-
-  // const handleValidate = () => {
-
-  //   axios.post(`http://10.0.3.2:8000/api/login`, { email: email, password: password })
-  //   .then((response) => {
-  //     setLogin(response.data)
-  //   })
-  //   .catch((error) => {
-  //     console.log('lỗiii', error)
-  //   })
-
-
-  //     if (email.length === 0) {
-  //       setCheckMail(false);
-  //     } else if (password.length === 0) {
-  //       setCheckPassWord(false)
-  //       setCheckMail(true)
-
-  //     } else {
-  //       setCheckMail(true)
-  //       setCheckPassWord(true)
-  //       setLoading(true);
-  //       if (login.state) {
-
-  //         const customer = login.user
-  //         customer.map((item, index) => {
-  //           setTimeout(() => {
-  //             setLoading(false);
-  //             navigation.navigate('TabNavigation', { id: item.id, name:item.name , email: item.email })         
-  //           console.log(item.id)
-  //         })
-  //       }, 3000);
-  //       } else {
-  //         setTimeout(() => {
-  //           setLoading(false);
-  //           alert('Tài khoản hoặc mật khẩu không chính xác')
-  //         }, 3000);
-  //       }
-  //     }
-
-  // }
   const handleValidate = async () => {
     try {
       const response = await axios.post(`http://10.0.3.2:8000/api/login`, { email: email, password: password });
@@ -70,16 +31,53 @@ const Login = ({ navigation }) => {
 
         setLoading(true);
       }
+      // const jwtSecret = 'datzxcvbnm'
+      // const header = {
+      //   alg: "HS256",
+      //   typ: "JWT",
+      // };
+
+      // const payload = {
+      //   sub: login.id,
+      //   exp: Date.now() + 3600000,
+      // };
+      // const encodeHeader = JSON.stringify(btoa(header))
+      // const encodePayload = JSON.stringify(btoa(payload))
+
+      // const tokenData = `${encodeHeader}.5${encodePayload}`
     } catch (error) {
       console.log('lỗiii', error);
     }
   };
-  
+
+
+  // const handleJWT = (req, res) => {
+
+  // }
   useEffect(() => {
+    // navigation.navigate('TabNavigation', { customer: 123, name: "Honag", email: "123@gmail.com"});
+
     if (typeof (login.state) !== "undefined") {
+      console.log(typeof (login.state) + ' test')
       if (login.state) {
         const customer = login.user;
+        console.log(customer.id + ' state')
         customer.map((item, index) => {
+
+          // const secretKey = 'datzxcvbnm'; // Thay thế bằng khóa bí mật của bạn
+
+          // const payload = {
+          //   user:item.id , // Thông tin tài khoản người dùng
+          //   role: item.role // Vai trò của người dùng
+          // };
+
+          // const options = {
+          //   expiresIn: '1h' // Thời gian hết hạn của JWT
+          // };
+
+          // const token = jwt.sign(payload, secretKey, options);
+          // console.log(token);
+
           setTimeout(() => {
             setLoading(false);
             navigation.navigate('TabNavigation', { customer: item.id, name: item.name, email: item.email });
@@ -89,15 +87,30 @@ const Login = ({ navigation }) => {
       } else {
         setTimeout(() => {
           setLoading(false);
-          alert('Tài khoản hoặc mật khẩu không chính xác');
+          Alert.alert('Thông báo', 'Tài khoản hoặc mật khẩu không chính xác', [
+
+            {
+              text: 'OK',
+              
+            },
+
+          ]);
+
         }, 3000);
       }
     }
 
   }, [login])
-  const [loading, setLoading] = useState(false);
+
+
+
+
+
+
+
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{}}>
       {loading && (
         <View style={{
           position: 'absolute',

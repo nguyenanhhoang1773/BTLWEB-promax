@@ -1,8 +1,9 @@
-import { Image, ScrollView, StyleSheet, Button, ActivityIndicator, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
+import { Image, ScrollView, StyleSheet, Button, TouchableHighlight, ActivityIndicator, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
+import { colors, font } from '../../constants/constants';
 
 const Detail = ({ route, navigation }) => {
 
@@ -41,7 +42,10 @@ const Detail = ({ route, navigation }) => {
         if (quantity > 1) {
             setQuantity(quantity - 1)
         } else {
-            alert('không thê giảm số lượng nữa')
+            Alert.alert('Thông báo', 'Không thể giảm số lượng nữa', [
+
+                { text: 'OK', onPress: () => console.log('ok') },
+            ]);
         }
     }
 
@@ -80,7 +84,7 @@ const Detail = ({ route, navigation }) => {
                 },
                 { text: 'OK', onPress: () => console.log('ok') },
             ]);
-        }, 3000);
+        }, 2000);
     }
 
 
@@ -103,19 +107,19 @@ const Detail = ({ route, navigation }) => {
                     <ActivityIndicator size="large" color="#3498db" />
                 </View>
             )}
-            <View style={{ flexDirection: 'row', position: 'absolute', bottom: 0, zIndex: 1111 }}>
+            <View style={{ flexDirection: 'row', borderTopWidth: 1, borderColor: colors.tertiary, position: 'absolute', bottom: 0, zIndex: 1111 }}>
                 <Text
                     onPress={() => AddCart()}
-                    style={{ backgroundColor: '#FFEEE8', paddingVertical: 15, width: '50%', textAlign: 'center', fontSize: 18, borderColor: '#EE4D2D', borderWidth: 2 }}>Thêm vào giỏ hàng</Text>
+                    style={{ backgroundColor: 'white', fontFamily: "medium", paddingVertical: 15, flex: 1, textAlign: 'center', fontSize: font.sizePrimaryHighLight }}>Thêm vào giỏ hàng</Text>
                 <Text
                     onPress={() => {
                         setLoading(true);
                         setTimeout(() => {
                             setLoading(false);
-                            navigation.navigate('Cart', { customerid: customer })
-                        }, 3000);
+                            navigation.navigate('Giỏ hàng', { customerid: customer })
+                        }, 2000);
                     }}
-                    style={{ backgroundColor: '#EE4D2D', paddingVertical: 15, width: '50%', textAlign: 'center', fontSize: 18 }}>Giỏ hàng </Text>
+                    style={{ fontFamily: "medium", color: "white", backgroundColor: colors.primary, paddingVertical: 15, flex: 1, textAlign: 'center', fontSize: font.sizePrimaryHighLight }}>Giỏ hàng </Text>
             </View>
             <View>
                 <ScrollView >
@@ -123,123 +127,168 @@ const Detail = ({ route, navigation }) => {
                         <Ionicons
                             onPress={() => navigation.goBack()}
                             name="arrow-back-outline"
-                            style={{ fontSize: 25, padding: 5, backgroundColor: '#DDDDDD', position: 'absolute', zIndex: 2, left: 10, borderRadius: 50, top: 10 }} />
+                            style={{ fontSize: 20, padding: 5, backgroundColor: colors.tertiary, color: "white", position: 'absolute', zIndex: 2, left: 10, borderRadius: 50, top: 10 }} />
                         <Ionicons
                             onPress={() => navigation.navigate('Cart')}
-                            name="cart-outline" style={{ fontSize: 25, padding: 5, backgroundColor: '#DDDDDD', position: 'absolute', zIndex: 2, right: 10, borderRadius: 50, top: 10 }} />
-                        <Ionicons name="share-social-outline" style={{ fontSize: 25, padding: 5, backgroundColor: '#DDDDDD', position: 'absolute', zIndex: 2, right: 50, borderRadius: 50, top: 10 }} />
-                        <Image source={{ uri: `http://10.0.3.2:8000/storage/images/${image}` }} style={{ width: '100%', height: 300 }} />
+                            name="cart-outline" style={{ fontSize: 20, padding: 5, backgroundColor: colors.tertiary, color: "white", position: 'absolute', zIndex: 2, right: 10, borderRadius: 50, top: 10 }} />
+                        <Ionicons name="share-social-outline" style={{ fontSize: 20, padding: 5, backgroundColor: colors.tertiary, color: "white", position: 'absolute', zIndex: 2, right: 50, borderRadius: 50, top: 10 }} />
+                        <Image source={{ uri: `http://10.0.3.2:8000/storage/images/${image}` }} style={{ width: '100%', height: 350, objectFit: "cover" }} />
                     </View>
-                    <View style={{ marginHorizontal: 10 }}>
-                        <Text style={{ paddingVertical: 10 }}>Ảnh chi tiết</Text>
+                    <View style={{ backgroundColor: "white" }}>
+                        <View style={{}}>
+                            <Text style={{ fontFamily: "medium", fontSize: 12, paddingHorizontal: 10 }}>Ảnh chi tiết</Text>
 
-                        {/* Nhiều ảnh nhỏ */}
-                        <ScrollView horizontal >
-                            <TouchableOpacity><Image source={{ uri: `http://10.0.3.2:8000/storage/images/${image}` }} style={{ width: 100, height: 100, marginRight: 10 }} /></TouchableOpacity>
-                            {
-                                listImage.map((item, index) => {
-                                    return (
-                                        <TouchableOpacity key={index}>
-                                            <Image source={{ uri: `http://10.0.3.2:8000/storage/images/${item.image}` }} style={{ width: 100, height: 100, marginRight: 10 }} />
-                                        </TouchableOpacity>
-                                    )
-                                })
-                            }
-                        </ScrollView>
-
+                            {/* Nhiều ảnh nhỏ */}
+                            <ScrollView style={{ marginTop: 4, paddingHorizontal: 10 }} horizontal >
+                                <TouchableOpacity style={{ borderWidth: 1, borderColor: "rgba(0,0,0,0.1)", borderRadius: 2 }}><Image source={{ uri: `http://10.0.3.2:8000/storage/images/${image}` }} style={{ width: 100, height: 100, marginRight: 10 }} /></TouchableOpacity>
+                                {
+                                    listImage.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "rgba(0,0,0,0.1)", marginLeft: 6, borderRadius: 2 }} key={index}>
+                                                <Image source={{ uri: `http://10.0.3.2:8000/storage/images/${item.image}` }} style={{ width: 100, height: 100, marginRight: 10 }} />
+                                            </TouchableOpacity>
+                                        )
+                                    })
+                                }
+                            </ScrollView>
+                        </View>
                         {/* Giá sản phẩn */}
-                        <View style={{ marginTop: 5, flexDirection: 'row', alignItems: 'flex-end' }} >
-                            <Text style={{ color: 'red' }}>đ<Text style={{ fontSize: 25 }}>{formatPrice(sale_price)}</Text></Text>
-                            <Text style={{ paddingBottom: 3, textDecorationLine: 'line-through', color: '#808080' }}>{formatPrice(price)}</Text>
+                        <View style={{ paddingHorizontal: 10, marginTop: 5, flexDirection: 'row', alignItems: 'flex-end' }} >
+                            <Text style={{ color: colors.primary, fontFamily: "medium" }}><Text style={{ fontSize: 23, color: colors.primary, fontFamily: "medium" }}>{formatPrice(sale_price > 0 ? sale_price : price)}đ </Text></Text>
+                            <Text style={{ paddingBottom: 3, marginLeft: 3, fontFamily: "medium", textDecorationLine: 'line-through', color: colors.tertiary }}>{formatPrice(sale_price==0 ? '': price + ' đ')}</Text>
                         </View>
 
                         {/* Số lượng sản phẩm */}
-                        <Text>Số lượng mua:</Text>
-                        <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-                            <Text style={{ fontSize: 15 }} onPress={minus}>-</Text>
-                            <Text onChangeText={(text) => setQuantity(text)}
-                                style={{ textAlign: 'center', width: 30, fontSize: 15, marginHorizontal: 20 }}>
-                                {quantity}
-                            </Text>
-                            <Text style={{ fontSize: 15 }} onPress={plus}>+</Text>
+                        <View style={{ paddingHorizontal: 10,}}>
+                            <Text style={{ fontFamily: "medium" }}>Số lượng:</Text>
+                            <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
+                                <TouchableHighlight
+                                    underlayColor={colors.secondary}
+                                    style={{
+                                        borderWidth: 1,
+                                        borderColor: colors.tertiary,
+                                        width: 24,
+                                        height: 24,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        borderTopLeftRadius: 2,
+                                        borderBottomLeftRadius: 2,
+                                        borderRightWidth: 0,
+                                    }}
+                                    onPress={minus}
+                                >
+                                    <Text style={{ fontSize: 20, marginTop: -3 }}>-</Text>
+                                </TouchableHighlight>
+                                <View
+                                    style={{
+                                        borderWidth: 1,
+                                        borderColor: colors.tertiary,
+                                        width: 36,
+                                        height: 24,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Text onChangeText={(text) => setQuantity(text)}
+                                        style={{ fontFamily: "medium", color: colors.primary }}>
+                                        {quantity}
+                                    </Text>
+                                </View>
+
+                                <TouchableHighlight
+                                    underlayColor={colors.secondary}
+                                    style={{
+                                        borderWidth: 1,
+                                        borderColor: colors.tertiary,
+                                        width: 24,
+                                        height: 24,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        borderTopRightRadius: 2,
+                                        borderBottomRightRadius: 2,
+                                        borderLeftWidth: 0,
+                                    }}  
+                                    onPress={plus}
+                                >
+                                    <Text style={{ fontSize: 20, marginTop: -3 }}>+</Text>
+                                </TouchableHighlight>
+                            </View>
                         </View>
 
                         {/* Voucher */}
-                        <View style={{ marginTop: 5 }}>
-                            <Text style={{ color: 'red' }}>Giá khi mua với <Ionicons name="logo-electron" style={{ fontSize: 15 }} /> Voucher</Text>
+                        <View style={{ paddingHorizontal: 10, marginTop: 5 }}>
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Text style={{ color: '#33CCFF', borderColor: '#33CCFF', borderWidth: 1, paddingHorizontal: 5, fontSize: 10, marginRight: 10 }}>Miễn phí trả hàng</Text>
-                                <Text style={{ color: 'red', borderColor: 'red', borderWidth: 1, paddingHorizontal: 5, fontSize: 10 }}>Mua 2 & giảm 3%</Text>
+                                <Text style={{ fontFamily: "medium", color: colors.yellow, borderColor: colors.yellow, borderWidth: 1, paddingHorizontal: 5, fontSize: 10, marginRight: 10 }}>Miễn phí trả hàng</Text>
+                                <Text style={{ fontFamily: "medium", color: colors.primary, borderColor: colors.primary, borderWidth: 1, paddingHorizontal: 5, fontSize: 10 }}>Mua 2 & giảm 3%</Text>
                             </View>
                         </View>
 
                         {/* Tên sản phẩm */}
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={{ fontSize: 18 }}>{name}</Text>
-                            <Text style={{ fontSize: 18 }}>{name}</Text>
+                        <View style={{ paddingHorizontal: 10, marginTop: 2 }}>
+                            <Text style={{ fontFamily: "semiBold", fontSize: 18 }}>{name}</Text>
                         </View>
 
                         {/* Cam kết miễn phí đổi trả */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, backgroundColor: '#FFEEE8', padding: 10 }}>
-                            <Ionicons name="logo-codepen" style={{ fontSize: 35, color: 'red', marginRight: 10 }} />
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, backgroundColor: "rgba(255, 235, 240, 1)", paddingHorizontal: 10, paddingVertical: 4 }}>
+                            <Ionicons name="logo-codepen" style={{ fontSize: 35, color: colors.primary, marginRight: 10 }} />
                             <View>
-                                <Text style={{ fontSize: 16, color: 'red' }}>Đổi ý miễn phí 15 ngày</Text>
-                                <Text style={{ color: '#808080' }}>Miễn 100% phí trả hàng</Text>
+                                <Text style={{ fontFamily: "medium", fontSize: 16, color: colors.primary }}>Đổi ý miễn phí 15 ngày</Text>
+                                <Text style={{ fontFamily: "medium", color: '#808080' }}>Miễn 100% phí trả hàng</Text>
                             </View>
                         </View>
 
                         {/* Số lượng bán ra */}
-                        <View style={{ marginTop: 10, paddingVertical: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ paddingHorizontal: 10, marginTop: 10, paddingVertical: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Ionicons name="star" style={{ fontSize: 20, color: 'yellow', marginRight: 10 }} />
-                                <Text>4.7 / 5 | Đã bán 2,5k</Text>
+                                <Ionicons name="star" style={{ fontSize: 20, color: colors.yellow, marginRight: 4 }} />
+                                <Text style={{ fontFamily: "medium" }}>4.7 / 5 | Đã bán 2,5k</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
 
-                                <Ionicons name="heart-outline" style={{ fontSize: 30, color: 'black', marginRight: 30 }} />
-                                <Ionicons name="mail-unread-outline" style={{ fontSize: 30, color: '#33CCFF' }} />
+                                <Ionicons name="heart-outline" style={{ fontSize: 30, color: colors.primary, marginRight: 10 }} />
+                                <Ionicons name="mail-unread-outline" style={{ fontSize: 30, color: colors.primary }} />
                             </View>
 
                         </View>
 
                         {/* Top bán chạy */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, backgroundColor: '#FFEEE8', padding: 10 }}>
-                            <Ionicons name="trending-up-outline" style={{ fontSize: 35, color: 'red', marginRight: 10 }} />
+                        {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, backgroundColor: 'rgba(255, 235, 240, 1)', paddingHorizontal: 10,paddingVertical:4 }}>
+                            <Ionicons name="trending-up-outline" style={{ fontSize: 35, color: colors.primary, marginRight: 10 }} />
                             <View>
-                                <Text style={{ fontSize: 16, color: 'red' }}>Top bán chạy</Text>
+                                <Text style={{fontFamily:"medium", fontSize: 16, color: 'red' }}>Top bán chạy</Text>
 
                             </View>
-                        </View>
+                        </View> */}
 
                         {/* Chi tiết sản phẩm */}
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={{ fontSize: 18 }}>Chi tiết sản phẩm</Text>
+                        <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
+                            <Text style={{ fontFamily: "semiBold", fontSize: 18 }}>Chi tiết sản phẩm</Text>
                             <View>
-                                <Text>
+                                <Text style={{ fontFamily: "thin", marginLeft: 8, fontSize: 14 }}>
                                     {description}
                                 </Text>
                             </View>
                         </View>
-                        <View style={{ height: 10, backgroundColor: '#808080', marginTop: 5 }}></View>
+                        <View style={{ height: 1, backgroundColor: colors.secondary, marginTop: 5 }}></View>
                         {/* Đánh giá sản phẩm */}
-                        <View style={{ marginTop: 5, paddingBottom: 70 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Đánh giá sản phẩm</Text>
+                        <View style={{ paddingHorizontal: 10, marginTop: 5, paddingBottom: 70 }}>
+                            <Text style={{ fontFamily: "semiBold", fontSize: 18 }}>Đánh giá sản phẩm</Text>
                             <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-                                <Ionicons name="star" style={{ fontSize: 20, color: 'yellow', marginRight: 10 }} />
-                                <Ionicons name="star" style={{ fontSize: 20, color: 'yellow', marginRight: 10 }} />
-                                <Ionicons name="star" style={{ fontSize: 20, color: 'yellow', marginRight: 10 }} />
-                                <Ionicons name="star" style={{ fontSize: 20, color: 'yellow', marginRight: 10 }} />
+                                <Ionicons name="star" style={{ fontSize: 20, color: colors.yellow, marginRight: 10 }} />
+                                <Ionicons name="star" style={{ fontSize: 20, color: colors.yellow, marginRight: 10 }} />
+                                <Ionicons name="star" style={{ fontSize: 20, color: colors.yellow, marginRight: 10 }} />
+                                <Ionicons name="star" style={{ fontSize: 20, color: colors.yellow, marginRight: 10 }} />
                                 <Ionicons name="star-outline" style={{ fontSize: 20, marginRight: 10 }} />
-                                <Text style={{ color: 'red' }}>4/5 (565 đánh giá)</Text>
+                                <Text style={{ fontFamily: "medium", color: colors.primary }}>4/5 (565 đánh giá)</Text>
                             </View>
                             <View>
-                                <Text>Để lại đánh giá của bạn:</Text>
+                                <Text style={{ fontFamily: "medium" }}>Để lại đánh giá của bạn:</Text>
                                 <TextInput
                                     onChangeText={(text) => setFeedback(text)}
                                     placeholder='Đánh giá của bạn'
-                                    style={{ borderWidth: 1, marginTop: 5, borderRadius: 5, paddingLeft: 10 }} />
+                                    style={{ fontFamily: "medium", marginTop: 5, borderRadius: 5 }} />
                             </View>
-                            <Text style={{ color: 'red' }}>- {feedback}</Text>
+                            {/* <Text style={{ fontFamily:"medium",color:colors.primary}}>- {feedback}</Text> */}
                         </View>
                     </View>
 

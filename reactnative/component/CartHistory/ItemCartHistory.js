@@ -48,7 +48,7 @@ const ItemCartHistory = ({name, price, quantity, image, money}) => {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                xxx
+                                2B-Technology
                             </Text>
                         </View>
                         <View style={styles.wrapper}>

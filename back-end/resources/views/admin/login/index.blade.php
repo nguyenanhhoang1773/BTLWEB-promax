@@ -26,7 +26,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
     <style>
         body {
-            background: url('https://wallpaperaccess.com/full/2589217.jpg');
+            background: url('https://tino.org/wp-content/uploads/2021/08/word-image-143.jpeg');
             background-size: cover;
             background-repeat: no-repeat;
         }

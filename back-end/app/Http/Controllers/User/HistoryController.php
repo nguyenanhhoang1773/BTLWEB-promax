@@ -10,7 +10,7 @@ class HistoryController extends Controller
 {
     public function history(Request $request)
     {
-        $orders = Orders::has('orderDetails')->with('orderDetails.product')->where('customer_id', $request->id)->get();
+        $orders = Orders::has('orderDetails')->with('orderDetails.product')->orderBy('id', 'desc')->where('customer_id', $request->id)->get();
         return $orders;
     }
 }

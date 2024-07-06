@@ -11,15 +11,17 @@ const Infomation = ({ navigation, route }) => {
   const HistoryCart = () => {
     navigation.navigate('History', { customer: customer })
   }
+  const Deliveryy = () => {
+    navigation.navigate('Deliveryy', { customer: customer })
+  }
   return (
     <SafeAreaView>
-
       <View
         style={{ backgroundColor: '#F8482F', flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 30, paddingTop: 30 }}>
         <View style={{ marginRight: 20 }}>
           <Image
             style={{ width: 70, height: 70, borderRadius: 50 }}
-            source={{ uri: 'https://tse4.mm.bing.net/th?id=OIP.NViuNGuOAzDfh9XA23EZQAHaKo&pid=Api&P=0&h=180' }} />
+            source={{ uri: 'https://scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-1/434961525_261489030357871_6982944266457111160_n.jpg?stp=dst-jpg_s200x200&_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEW3D1h3hMemolI6WN2MHcZhbL7ZojWAK2FsvtmiNYArd459Npnr6YvfqHKdLt0bybp_3lpIjhF6VfO1QFaCkbz&_nc_ohc=bBCH7l4sUNoQ7kNvgGiYu4U&_nc_ht=scontent.fdad3-4.fna&cb_e2o_trans=t&oh=00_AYAu6BOFIkkDYX9DR3QEQx_UWZH6nWx9ZNmG1x1SolWXYw&oe=6653CDEC' }} />
         </View>
         <View>
           <Text style={{ fontSize: 25 }}>{name}</Text>
@@ -35,13 +37,13 @@ const Infomation = ({ navigation, route }) => {
           <Text onPress={() => HistoryCart()} >Lịch sử đơn hàng <Ionicons name="chevron-forward-outline" style={{ fontSize: 15 }} /></Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 30 }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => HistoryCart()}>
             <View style={{ alignItems: 'center', paddingVertical: 20 }}>
               <Ionicons name="cube-outline" style={{ fontSize: 20 }} />
               <Text style={{ fontSize: 11 }}>Chờ xác nhận</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>{Deliveryy()}}>
             <View style={{ alignItems: 'center', paddingVertical: 20 }}>
               <Ionicons name="gift-outline" style={{ fontSize: 20 }} />
               <Text style={{ fontSize: 11 }}>Chờ lấy hàng</Text>
@@ -70,25 +72,25 @@ const Infomation = ({ navigation, route }) => {
             <TouchableOpacity style={{ alignItems: 'center' }}>
               <Image
                 style={{ width: 50, height: 50, borderRadius: 50 }}
-                source={{ uri: 'https://tse4.mm.bing.net/th?id=OIP.NViuNGuOAzDfh9XA23EZQAHaKo&pid=Api&P=0&h=180' }} />
+                source={{ uri: 'https://blog.abit.vn/wp-content/uploads/2020/11/free-shippig-la-gi-3-compressed.jpg' }} />
               <Text style={{ fontSize: 11 }}>Freeship </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ alignItems: 'center' }}>
               <Image
                 style={{ width: 50, height: 50, borderRadius: 50 }}
-                source={{ uri: 'https://tse4.mm.bing.net/th?id=OIP.NViuNGuOAzDfh9XA23EZQAHaKo&pid=Api&P=0&h=180' }} />
-              <Text style={{ fontSize: 11 }}>Shopee</Text>
+                source={{ uri: 'https://png.pngtree.com/thumb_back/fw800/background/20210902/pngtree-smart-technology-light-hd-background-image_784060.jpg' }} />
+              <Text style={{ fontSize: 11 }}>2B-Technology</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ alignItems: 'center' }}>
               <Image
                 style={{ width: 50, height: 50, borderRadius: 50 }}
-                source={{ uri: 'https://tse4.mm.bing.net/th?id=OIP.NViuNGuOAzDfh9XA23EZQAHaKo&pid=Api&P=0&h=180' }} />
+                source={{ uri: 'https://toigingiuvedep.vn/wp-content/uploads/2021/08/hinh-anh-dong-ho-dep-cho-nam.jpg' }} />
               <Text style={{ fontSize: 11 }}>Hàng hiệu</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ alignItems: 'center' }}>
               <Image
                 style={{ width: 50, height: 50, borderRadius: 50 }}
-                source={{ uri: 'https://tse4.mm.bing.net/th?id=OIP.NViuNGuOAzDfh9XA23EZQAHaKo&pid=Api&P=0&h=180' }} />
+                source={{ uri: 'https://tse2.mm.bing.net/th?id=OIP.izYA2jDQYDdNFWFZxOnHwAHaF7&pid=Api&P=0&h=180' }} />
               <Text style={{ fontSize: 11 }}>Voucher</Text>
             </TouchableOpacity>
           </View>
@@ -154,18 +156,7 @@ const Infomation = ({ navigation, route }) => {
           </View>
         </View>
         {/* slide */}
-        <Swiper autoplay={true} style={{ height: 200, marginTop: 5 }}>
-          <View style={styles.slide}>
-            <Image source={{ uri: `https://antimatter.vn/wp-content/uploads/2022/11/hinh-anh-gai-xinh-viet-nam.jpg` }} style={{ width: '90%', height: '100%', alignSelf: 'center' }} />
-          </View>
-          <View style={styles.slide}>
-            <Image source={{ uri: `https://phunugioi.com/wp-content/uploads/2020/04/hinh-anh-gai-xinh-rang-khenh.jpg` }} style={{ width: '90%', height: '100%', alignSelf: 'center' }} />
-          </View>
-          <View style={styles.slide}>
-            <Image source={{ uri: `https://allimages.sgp1.digitaloceanspaces.com/photographereduvn/2022/07/1656872943_849_Top-500-hinh-anh-nguoi-mau-Bikini-dep-sexy-nong.jpg` }} style={{ width: '90%', height: '100%', alignSelf: 'center' }} />
-          </View>
-        </Swiper>
-
+      
       </ScrollView >
     </SafeAreaView>
 

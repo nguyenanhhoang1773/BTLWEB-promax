@@ -12,11 +12,11 @@ import {
 } from "react-native";
 import axios from "axios";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { colors } from "../../constants/constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import ItemCart from "../ItemCart/ItemCart.jsx";
-import ModalPayment from "../Modal/ModalPayment.jsx";
+import { colors, font } from '../../constants/constants';
+
 // import { useNavigation } from "@react-navigation/native";
 const Cart = ({ route, navigation }) => {
 
@@ -98,8 +98,6 @@ const Cart = ({ route, navigation }) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
   const handleShowModal = () => {
-
-
     setTimeout(() => {
       navigation.navigate('Checkout', { customerid: customer })
     }, 3000);
@@ -207,7 +205,7 @@ const Cart = ({ route, navigation }) => {
         />
         <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
           <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-            Tổng tiền:{formatPrice(totol)}{" "}
+            Tổng tiền:{formatPrice(totol)}đ{" "}
           </Text>
         </View>
         <View
