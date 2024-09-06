@@ -22,6 +22,8 @@ const Home = ({ navigation, route }) => {
     axios.get('http://10.0.3.2:8000/api/list-product')
       .then((response) => {
         setProduct(response.data)
+        
+
       })
       .catch((error) => {
         console.log('lỗiii', error)
@@ -87,24 +89,24 @@ const Home = ({ navigation, route }) => {
 
   // sản phâmr chuyểntrang và hiển thị  khi đc ấn nút tìm kiếm
   const SearchProduct = () => {
-    if(key.length !== 0){ 
+    if (key.length !== 0) {
       setLoading(true);
       setTimeout(() => {
-      setLoading(false);
+        setLoading(false);
         console.log(customer + "SearchProduct")
         navigation.navigate('Search', { key, customerid: customer })
         setKey('')
         setSearch([])
-  
+
       }, 2000);
-    }else{
-      Alert.alert('Thông báo','Vui lòng nhập từ khóa trước khi tìm kiếm', [
+    } else {
+      Alert.alert('Thông báo', 'Vui lòng nhập từ khóa trước khi tìm kiếm', [
         {
-          text:'ok'
+          text: 'ok'
         }
       ])
     }
-   
+
 
   }
 
@@ -188,7 +190,9 @@ const Home = ({ navigation, route }) => {
               <Text>{item.name ? (item.name.length > 35 ? item.name.slice(0, 35) + '...' : item.name) : ''}  </Text>
             </TouchableOpacity>
           )
-        })}
+        })
+
+        }
       </View>
 
 
